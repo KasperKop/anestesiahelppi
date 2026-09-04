@@ -13,6 +13,7 @@ The goal is to explore how a calm, fast and accessible user interface could supp
 
 - Mobile-first checklists for recurring workflows
 - Searchable, source-linked reference content
+- A personal memory bank for organizing saved, source-linked answers
 - Installable Progressive Web App (PWA)
 - Offline access to reviewed content
 - Clear content versioning and clinical review status
@@ -20,7 +21,7 @@ The goal is to explore how a calm, fast and accessible user interface could supp
 
 ## Project status
 
-**Discovery / foundation phase.** The repository currently contains the product concept, roadmap, safety principles and an initial backlog. Application code will be introduced after the MVP scope and technical choices are documented.
+**Discovery / foundation phase.** The product boundaries, first mobile user journeys and visual principles are documented. The next implementation step is a recorded frontend stack decision, followed by the v0.1 application scaffold.
 
 ## Roadmap
 
@@ -32,7 +33,15 @@ The goal is to explore how a calm, fast and accessible user interface could supp
 | v0.4 | Constrained, source-based assistant prototype |
 | v1.0 | Installable, tested PWA with offline support |
 
-See the [product concept](docs/concept.md), [roadmap](docs/roadmap.md), [clinical safety principles](docs/clinical-safety.md), [development approach](docs/development.md) and [initial backlog](docs/backlog.md).
+## Documentation
+
+- [Product concept](docs/concept.md)
+- [MVP user journeys](docs/user-journeys.md)
+- [UI and interaction guidelines](docs/ui-guidelines.md)
+- [Roadmap](docs/roadmap.md)
+- [Clinical safety principles](docs/clinical-safety.md)
+- [Development approach](docs/development.md)
+- [Initial backlog](docs/backlog.md)
 
 ## Portfolio goals
 
