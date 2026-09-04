@@ -20,6 +20,8 @@ These are hypotheses to validate through interviews and usability testing; they 
 
 The first usable prototype will include navigation, a checklist interaction model, completion progress and content provenance. It will not store patient data, calculate medication doses, recommend treatment, replace local guidelines or provide autonomous clinical decisions.
 
+The initial interaction flows are documented in [MVP user journeys](user-journeys.md). Their visual and accessibility constraints are recorded in [UI and interaction guidelines](ui-guidelines.md).
+
 ## Design principles
 
 1. **Calm under pressure:** important actions are visually obvious and screens remain uncluttered.
