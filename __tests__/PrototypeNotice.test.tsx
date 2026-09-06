@@ -10,4 +10,3 @@ describe('PrototypeNotice', () => {
     expect(getByText(/Ei kliiniseen käyttöön/)).toBeOnTheScreen();
   });
 });
-
