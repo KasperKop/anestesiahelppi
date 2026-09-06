@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "AnestesiaHelppi",
+    "slug": "anestesiahelppi",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "scheme": "anestesiahelppi",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "fi.anestesiahelppi.app"
+    },
+    "android": {
+      "predictiveBackGestureEnabled": false,
+      "package": "fi.anestesiahelppi.app"
+    },
+    "web": {},
+    "plugins": ["expo-router"]
+  }
+}
+
