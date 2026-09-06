@@ -7,4 +7,3 @@ module.exports = defineConfig([
     ignores: ['coverage/**', 'dist/**'],
   },
 ]);
-
