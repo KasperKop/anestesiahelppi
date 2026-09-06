@@ -11,27 +11,34 @@ The goal is to explore how a calm, fast and accessible user interface could supp
 
 ## Planned capabilities
 
+- Native iOS and Android application from a shared codebase
 - Mobile-first checklists for recurring workflows
 - Searchable, source-linked reference content
 - A personal memory bank for organizing saved, source-linked answers
-- Installable Progressive Web App (PWA)
 - Offline access to reviewed content
 - Clear content versioning and clinical review status
+- Optional web preview for portfolio review
 - Later, a constrained source-based assistant for information retrieval
 
 ## Project status
 
-**Discovery / foundation phase.** The product boundaries, first mobile user journeys and visual principles are documented. The next implementation step is a recorded frontend stack decision, followed by the v0.1 application scaffold.
+**Foundation complete; implementation preparation in progress.** The product boundaries, mobile user journeys, visual principles and application stack are documented. Expo with React Native and TypeScript has been selected. The next step is the v0.1 application scaffold.
 
 ## Roadmap
 
 | Phase | Outcome |
 | --- | --- |
-| v0.1 | Clickable mobile-first interface prototype |
+| v0.1 | Runnable Expo prototype for iOS, Android and web preview |
 | v0.2 | Versioned checklist content model and reviewed example content |
 | v0.3 | Searchable reference library with source metadata |
 | v0.4 | Constrained, source-based assistant prototype |
-| v1.0 | Installable, tested PWA with offline support |
+| v1.0 | Tested native mobile release candidate with offline support |
+
+## Technology direction
+
+The application will use Expo, React Native and strict TypeScript. This provides a shared implementation for iOS and Android while retaining an optional web preview. See [ADR 0001](docs/decisions/0001-expo-react-native.md) for the alternatives, trade-offs and distribution constraints.
+
+The project owner directs product decisions and tests visible builds. Coding, automated checks and technical documentation are handled through the implementation workflow.
 
 ## Documentation
 
@@ -41,11 +48,12 @@ The goal is to explore how a calm, fast and accessible user interface could supp
 - [Roadmap](docs/roadmap.md)
 - [Clinical safety principles](docs/clinical-safety.md)
 - [Development approach](docs/development.md)
+- [Architecture decisions](docs/decisions/0001-expo-react-native.md)
 - [Initial backlog](docs/backlog.md)
 
 ## Portfolio goals
 
-This project is intended to demonstrate product discovery, accessible frontend and PWA development, safety-aware healthcare design, test automation and transparent technical decision-making.
+This project is intended to demonstrate product discovery, accessible cross-platform mobile development, safety-aware healthcare design, test automation and transparent technical decision-making.
 
 ## Working language
 
