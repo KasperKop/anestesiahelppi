@@ -67,4 +67,3 @@ const styles = StyleSheet.create({
   cardTitle: { color: colors.textPrimary, fontSize: 20, fontWeight: '700' },
   cardBody: { color: colors.textSecondary, fontSize: 16, lineHeight: 24 },
 });
-
