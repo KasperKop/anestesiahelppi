@@ -22,7 +22,22 @@ The goal is to explore how a calm, fast and accessible user interface could supp
 
 ## Project status
 
-**Foundation complete; implementation preparation in progress.** The product boundaries, mobile user journeys, visual principles and application stack are documented. Expo with React Native and TypeScript has been selected. The next step is the v0.1 application scaffold.
+**Runnable prototype.** The repository contains an Expo, React Native and TypeScript application with a weight selector and weight-card view. A web preview is built and published automatically when main changes.
+
+## Web preview
+
+[Open AnestesiaHelppi](https://kasperkop.github.io/anestesiahelppi/)
+
+The preview is published by `.github/workflows/pages.yml` after each push to `main`. For first-time setup, select **Settings → Pages → Build and deployment → Source → GitHub Actions**, then run **Actions → Publish web preview → Run workflow**. The link becomes available after the first successful deployment.
+
+To preview locally with Node.js 24:
+
+```sh
+npm ci
+npm run web
+```
+
+For the Pages build, the workflow sets `GITHUB_PAGES=true`. `app.config.js` exports static HTML for each route and sets `/anestesiahelppi` as the base URL only for that build. Local development and native builds keep their normal paths.
 
 ## Roadmap
 
