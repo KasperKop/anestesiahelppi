@@ -259,4 +259,3 @@ const styles = StyleSheet.create({
   sourceTitle: { color: colors.textPrimary, fontSize: 14, fontWeight: '800' },
   sourceText: { color: colors.textSecondary, fontSize: 12, lineHeight: 18 },
 });
-
