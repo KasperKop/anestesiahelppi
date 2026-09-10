@@ -21,4 +21,3 @@ export const weightCards: Record<number, WeightCardData> = {
     endotrachealTube: '3,0',
   },
 };
-
