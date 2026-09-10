@@ -1,16 +1,25 @@
 import { weightCards } from '@/src/data/weightCards';
 
 describe('weightCards', () => {
-  it('contains the transcribed 4 kg prototype values', () => {
-    expect(weightCards[4]).toEqual({
-      weight: 4,
-      heartRate: '110–160',
-      systolicBloodPressure: '65–85',
-      bloodVolume: '340',
-      respiratoryRate: '35–55',
-      tidalVolume: '28',
-      laryngoscopeBlade: '0',
-      endotrachealTube: '3,0',
+  it('contains every populated source column from 3 to 10 kg', () => {
+    expect(Object.keys(weightCards).map(Number)).toEqual([
+      3, 4, 5, 6, 7, 8, 9, 10,
+    ]);
+  });
+
+  it('maps representative edge values to the correct weights', () => {
+    expect(weightCards[3]).toMatchObject({
+      bloodVolume: '255',
+      tidalVolume: '21',
+    });
+    expect(weightCards[8]).toMatchObject({
+      endotrachealTube: '3,0–3,5',
+      respiratoryRate: '22–38',
+    });
+    expect(weightCards[10]).toMatchObject({
+      heartRate: '80–150',
+      systolicBloodPressure: '80–105',
+      bloodVolume: '800',
     });
   });
 });
