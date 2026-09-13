@@ -22,7 +22,7 @@ The goal is to explore how a calm, fast and accessible user interface could supp
 
 ## Project status
 
-**Runnable prototype.** The repository contains an Expo, React Native and TypeScript application with a weight selector and weight-card view. A web preview is built and published automatically when main changes.
+**Runnable prototype.** Expo, React Native and TypeScript with a weight selector, weight cards, a chat demonstration and a persistent personal memory bank. The chat works without credentials using clearly labeled examples; a separate Groq backend is ready for configuration with an API key and reviewed source corpus. A web preview is built and published automatically when main changes.
 
 ## Web preview
 
@@ -65,6 +65,9 @@ The project owner directs product decisions and tests visible builds. Coding, au
 - [Development approach](docs/development.md)
 - [Architecture decisions](docs/decisions/0001-expo-react-native.md)
 - [Initial backlog](docs/backlog.md)
+- [Chat setup and source integration](docs/chat-development.md)
+- [Chat and memory architecture](docs/decisions/0002-source-chat-memory.md)
+- [Pending live model evaluation](docs/chat-evaluation.md)
 
 ## Portfolio goals
 

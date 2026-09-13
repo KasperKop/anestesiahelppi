@@ -40,3 +40,8 @@ yarn-error.*
 /ios
 /android
 
+
+# API credentials (examples are safe to commit)
+.env
+.env.*
+!.env.example
