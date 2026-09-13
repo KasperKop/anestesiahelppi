@@ -2,7 +2,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { weightCards } from '@/src/data/weightCards';
+import { MedicationValue, weightCards } from '@/src/data/weightCards';
 import { colors, radii } from '@/src/theme/tokens';
 
 type DataRowProps = {
@@ -12,15 +12,6 @@ type DataRowProps = {
   unit?: string;
   value: string;
 };
-
-const medicineRows = Array.from(
-  { length: 7 },
-  (_, index) => `Lääke ${index + 1}`,
-);
-const emergencyRows = Array.from(
-  { length: 6 },
-  (_, index) => `Hätälääke ${index + 1}`,
-);
 
 function DataRow({ compact, inverted, label, unit, value }: DataRowProps) {
   return (
@@ -45,14 +36,34 @@ function DataRow({ compact, inverted, label, unit, value }: DataRowProps) {
   );
 }
 
-function EmptyRow({ inverted, label }: { inverted?: boolean; label: string }) {
+function MedicationRow({
+  inverted,
+  item,
+}: {
+  inverted?: boolean;
+  item: MedicationValue;
+}) {
   return (
-    <View style={[styles.emptyRow, inverted && styles.invertedEmptyRow]}>
-      <Text style={[styles.emptyLabel, inverted && styles.invertedMutedText]}>
-        {label}
+    <View
+      style={[styles.medicationRow, inverted && styles.invertedMedicationRow]}
+    >
+      <Text
+        numberOfLines={1}
+        style={[
+          styles.medicationLabel,
+          inverted && styles.invertedMedicationText,
+        ]}
+      >
+        {item.name}
       </Text>
-      <Text style={[styles.emptyValue, inverted && styles.invertedMutedText]}>
-        —
+      <Text
+        numberOfLines={1}
+        style={[
+          styles.medicationValue,
+          inverted && styles.invertedMedicationText,
+        ]}
+      >
+        {item.value}
       </Text>
     </View>
   );
@@ -70,7 +81,8 @@ export default function WeightCardScreen() {
           <Text style={styles.missingWeight}>{requestedWeight || 3} kg</Text>
           <Text style={styles.missingTitle}>Lähdetiedot puuttuvat</Text>
           <Text style={styles.missingText}>
-            Painotaulukossa on tällä hetkellä tiedot vain painoille 3–10 kg.
+            Painotaulukossa on tiedot painoille 3–30 kg. Valitse paino tältä
+            väliltä.
           </Text>
           <Pressable
             accessibilityRole="button"
@@ -167,10 +179,9 @@ export default function WeightCardScreen() {
                   <Text style={styles.sectionTitle}>Lääkitys</Text>
                 </View>
               </View>
-              {medicineRows.map((label) => (
-                <EmptyRow key={label} label={label} />
+              {card.anaesthesiaMedications.map((item) => (
+                <MedicationRow item={item} key={item.name} />
               ))}
-              <Text style={styles.pendingText}>Täydennetään myöhemmin</Text>
             </View>
           </View>
 
@@ -209,12 +220,9 @@ export default function WeightCardScreen() {
                   <Text style={styles.emergencyTitle}>Lääkitys</Text>
                 </View>
               </View>
-              {emergencyRows.map((label) => (
-                <EmptyRow inverted key={label} label={label} />
+              {card.emergencyValues.map((item) => (
+                <MedicationRow inverted item={item} key={item.name} />
               ))}
-              <Text style={styles.emergencyPending}>
-                Täydennetään myöhemmin
-              </Text>
             </View>
           </View>
         </View>
@@ -373,7 +381,7 @@ const styles = StyleSheet.create({
   dataValue: { color: colors.textPrimary, fontSize: 15, fontWeight: '900' },
   dataUnit: { color: colors.textSecondary, fontSize: 9, fontWeight: '700' },
   invertedText: { color: colors.surface },
-  emptyRow: {
+  medicationRow: {
     alignItems: 'center',
     borderBottomColor: '#E6EBED',
     borderBottomWidth: 1,
@@ -382,25 +390,20 @@ const styles = StyleSheet.create({
     minHeight: 34,
     paddingHorizontal: 4,
   },
-  invertedEmptyRow: { borderBottomColor: 'rgba(255,255,255,0.2)' },
-  emptyLabel: { color: colors.textSecondary, fontSize: 10, fontWeight: '600' },
-  emptyValue: { color: colors.textSecondary, fontSize: 13 },
-  invertedMutedText: { color: 'rgba(255,255,255,0.75)' },
-  pendingText: {
-    color: colors.interactivePressed,
-    fontSize: 8,
-    fontWeight: '800',
-    marginTop: 8,
-    textAlign: 'center',
+  invertedMedicationRow: { borderBottomColor: 'rgba(255,255,255,0.2)' },
+  medicationLabel: {
+    color: colors.textSecondary,
+    flex: 1,
+    fontSize: 9,
+    fontWeight: '700',
   },
-  emergencyPending: {
-    color: colors.surface,
-    fontSize: 8,
-    fontWeight: '800',
-    marginTop: 8,
-    opacity: 0.8,
-    textAlign: 'center',
+  medicationValue: {
+    color: colors.textPrimary,
+    fontSize: 9,
+    fontWeight: '900',
+    marginLeft: 4,
   },
+  invertedMedicationText: { color: colors.surface },
   prototypeText: {
     color: colors.textSecondary,
     fontSize: 8,
