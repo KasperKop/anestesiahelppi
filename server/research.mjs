@@ -32,7 +32,7 @@ const doiUrl = (s) => `https://doi.org/${encodeURIComponent(s)}`;
 async function json(url, fetchImpl, options = {}, limit = 600000) {
   const response = await fetchImpl(url, {
     ...options,
-    redirect: 'error',
+    redirect: 'manual',
     signal: AbortSignal.timeout(options.method ? 10000 : 12000),
   });
   if (!response.ok)
@@ -74,7 +74,7 @@ export async function planQuery(question, { apiKey, fetchImpl = fetch }) {
     {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${apiKey.trim()}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -138,7 +138,7 @@ export async function searchPubmed(query, fetchImpl = fetch) {
       'esearch.fcgi?' +
       new URLSearchParams({
         db: 'pubmed',
-        term: terms,
+        term: `(${terms}) NOT (animals[MeSH Terms] NOT humans[MeSH Terms])`,
         retmode: 'json',
         retmax: '4',
         sort: 'relevance',
@@ -351,7 +351,11 @@ export async function answerResearch(question, options) {
     if (error instanceof ChatError) throw error;
     throw new ChatError(
       502,
-      'Hakukysymyksen muodostamisen yhteys epäonnistui tai aikaraja ylittyi.',
+      error?.name === 'TimeoutError' || error?.name === 'AbortError'
+        ? 'Hakukysymyksen muodostamisen aikaraja ylittyi.'
+        : error?.name === 'SyntaxError'
+          ? 'Hakukysymyksen palvelu palautti virheellisen JSON-vastauksen.'
+          : `Hakukysymyksen yhteys epäonnistui (${error?.name === 'TypeError' ? 'TypeError' : 'palveluvirhe'}).`,
     );
   }
   if (!query)

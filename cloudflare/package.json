@@ -6,7 +6,8 @@
     "dev": "wrangler dev",
     "check": "wrangler deploy --dry-run",
     "deploy": "wrangler deploy",
-    "secret:groq": "wrangler secret put GROQ_API_KEY"
+    "secret:groq": "wrangler secret put GROQ_API_KEY",
+    "test:runtime": "node --test runtime.test.mjs"
   },
   "devDependencies": {
     "wrangler": "4.135.0"
