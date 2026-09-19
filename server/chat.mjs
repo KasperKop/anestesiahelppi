@@ -122,7 +122,7 @@ export async function summarizeEvidence(
       method: 'POST',
       signal: AbortSignal.timeout(20000),
       headers: {
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${apiKey.trim()}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

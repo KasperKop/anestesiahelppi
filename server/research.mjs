@@ -74,7 +74,7 @@ export async function planQuery(question, { apiKey, fetchImpl = fetch }) {
     {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${apiKey.trim()}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -351,7 +351,11 @@ export async function answerResearch(question, options) {
     if (error instanceof ChatError) throw error;
     throw new ChatError(
       502,
-      'Hakukysymyksen muodostamisen yhteys epäonnistui tai aikaraja ylittyi.',
+      error?.name === 'TimeoutError' || error?.name === 'AbortError'
+        ? 'Hakukysymyksen muodostamisen aikaraja ylittyi.'
+        : error?.name === 'SyntaxError'
+          ? 'Hakukysymyksen palvelu palautti virheellisen JSON-vastauksen.'
+          : `Hakukysymyksen yhteys epäonnistui (${error?.name === 'TypeError' ? 'TypeError' : 'palveluvirhe'}).`,
     );
   }
   if (!query)
