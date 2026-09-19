@@ -81,8 +81,18 @@ export async function askLive(question: string): Promise<Answer> {
       throw new Error(
         'Chat-palvelua ei ole vielä otettu käyttöön. Voit kokeilla esittelytilaa.',
       );
-    if (!response.ok)
-      throw new Error('Vastauksen hakeminen epäonnistui. Yritä uudelleen.');
+    if (!response.ok) {
+      const failure: unknown = await response.json().catch(() => null);
+      const message =
+        failure &&
+        typeof failure === 'object' &&
+        'error' in failure &&
+        typeof failure.error === 'string' &&
+        failure.error.length <= 300
+          ? failure.error
+          : `Vastauksen hakeminen epäonnistui (HTTP ${response.status}).`;
+      throw new Error(message);
+    }
     const answer: unknown = await response.json();
     if (
       !isAnswer(answer) ||

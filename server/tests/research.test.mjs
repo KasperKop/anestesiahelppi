@@ -220,3 +220,19 @@ test('oversized source responses and title-only records are not used for synthes
   assert.equal(result.searchResults.length, 1);
   assert.equal(result.citations.length, 0);
 });
+
+test('known retraction flags exclude duplicates across providers from synthesis', async () => {
+  const result = await retrieveResearch('anesthesia', {
+    fetchImpl: async (url) => {
+      if (url.includes('europepmc')) {
+        const data = epmc();
+        data.resultList.result[0].pubTypeList = {
+          pubType: ['Retracted Publication'],
+        };
+        return response(data);
+      }
+      return apiFetch(url);
+    },
+  });
+  assert.equal(result.hits.length, 0);
+});

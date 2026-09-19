@@ -40,7 +40,9 @@ async function json(url, fetchImpl, options = {}, limit = 600000) {
       response.status === 429 ? 429 : 502,
       response.status === 429
         ? 'Hakupalvelun käyttöraja täyttyi. Yritä myöhemmin.'
-        : 'Hakupalvelun kutsu epäonnistui.',
+        : options.method
+          ? `Hakukysymyksen LLM-kutsu epäonnistui (HTTP ${response.status}).`
+          : 'Hakupalvelun kutsu epäonnistui.',
     );
   const reader = response.body.getReader();
   let size = 0;
@@ -342,7 +344,16 @@ export async function retrieveResearch(query, { fetchImpl = fetch } = {}) {
 }
 
 export async function answerResearch(question, options) {
-  const query = await planQuery(question, options);
+  let query;
+  try {
+    query = await planQuery(question, options);
+  } catch (error) {
+    if (error instanceof ChatError) throw error;
+    throw new ChatError(
+      502,
+      'Hakukysymyksen muodostamisen yhteys epäonnistui tai aikaraja ylittyi.',
+    );
+  }
   if (!query)
     return {
       id: randomUUID(),
