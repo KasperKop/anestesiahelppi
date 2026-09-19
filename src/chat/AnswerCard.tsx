@@ -35,8 +35,8 @@ export function AnswerCard({ answer }: { answer: Answer }) {
       ))}
       {answer.evidenceMode === 'research' && (
         <Text style={ui.small}>
-          Tallennettu vastaus on hakukerran tilannekuva eikä päivity
-          automaattisesti.
+          Vain muutama tutkimusabstrakti; ei kattava näytön arvio. Tallennettu
+          vastaus ei päivity automaattisesti.
         </Text>
       )}
       {stale && (

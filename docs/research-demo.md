@@ -34,3 +34,13 @@ Official references:
 - https://europepmc.org/RestfulWebService
 - https://doaj.org/docs/faq/
 - https://console.groq.com/docs/structured-outputs
+
+## Live acceptance, 2026-09-19
+
+A deployed browser query about anesthesia depth monitoring completed through the user's Groq secret, with 4 PubMed, 6 Europe PMC and 6 DOAJ discovery records and 3 eligible Europe PMC abstracts cited. The answer's numerical accuracy claim was present in its cited abstract. Opening citations showed full used abstracts, licenses and retrieval dates. Saving the answer with the heart and reopening it after a page reload preserved the answer and its research metadata.
+
+The first wording overgeneralized the small evidence sample. The research prompt was tightened to attribute findings to individual studies, mention study limitations, and include sample size when reporting accuracy. PubMed discovery now excludes animal-only MeSH records. Neither change is a guarantee of clinical accuracy or exhaustive relevance.
+
+A production-only failure was reproduced in workerd: `redirect: 'error'` raises a TypeError in the installed runtime. All upstream calls now use `manual`, reject non-success responses, and never follow redirect locations. Two real workerd tests cover successful query planning and rejecting a redirect without forwarding credentials. CI installs the Worker dependencies before linting those tests.
+
+A no-evidence browser query for a deliberately fictitious monitor name (`Zyxqvorn`) returned zero results from all three providers and the fixed Finnish no-source answer, with no citations. It did not invent a device description.

@@ -138,7 +138,7 @@ export async function searchPubmed(query, fetchImpl = fetch) {
       'esearch.fcgi?' +
       new URLSearchParams({
         db: 'pubmed',
-        term: terms,
+        term: `(${terms}) NOT (animals[MeSH Terms] NOT humans[MeSH Terms])`,
         retmode: 'json',
         retmax: '4',
         sort: 'relevance',
