@@ -32,7 +32,7 @@ const doiUrl = (s) => `https://doi.org/${encodeURIComponent(s)}`;
 async function json(url, fetchImpl, options = {}, limit = 600000) {
   const response = await fetchImpl(url, {
     ...options,
-    redirect: 'error',
+    redirect: 'manual',
     signal: AbortSignal.timeout(options.method ? 10000 : 12000),
   });
   if (!response.ok)

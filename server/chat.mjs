@@ -120,6 +120,7 @@ export async function summarizeEvidence(
     'https://api.groq.com/openai/v1/chat/completions',
     {
       method: 'POST',
+      redirect: 'manual',
       signal: AbortSignal.timeout(20000),
       headers: {
         Authorization: `Bearer ${apiKey.trim()}`,
