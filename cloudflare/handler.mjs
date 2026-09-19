@@ -1,3 +1,4 @@
+import { answerResearch } from '../server/research.mjs';
 import { answerQuestion, ChatError } from '../server/chat.mjs';
 
 export async function reserveQuota(storage, now = Date.now()) {
@@ -17,15 +18,11 @@ export async function reserveQuota(storage, now = Date.now()) {
         allowed: false,
         retryAfter: Math.ceil((saved.nextAt - now) / 1000),
       };
-    await tx.put('quota', { day, count: count + 1, nextAt: now + 30000 });
+    await tx.put('quota', { day, count: count + 1, nextAt: now + 60000 });
     return { allowed: true };
   });
 }
-export async function handleRequest(
-  request,
-  env,
-  { corpus, reserve, answer = answerQuestion },
-) {
+export async function handleRequest(request, env, { corpus, reserve, answer }) {
   const origin = request.headers.get('Origin');
   const allowed = (env.ALLOWED_ORIGINS ?? '')
     .split(',')
@@ -49,6 +46,7 @@ export async function handleRequest(
     return reply(200, {
       status: 'ok',
       chatEnabled: env.CHAT_ENABLED === 'true',
+      researchEnabled: env.RESEARCH_ENABLED === 'true',
     });
   if (path !== '/chat') return reply(404, { error: 'Not found' });
   if (request.method === 'OPTIONS')
@@ -109,7 +107,10 @@ export async function handleRequest(
         { error: 'Demon käyttöraja täyttyi. Yritä myöhemmin.' },
         { 'Retry-After': String(quota.retryAfter) },
       );
-    const result = await answer(input.question.trim(), {
+    const result = await (
+      answer ??
+      (env.RESEARCH_ENABLED === 'true' ? answerResearch : answerQuestion)
+    )(input.question.trim(), {
       corpus,
       apiKey: env.GROQ_API_KEY,
     });

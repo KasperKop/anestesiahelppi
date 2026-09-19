@@ -93,11 +93,11 @@ test('quota storage survives wrapper restarts and resets at UTC midnight', async
   assert.equal((await reserveQuota(storage(), start + 1)).allowed, false);
   for (let i = 1; i < 50; i++)
     assert.equal(
-      (await reserveQuota(storage(), start + i * 30000)).allowed,
+      (await reserveQuota(storage(), start + i * 60000)).allowed,
       true,
     );
   assert.equal(
-    (await reserveQuota(storage(), start + 50 * 30000)).allowed,
+    (await reserveQuota(storage(), start + 50 * 60000)).allowed,
     false,
   );
   assert.equal(
