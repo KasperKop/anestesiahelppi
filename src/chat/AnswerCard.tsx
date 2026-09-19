@@ -45,12 +45,14 @@ export function AnswerCard({ answer }: { answer: Answer }) {
           päivittynyt.
         </Text>
       )}
-      {answer.citations.length > 0 && (
+      {(answer.citations.length > 0 || !!answer.searchResults?.length) && (
         <Button
           label={
             expanded
               ? 'Piilota lähteet'
-              : `Näytä lähteet (${answer.citations.length})`
+              : answer.citations.length
+                ? `Näytä lähteet (${answer.citations.length})`
+                : 'Näytä hakutulokset'
           }
           onPress={() => setExpanded(!expanded)}
         />
@@ -80,34 +82,36 @@ export function AnswerCard({ answer }: { answer: Answer }) {
             />
           </Panel>
         ))}
-      {answer.evidenceMode === 'research' && !!answer.searchResults?.length && (
-        <View style={{ gap: 8 }}>
-          <Text style={ui.label}>LÖYDETTYJÄ TUTKIMUKSIA</Text>
-          {answer.searchResults.slice(0, 5).map((r) => (
+      {expanded &&
+        answer.evidenceMode === 'research' &&
+        !!answer.searchResults?.length && (
+          <View style={{ gap: 8 }}>
+            <Text style={ui.label}>LÖYDETTYJÄ TUTKIMUKSIA</Text>
+            {answer.searchResults.slice(0, 5).map((r) => (
+              <Button
+                key={r.id}
+                label={`${r.title} ↗ (${r.providers.join(', ')})`}
+                onPress={() => {
+                  void Linking.openURL(r.url).catch(() =>
+                    setLinkError('Lähdelinkin avaaminen epäonnistui.'),
+                  );
+                }}
+              />
+            ))}
+            <Text style={ui.small}>
+              Hakutulos ei yksin ole vastauksen lähde. Käytetyt abstraktit
+              näkyvät kohdassa Näytä lähteet.
+            </Text>
             <Button
-              key={r.id}
-              label={`${r.title} ↗ (${r.providers.join(', ')})`}
+              label="PubMedin käyttöehdot ↗"
               onPress={() => {
-                void Linking.openURL(r.url).catch(() =>
-                  setLinkError('Lähdelinkin avaaminen epäonnistui.'),
-                );
+                void Linking.openURL(
+                  'https://www.ncbi.nlm.nih.gov/About/disclaimer.html',
+                ).catch(() => setLinkError('Linkin avaaminen epäonnistui.'));
               }}
             />
-          ))}
-          <Text style={ui.small}>
-            Hakutulos ei yksin ole vastauksen lähde. Käytetyt abstraktit näkyvät
-            kohdassa Näytä lähteet.
-          </Text>
-          <Button
-            label="PubMedin käyttöehdot ↗"
-            onPress={() => {
-              void Linking.openURL(
-                'https://www.ncbi.nlm.nih.gov/About/disclaimer.html',
-              ).catch(() => setLinkError('Linkin avaaminen epäonnistui.'));
-            }}
-          />
-        </View>
-      )}
+          </View>
+        )}
       {!!linkError && (
         <Text accessibilityRole="alert" style={ui.small}>
           {linkError}
