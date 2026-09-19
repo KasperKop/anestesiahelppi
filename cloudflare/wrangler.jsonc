@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "anestesiahelppi-chat",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-09-19",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "observability": { "enabled": false },
+  "vars": {
+    "CHAT_ENABLED": "false",
+    "ALLOWED_ORIGINS": "https://kasperkop.github.io",
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "DEMO_QUOTA", "class_name": "DemoQuota" }],
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DemoQuota"] }],
+}

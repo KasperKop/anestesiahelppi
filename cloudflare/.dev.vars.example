@@ -1,0 +1,2 @@
+# Local Wrangler only. Never commit .dev.vars.
+GROQ_API_KEY=

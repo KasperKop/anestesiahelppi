@@ -67,3 +67,7 @@ npm run build:web
 ```
 
 `docs/chat-evaluation.md` defines the pending live evaluation. Automated mock-provider tests establish protocol behavior, not model quality or clinical validity.
+
+## Selected hosted deployment
+
+See [Cloudflare deployment](cloudflare-deployment.md) for the prepared Workers adapter, persistent shared demo quota and secret setup. The local Node server remains available for development.

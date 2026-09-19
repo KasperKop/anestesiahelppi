@@ -43,3 +43,6 @@ jobs:
 
       - name: Build web preview
         run: npm run build:web
+
+      - name: Check Cloudflare deployment bundle
+        run: npm ci --prefix cloudflare && npm run check --prefix cloudflare
