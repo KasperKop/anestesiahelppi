@@ -27,6 +27,7 @@ jobs:
         run: npm run build:web
         env:
           GITHUB_PAGES: 'true'
+          EXPO_PUBLIC_CHAT_API_URL: ${{ vars.EXPO_PUBLIC_CHAT_API_URL || 'https://anestesiahelppi-chat.koponenkasperi8.workers.dev/chat' }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

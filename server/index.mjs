@@ -2,6 +2,7 @@ import { Buffer } from 'node:buffer';
 import { createServer } from 'node:http';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import { answerResearch } from './research.mjs';
 import { answerQuestion, ChatError } from './chat.mjs';
 
 // One-process demo limits. No client-supplied identity can increase the budget.
@@ -11,6 +12,7 @@ export function createChatServer({
   fetchImpl,
   allowedOrigins = [],
   dailyLimit = 50,
+  researchEnabled = false,
 } = {}) {
   let day = '',
     requests = 0,
@@ -72,9 +74,9 @@ export function createChatServer({
       if (
         requests >= dailyLimit ||
         inFlight ||
-        Date.now() - lastRequest < 30000
+        Date.now() - lastRequest < 60000
       ) {
-        res.setHeader('Retry-After', requests >= dailyLimit ? '3600' : '30');
+        res.setHeader('Retry-After', requests >= dailyLimit ? '3600' : '60');
         return reply(429, {
           error: 'Demon käyttöraja täyttyi. Yritä myöhemmin.',
         });
@@ -85,11 +87,14 @@ export function createChatServer({
       try {
         reply(
           200,
-          await answerQuestion(input.question.trim(), {
-            corpus,
-            apiKey,
-            fetchImpl,
-          }),
+          await (researchEnabled ? answerResearch : answerQuestion)(
+            input.question.trim(),
+            {
+              corpus,
+              apiKey,
+              fetchImpl,
+            },
+          ),
         );
       } finally {
         inFlight = false;
@@ -117,6 +122,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const server = createChatServer({
     corpus,
     apiKey: process.env.GROQ_API_KEY,
+    researchEnabled: process.env.RESEARCH_ENABLED === 'true',
     allowedOrigins,
   });
   server.requestTimeout = 10000;

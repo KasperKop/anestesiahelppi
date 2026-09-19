@@ -41,12 +41,12 @@ export function ChatPanel() {
       <Text style={ui.small}>
         {mode === 'demo'
           ? 'Esittelytila · Kokeile chatia ja sydäntallennusta valmiilla esimerkeillä.'
-          : 'Lähdehaku · Yleisiä oppimiskysymyksiä. Älä kirjoita potilastietoja.'}
+          : 'Tutkimushakudemo · PubMed, Europe PMC ja DOAJ. Haku käyttää Groq-palvelua ja tutkimusrajapintoja. Älä kirjoita potilastietoja.'}
       </Text>
       {!!chatEndpoint && (
         <View style={ui.row}>
           <Button
-            label="Lähdehaku"
+            label="Tutkimushaku"
             primary={mode === 'live'}
             disabled={loading}
             onPress={() => setMode('live')}
@@ -70,6 +70,17 @@ export function ChatPanel() {
             }}
           />
         ))}
+      {mode === 'live' && answers.length === 0 && (
+        <Button
+          label="Mitä tutkimuksissa kerrotaan anestesiasyvyyden seurannasta?"
+          disabled={loading}
+          onPress={() => {
+            void send(
+              'Mitä tutkimuksissa kerrotaan anestesiasyvyyden seurannasta?',
+            );
+          }}
+        />
+      )}
       {answers.map((answer) => {
         const saved = memory.state.cards.some((c) => c.answer.id === answer.id);
         return (

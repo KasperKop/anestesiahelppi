@@ -12,7 +12,9 @@ export function AnswerCard({ answer }: { answer: Answer }) {
       <Text style={ui.small}>
         {answer.mode === 'demo'
           ? 'VALMIS ESIMERKKI · Ei LLM-vastaus'
-          : 'AI-TIIVISTELMÄ · Ei erikseen tarkistettu'}
+          : answer.evidenceMode === 'research'
+            ? 'TUTKIMUSDEMO · Abstraktipohjainen · Ei hoito-ohje'
+            : 'AI-TIIVISTELMÄ · Ei erikseen tarkistettu'}
       </Text>
       <Text accessibilityRole="header" style={ui.title}>
         {answer.title}
@@ -20,6 +22,23 @@ export function AnswerCard({ answer }: { answer: Answer }) {
       <Text selectable style={ui.body}>
         {answer.body}
       </Text>
+      {answer.searchQuery && (
+        <Text style={ui.small}>Hakusanat: {answer.searchQuery}</Text>
+      )}
+      {answer.searches?.map((s) => (
+        <Text key={s.provider} style={ui.small}>
+          {s.provider}:{' '}
+          {s.status === 'error'
+            ? 'haku epäonnistui – tämän lähteen tulokset puuttuvat'
+            : `${s.count} hakutulosta käsitelty`}
+        </Text>
+      ))}
+      {answer.evidenceMode === 'research' && (
+        <Text style={ui.small}>
+          Tallennettu vastaus on hakukerran tilannekuva eikä päivity
+          automaattisesti.
+        </Text>
+      )}
       {stale && (
         <Text style={ui.small}>
           Lähteen tarkistusajankohta on ohitettu. Tallennettu vastaus ei ole
@@ -47,8 +66,9 @@ export function AnswerCard({ answer }: { answer: Answer }) {
               {c.excerpt}
             </Text>
             <Text style={ui.small}>
-              Lähde tarkistettu{' '}
-              {new Date(c.reviewedAt).toLocaleDateString('fi-FI')}
+              {c.evidenceType === 'abstract'
+                ? `${c.provider} · ${c.license} · Haettu ${new Date(c.retrievedAt!).toLocaleDateString('fi-FI')}. Ei kliinisesti tarkistettu.`
+                : `Lähde tarkistettu ${new Date(c.reviewedAt).toLocaleDateString('fi-FI')}`}
             </Text>
             <Button
               label="Avaa alkuperäinen lähde ↗"
@@ -60,6 +80,34 @@ export function AnswerCard({ answer }: { answer: Answer }) {
             />
           </Panel>
         ))}
+      {answer.evidenceMode === 'research' && !!answer.searchResults?.length && (
+        <View style={{ gap: 8 }}>
+          <Text style={ui.label}>LÖYDETTYJÄ TUTKIMUKSIA</Text>
+          {answer.searchResults.slice(0, 5).map((r) => (
+            <Button
+              key={r.id}
+              label={`${r.title} ↗ (${r.providers.join(', ')})`}
+              onPress={() => {
+                void Linking.openURL(r.url).catch(() =>
+                  setLinkError('Lähdelinkin avaaminen epäonnistui.'),
+                );
+              }}
+            />
+          ))}
+          <Text style={ui.small}>
+            Hakutulos ei yksin ole vastauksen lähde. Käytetyt abstraktit näkyvät
+            kohdassa Näytä lähteet.
+          </Text>
+          <Button
+            label="PubMedin käyttöehdot ↗"
+            onPress={() => {
+              void Linking.openURL(
+                'https://www.ncbi.nlm.nih.gov/About/disclaimer.html',
+              ).catch(() => setLinkError('Linkin avaaminen epäonnistui.'));
+            }}
+          />
+        </View>
+      )}
       {!!linkError && (
         <Text accessibilityRole="alert" style={ui.small}>
           {linkError}

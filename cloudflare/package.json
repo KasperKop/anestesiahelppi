@@ -1,0 +1,14 @@
+{
+  "name": "anestesiahelppi-cloudflare",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "check": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy",
+    "secret:groq": "wrangler secret put GROQ_API_KEY"
+  },
+  "devDependencies": {
+    "wrangler": "4.135.0"
+  }
+}
