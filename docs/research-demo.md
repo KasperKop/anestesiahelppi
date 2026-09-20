@@ -44,3 +44,35 @@ The first wording overgeneralized the small evidence sample. The research prompt
 A production-only failure was reproduced in workerd: `redirect: 'error'` raises a TypeError in the installed runtime. All upstream calls now use `manual`, reject non-success responses, and never follow redirect locations. Two real workerd tests cover successful query planning and rejecting a redirect without forwarding credentials. CI installs the Worker dependencies before linting those tests.
 
 A no-evidence browser query for a deliberately fictitious monitor name (`Zyxqvorn`) returned zero results from all three providers and the fixed Finnish no-source answer, with no citations. It did not invent a device description.
+
+## WikiAnesthesia (20.9.2026)
+
+The live educational search also queries WikiAnesthesia's public MediaWiki API.
+It searches main-namespace pages, skips empty placeholders, retrieves at most
+three text extracts and includes up to two opening excerpts (whole paragraphs,
+maximum 5,500 characters each). Bibliographies are excluded. This is a bounded
+online search, not a full-site import or a complete evidence review. A source
+failure is displayed and does not prevent the other sources from answering.
+
+Wiki evidence is explicitly typed `wiki`; it is not labelled a research abstract
+or clinically reviewed content. The prompt distinguishes wiki explanations from
+individual study findings. Existing patient-specific and medication-dose
+restrictions remain in place. Each citation preserves its revision permalink,
+revision timestamp, contributors/history link, retrieval date and license.
+These fields survive saving/reloading a card. No new API key is needed.
+
+The site's copyright section specifies CC BY-SA 4.0:
+https://wikianesthesia.org/wiki/WikiAnesthesia:General_disclaimer
+Its surrounding terms also contain generic personal-use wording; this integration
+relies on the explicit text copyright license, attributes the contributors and
+marks wiki-derived answer text as an AI-translated/shortened CC BY-SA 4.0
+adaptation. This notice does not license the application's code or separately
+attributed research abstracts under CC BY-SA. Images, logos, calculators and
+linked third-party publications are not imported. The API's `rightsinfo` is
+empty, so it is not used to invent a license. Review the source's terms again
+before any commercial reuse.
+
+Tests cover empty-page exclusion, bibliography exclusion, fixed API host,
+revision/attribution preservation, wiki-only synthesis with other sources offline,
+and saved-card license display/validation. API checks confirmed the search and
+plain-text extracts for combined spinal-epidural anesthesia.

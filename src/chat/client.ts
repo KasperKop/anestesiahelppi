@@ -53,10 +53,20 @@ export function isAnswer(value: unknown): value is Answer {
           'nextReviewAt',
         ].every((key) => typeof c[key as keyof typeof c] === 'string') &&
         /^https:\/\//.test(c.url) &&
-        (c.evidenceType === 'abstract'
+        (c.evidenceType === 'abstract' || c.evidenceType === 'wiki'
           ? a.evidenceMode === 'research' &&
             typeof c.license === 'string' &&
             !!c.license &&
+            (c.evidenceType !== 'wiki' ||
+              (c.license === 'CC BY-SA 4.0' &&
+                c.licenseUrl ===
+                  'https://creativecommons.org/licenses/by-sa/4.0/' &&
+                typeof c.attribution === 'string' &&
+                !!c.attribution &&
+                typeof c.historyUrl === 'string' &&
+                c.historyUrl.startsWith(
+                  'https://wikianesthesia.org/w/index.php?',
+                ))) &&
             typeof c.provider === 'string' &&
             typeof c.retrievedAt === 'string' &&
             Number.isFinite(Date.parse(c.retrievedAt))
