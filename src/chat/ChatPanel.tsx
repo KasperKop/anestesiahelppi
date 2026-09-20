@@ -41,7 +41,7 @@ export function ChatPanel() {
       <Text style={ui.small}>
         {mode === 'demo'
           ? 'Esittelytila · Kokeile chatia ja sydäntallennusta valmiilla esimerkeillä.'
-          : 'Tutkimushakudemo · PubMed, Europe PMC ja DOAJ. Haku käyttää Groq-palvelua ja tutkimusrajapintoja. Älä kirjoita potilastietoja.'}
+          : 'Tutkimushakudemo · WikiAnesthesia, PubMed, Europe PMC ja DOAJ. Kysymys käsitellään Groq-palvelussa ja englanninkieliset hakusanat lähetetään lähdepalveluihin. Älä kirjoita potilastietoja.'}
       </Text>
       {!!chatEndpoint && (
         <View style={ui.row}>

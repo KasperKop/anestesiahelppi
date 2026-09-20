@@ -4,6 +4,7 @@ import {
   planQuery,
   searchEuropePmc,
   searchDoaj,
+  searchWikiAnesthesia,
   deduplicate,
   retrieveResearch,
   answerResearch,
@@ -63,6 +64,8 @@ function apiFetch(url) {
       }),
     );
   if (u.hostname === 'www.ebi.ac.uk') return Promise.resolve(response(epmc()));
+  if (u.hostname === 'wikianesthesia.org')
+    return Promise.resolve(response({ query: { search: [] } }));
   if (u.hostname === 'doaj.org') return Promise.resolve(response(doaj));
   throw Error('Unexpected host');
 }
@@ -153,7 +156,7 @@ test('partial errors remain visible; total failure is not a no-results answer', 
   });
   assert.deepEqual(
     result.searches.map((s) => s.status),
-    ['error', 'error', 'ok'],
+    ['error', 'error', 'ok', 'error'],
   );
   assert.equal(result.hits.length, 1);
   await assert.rejects(
@@ -235,4 +238,72 @@ test('known retraction flags exclude duplicates across providers from synthesis'
     },
   });
   assert.equal(result.hits.length, 0);
+});
+
+const wikiFetch = async (url) => {
+  const u = new URL(url);
+  assert.equal(u.hostname, 'wikianesthesia.org');
+  if (u.searchParams.has('list'))
+    return response({
+      query: {
+        search: [
+          { pageid: 1, wordcount: 0 },
+          { pageid: 2, wordcount: 200 },
+        ],
+      },
+    });
+  assert.equal(u.searchParams.get('pageids'), '2');
+  return response({
+    query: {
+      pages: [
+        {
+          pageid: 2,
+          ns: 0,
+          title: 'Fixture wiki',
+          extract:
+            '== Overview ==\n\n' +
+            abstract +
+            '\n\n== References ==\n\nDo not synthesize the reference list.',
+          revisions: [{ revid: 42, timestamp: '2026-09-20T00:00:00Z' }],
+        },
+      ],
+    },
+  });
+};
+test('wiki retrieval excludes empty pages, preserves revision and attribution, excludes bibliography', async () => {
+  const [r] = await searchWikiAnesthesia('anesthesia', wikiFetch);
+  assert.equal(r.evidenceType, 'wiki');
+  assert.equal(r.license, 'CC BY-SA 4.0');
+  assert.match(r.url, /oldid=42$/);
+  assert.match(r.historyUrl, /action=history/);
+  assert.equal(r.attribution, 'WikiAnesthesia contributors');
+  assert.match(r.text, /Project-owned fixture/);
+  assert.doesNotMatch(r.text, /Do not synthesize/);
+});
+test('wiki-only evidence can answer with source type and attribution intact', async () => {
+  let calls = 0;
+  const result = await answerResearch('Yleinen kysymys', {
+    apiKey: 'fixture',
+    fetchImpl: async (url, options) => {
+      if (new URL(url).hostname === 'wikianesthesia.org') return wikiFetch(url);
+      if (new URL(url).hostname !== 'api.groq.com')
+        throw Error('Other sources offline');
+      if (++calls === 1) return model({ allowed: true, query: 'anesthesia' });
+      const p = JSON.parse(JSON.parse(options.body).messages[1].content)
+        .passages[0];
+      assert.equal(p.evidenceType, 'wiki');
+      return model({
+        status: 'answered',
+        title: 'Fixture',
+        body: 'WikiAnesthesian mukaan testiteksti.',
+        chunkIds: [p.id],
+      });
+    },
+  });
+  assert.equal(result.citations[0].evidenceType, 'wiki');
+  assert.equal(
+    result.citations[0].licenseUrl,
+    'https://creativecommons.org/licenses/by-sa/4.0/',
+  );
+  assert.equal(result.citations[0].reviewedAt, '');
 });

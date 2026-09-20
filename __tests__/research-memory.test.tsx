@@ -53,3 +53,44 @@ test('research card distinguishes abstracts, failed sources and clinical review'
   expect(view.getByText(/Ei kliinisesti tarkistettu/)).toBeTruthy();
   expect(view.queryByText(/Lähde tarkistettu/)).toBeNull();
 });
+
+test('wiki attribution and license persist in a saved card and render as wiki', async () => {
+  const wiki: Answer = {
+    ...answer,
+    citations: [
+      {
+        ...answer.citations[0],
+        evidenceType: 'wiki',
+        provider: 'WikiAnesthesia',
+        license: 'CC BY-SA 4.0',
+        attribution: 'WikiAnesthesia contributors',
+        historyUrl:
+          'https://wikianesthesia.org/w/index.php?title=Fixture&action=history',
+        licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+      },
+    ],
+  };
+  expect(isAnswer(wiki)).toBe(true);
+  expect(
+    isAnswer({
+      ...wiki,
+      citations: [{ ...wiki.citations[0], historyUrl: undefined }],
+    }),
+  ).toBe(false);
+  expect(
+    decodeMemory(
+      JSON.stringify(
+        changeMemory(emptyMemory(), { type: 'save', answer: wiki }),
+      ),
+    ).cards[0].answer,
+  ).toEqual(wiki);
+  const view = await render(<AnswerCard answer={wiki} />);
+  expect(view.getByText(/Wikiin perustuva vastausteksti/)).toBeTruthy();
+  await userEvent
+    .setup()
+    .press(view.getByRole('button', { name: 'Näytä lähteet (1)' }));
+  expect(view.getByText(/Yhteisön muokkaama wikiartikkeli/)).toBeTruthy();
+  expect(
+    view.getByRole('button', { name: 'Tekijät ja muutoshistoria ↗' }),
+  ).toBeTruthy();
+});

@@ -8,7 +8,10 @@ export type Citation = {
   version: string;
   reviewedAt: string;
   nextReviewAt: string;
-  evidenceType?: 'abstract';
+  evidenceType?: 'abstract' | 'wiki';
+  historyUrl?: string;
+  attribution?: string;
+  licenseUrl?: string;
   retrievedAt?: string;
   provider?: string;
   license?: string;

@@ -6,6 +6,7 @@ export function AnswerCard({ answer }: { answer: Answer }) {
   const [expanded, setExpanded] = useState(false);
   const [linkError, setLinkError] = useState('');
   const [now] = useState(() => Date.now());
+  const usesWiki = answer.citations.some((c) => c.evidenceType === 'wiki');
   const stale = answer.citations.some((c) => Date.parse(c.nextReviewAt) <= now);
   return (
     <View style={{ gap: 12 }}>
@@ -13,7 +14,9 @@ export function AnswerCard({ answer }: { answer: Answer }) {
         {answer.mode === 'demo'
           ? 'VALMIS ESIMERKKI · Ei LLM-vastaus'
           : answer.evidenceMode === 'research'
-            ? 'TUTKIMUSDEMO · Abstraktipohjainen · Ei hoito-ohje'
+            ? usesWiki
+              ? 'TIETOHAKUDEMO · Wiki ja tutkimuslähteet · Ei hoito-ohje'
+              : 'TUTKIMUSDEMO · Abstraktipohjainen · Ei hoito-ohje'
             : 'AI-TIIVISTELMÄ · Ei erikseen tarkistettu'}
       </Text>
       <Text accessibilityRole="header" style={ui.title}>
@@ -35,9 +38,26 @@ export function AnswerCard({ answer }: { answer: Answer }) {
       ))}
       {answer.evidenceMode === 'research' && (
         <Text style={ui.small}>
-          Vain muutama tutkimusabstrakti; ei kattava näytön arvio. Tallennettu
-          vastaus ei päivity automaattisesti.
+          Rajattu lähdehaku; ei kattava näytön arvio. Tallennettu vastaus ei
+          päivity automaattisesti.
         </Text>
+      )}
+      {usesWiki && (
+        <View style={{ gap: 8 }}>
+          <Text style={ui.small}>
+            WikiAnesthesian tekstiä on lyhennetty ja käännetty tekoälyllä.
+            Wikiin perustuva vastausteksti: CC BY-SA 4.0. Tekijät ja
+            alkuperäiset versiot näkyvät lähteissä.
+          </Text>
+          <Button
+            label="CC BY-SA 4.0 -lisenssi ↗"
+            onPress={() => {
+              void Linking.openURL(
+                'https://creativecommons.org/licenses/by-sa/4.0/',
+              ).catch(() => setLinkError('Linkin avaaminen epäonnistui.'));
+            }}
+          />
+        </View>
       )}
       {stale && (
         <Text style={ui.small}>
@@ -68,10 +88,25 @@ export function AnswerCard({ answer }: { answer: Answer }) {
               {c.excerpt}
             </Text>
             <Text style={ui.small}>
-              {c.evidenceType === 'abstract'
+              {c.evidenceType === 'abstract' || c.evidenceType === 'wiki'
                 ? `${c.provider} · ${c.license} · Haettu ${new Date(c.retrievedAt!).toLocaleDateString('fi-FI')}. Ei kliinisesti tarkistettu.`
                 : `Lähde tarkistettu ${new Date(c.reviewedAt).toLocaleDateString('fi-FI')}`}
             </Text>
+            {c.evidenceType === 'wiki' && (
+              <>
+                <Text style={ui.small}>
+                  {c.attribution} · Yhteisön muokkaama wikiartikkeli.
+                </Text>
+                <Button
+                  label="Tekijät ja muutoshistoria ↗"
+                  onPress={() => {
+                    void Linking.openURL(c.historyUrl!).catch(() =>
+                      setLinkError('Linkin avaaminen epäonnistui.'),
+                    );
+                  }}
+                />
+              </>
+            )}
             <Button
               label="Avaa alkuperäinen lähde ↗"
               onPress={() => {
@@ -86,7 +121,7 @@ export function AnswerCard({ answer }: { answer: Answer }) {
         answer.evidenceMode === 'research' &&
         !!answer.searchResults?.length && (
           <View style={{ gap: 8 }}>
-            <Text style={ui.label}>LÖYDETTYJÄ TUTKIMUKSIA</Text>
+            <Text style={ui.label}>LÖYDETTYJÄ ARTIKKELEITA</Text>
             {answer.searchResults.slice(0, 5).map((r) => (
               <Button
                 key={r.id}
@@ -99,7 +134,7 @@ export function AnswerCard({ answer }: { answer: Answer }) {
               />
             ))}
             <Text style={ui.small}>
-              Hakutulos ei yksin ole vastauksen lähde. Käytetyt abstraktit
+              Hakutulos ei yksin ole vastauksen lähde. Käytetyt lähdekatkelmat
               näkyvät kohdassa Näytä lähteet.
             </Text>
             <Button
