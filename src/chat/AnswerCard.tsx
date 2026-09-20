@@ -25,57 +25,68 @@ export function AnswerCard({ answer }: { answer: Answer }) {
       <Text selectable style={ui.body}>
         {answer.body}
       </Text>
-      {answer.searchQuery && (
-        <Text style={ui.small}>Hakusanat: {answer.searchQuery}</Text>
-      )}
-      {answer.searches?.map((s) => (
-        <Text key={s.provider} style={ui.small}>
-          {s.provider}:{' '}
-          {s.status === 'error'
-            ? 'haku epäonnistui – tämän lähteen tulokset puuttuvat'
-            : `${s.count} hakutulosta käsitelty`}
-        </Text>
-      ))}
-      {answer.evidenceMode === 'research' && (
-        <Text style={ui.small}>
-          Rajattu lähdehaku; ei kattava näytön arvio. Tallennettu vastaus ei
-          päivity automaattisesti.
-        </Text>
-      )}
-      {usesWiki && (
-        <View style={{ gap: 8 }}>
-          <Text style={ui.small}>
-            WikiAnesthesian tekstiä on lyhennetty ja käännetty tekoälyllä.
-            Wikiin perustuva vastausteksti: CC BY-SA 4.0. Tekijät ja
-            alkuperäiset versiot näkyvät lähteissä.
-          </Text>
-          <Button
-            label="CC BY-SA 4.0 -lisenssi ↗"
-            onPress={() => {
-              void Linking.openURL(
-                'https://creativecommons.org/licenses/by-sa/4.0/',
-              ).catch(() => setLinkError('Linkin avaaminen epäonnistui.'));
-            }}
-          />
-        </View>
-      )}
-      {stale && (
-        <Text style={ui.small}>
-          Lähteen tarkistusajankohta on ohitettu. Tallennettu vastaus ei ole
-          päivittynyt.
-        </Text>
-      )}
-      {(answer.citations.length > 0 || !!answer.searchResults?.length) && (
+      {(answer.citations.length > 0 ||
+        !!answer.searchResults?.length ||
+        !!answer.searchQuery ||
+        !!answer.searches?.length ||
+        answer.evidenceMode === 'research') && (
         <Button
           label={
             expanded
               ? 'Piilota lähteet'
               : answer.citations.length
                 ? `Näytä lähteet (${answer.citations.length})`
-                : 'Näytä hakutulokset'
+                : 'Näytä lähteet'
           }
-          onPress={() => setExpanded(!expanded)}
+          onPress={() => {
+            setExpanded(!expanded);
+            setLinkError('');
+          }}
         />
+      )}
+      {expanded && (
+        <View style={{ gap: 12 }}>
+          {answer.searchQuery && (
+            <Text style={ui.small}>Hakusanat: {answer.searchQuery}</Text>
+          )}
+          {answer.searches?.map((s) => (
+            <Text key={s.provider} style={ui.small}>
+              {s.provider}:{' '}
+              {s.status === 'error'
+                ? 'haku epäonnistui – tämän lähteen tulokset puuttuvat'
+                : `${s.count} hakutulosta käsitelty`}
+            </Text>
+          ))}
+          {answer.evidenceMode === 'research' && (
+            <Text style={ui.small}>
+              Rajattu lähdehaku; ei kattava näytön arvio. Tallennettu vastaus ei
+              päivity automaattisesti.
+            </Text>
+          )}
+          {usesWiki && (
+            <View style={{ gap: 8 }}>
+              <Text style={ui.small}>
+                WikiAnesthesian tekstiä on lyhennetty ja käännetty tekoälyllä.
+                Wikiin perustuva vastausteksti: CC BY-SA 4.0. Tekijät ja
+                alkuperäiset versiot näkyvät lähteissä.
+              </Text>
+              <Button
+                label="CC BY-SA 4.0 -lisenssi ↗"
+                onPress={() => {
+                  void Linking.openURL(
+                    'https://creativecommons.org/licenses/by-sa/4.0/',
+                  ).catch(() => setLinkError('Linkin avaaminen epäonnistui.'));
+                }}
+              />
+            </View>
+          )}
+          {stale && (
+            <Text style={ui.small}>
+              Lähteen tarkistusajankohta on ohitettu. Tallennettu vastaus ei ole
+              päivittynyt.
+            </Text>
+          )}
+        </View>
       )}
       {expanded &&
         answer.citations.map((c) => (

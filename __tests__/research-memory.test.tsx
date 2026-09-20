@@ -47,9 +47,10 @@ test('research snapshot survives saving and decoding without inventing review da
 test('research card distinguishes abstracts, failed sources and clinical review', async () => {
   const view = await render(<AnswerCard answer={answer} />);
   expect(view.getByText(/TUTKIMUSDEMO/)).toBeTruthy();
-  expect(view.getByText(/DOAJ: haku epäonnistui/)).toBeTruthy();
+  expect(view.queryByText(/DOAJ: haku epäonnistui/)).toBeNull();
   const user = userEvent.setup();
   await user.press(view.getByRole('button', { name: 'Näytä lähteet (1)' }));
+  expect(view.getByText(/DOAJ: haku epäonnistui/)).toBeTruthy();
   expect(view.getByText(/Ei kliinisesti tarkistettu/)).toBeTruthy();
   expect(view.queryByText(/Lähde tarkistettu/)).toBeNull();
 });
@@ -85,10 +86,11 @@ test('wiki attribution and license persist in a saved card and render as wiki', 
     ).cards[0].answer,
   ).toEqual(wiki);
   const view = await render(<AnswerCard answer={wiki} />);
-  expect(view.getByText(/Wikiin perustuva vastausteksti/)).toBeTruthy();
+  expect(view.queryByText(/Wikiin perustuva vastausteksti/)).toBeNull();
   await userEvent
     .setup()
     .press(view.getByRole('button', { name: 'Näytä lähteet (1)' }));
+  expect(view.getByText(/Wikiin perustuva vastausteksti/)).toBeTruthy();
   expect(view.getByText(/Yhteisön muokkaama wikiartikkeli/)).toBeTruthy();
   expect(
     view.getByRole('button', { name: 'Tekijät ja muutoshistoria ↗' }),
