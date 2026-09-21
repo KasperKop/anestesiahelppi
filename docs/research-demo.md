@@ -12,6 +12,12 @@ Päivitetty 20.9.2026. Julkaistu chat on yleisten oppimiskysymysten hakudemo. Se
 
 Jos riittävää tukea ei löydy, vastaus kertoo tiedon puuttumisesta. Yhden lähdepalvelun virhe ei estä muiden käyttöä; virhe näkyy hakutiedoissa. Kaikkien lähteiden yhteysvirhe on palveluvirhe, ei väite tiedon puuttumisesta.
 
+## Vastausten muotoilu
+
+21.9.2026 päivitetty ohje painottaa konkreettista, lähteisiin perustuvaa oppimisvastausta. Tavallinen pituus on 60–150 sanaa. Vastaus alkaa **Lyhyesti:**-kohdalla. **Käytännössä:** sisältää 3–5 valmisteluun, seurantaan tai käsittelyyn liittyvää huomiota vain, jos lähteet tukevat niitä. **Huomioi:** kertoo tarvittaessa olennaisen rajoituksen. Lyhyt määritelmä ei tarvitse kaikkia osioita eikä tekstiä venytetä sanamäärän vuoksi.
+
+Ohje ei salli annosvastauksia, potilaskohtaisia toimintaohjeita tai lähteettömän ”asiantuntijakäytännön” lisäämistä. Näytön varmuutta ei päätellä pelkästä tutkimusasetelmasta. Viitteet jäävät lähdepainikkeen taakse. Malliasetus on edelleen `reasoning_effort: low`; muotoiluohje ei muuta lähdepalvelujen hakua tai tee hoitosuosituksista automaattisesti ensisijaisia.
+
 ## Lähteiden erot
 
 | Lähde          | Mitä haetaan ja käytetään?                                                                                                                                               |
