@@ -1,82 +1,79 @@
 # AnestesiaHelppi
 
-AnestesiaHelppi is a portfolio project for designing a mobile-first checklist and quick-reference application for anesthesia nursing.
+Ensimmäinen harrastus- ja portfolioprojektini: anestesiahoitotyön aiheista syntynyt mobiilikäyttöön suunniteltu sovellus. Olen anestesiahoitaja, ja halusin kokeilla, miten työstä tuttuja tiedonhakuun ja käyttöliittymiin liittyviä ideoita voisi toteuttaa itse suunnitellussa sovelluksessa.
 
-> [!IMPORTANT]
-> This repository is an educational software project under development. It is not a medical device, a source of treatment instructions, or a substitute for local clinical guidelines and professional judgment.
+**[Kokeile selaindemoa](https://kasperkop.github.io/anestesiahelppi/)** · [Kehityksen tilanne](docs/roadmap.md) · [Paikallinen käynnistys](docs/development.md)
 
-## Vision
+> Sovellus on oppimisprojekti, ei potilastyöhön tarkoitettu työkalu. Painokorttien sisältöä ja tekoälyn vastauksia ei ole validoitu kliiniseen käyttöön. Älä syötä potilastietoja.
 
-The goal is to explore how a calm, fast and accessible user interface could support anesthesia nurses in preparing for recurring workflows. The first versions focus on software design, usability and transparent content governance — not patient-specific decision-making.
+## Mitä sovelluksella voi tehdä?
 
-## Planned capabilities
+- Valita painon väliltä 3–30 kg ja avata siihen liittyvän painokortin.
+- Kysyä yleisiä oppimiskysymyksiä chatilta, joka hakee lähteitä WikiAnesthesiasta, PubMedista, Europe PMC:stä ja DOAJ:sta.
+- Avata vastauksen lähteet ja hakutiedot **Näytä lähteet** -painikkeesta.
+- Tallentaa vastauksen sydämestä ja järjestää kortteja itse nimettyihin **Omat pinot** -kokoelmiin.
+- Kokeilla valmiita esimerkkivastauksia **Esittelytilassa** ilman mallikutsuja.
 
-- Native iOS and Android application from a shared codebase
-- Mobile-first checklists for recurring workflows
-- Searchable, source-linked reference content
-- A personal memory bank for organizing saved, source-linked answers
-- Offline access to reviewed content
-- Clear content versioning and clinical review status
-- Optional web preview for portfolio review
-- Later, a constrained source-based assistant for information retrieval
+Chat on tämän portfoliovaiheen osalta valmis kokeiltavaksi. Koko sovellus on edelleen prototyyppi. Selainversio on julkaistu; erillisiä iOS- ja Android-julkaisuja ei ole tehty.
 
-## Project status
+## Kokeile näin
 
-**Runnable prototype.** Expo, React Native and TypeScript with a weight selector, weight cards, a chat demonstration and a persistent personal memory bank. The chat works without credentials using clearly labeled examples; a separate Groq backend is ready for configuration with an API key and reviewed source corpus. A web preview is built and published automatically when main changes.
+1. Avaa demo ja kirjoita esimerkiksi: _Mitä tarkoittaa yhdistetty spinaali-epiduraalipuudutus?_
+2. Avaa lähteet nähdäksesi, mihin vastaus perustuu.
+3. Tallenna vastaus sydämestä ja siirry **Omat pinot** -välilehdelle.
 
-## Web preview
+Chatilla on yhteinen käyttöraja: enintään 50 hyväksyttyä pyyntöä vuorokaudessa ja vähintään minuutti pyyntöjen välillä. Raja koskee kaikkia demon käyttäjiä yhteensä. Jos haku ei onnistu, esittelytilalla voi silti kokeilla tallennusta ja pinoja. Kortit tallentuvat paikallisesti; selaintietojen poistaminen poistaa myös selaimeen tallennetut kortit.
 
-[Open AnestesiaHelppi](https://kasperkop.github.io/anestesiahelppi/)
+## Oma roolini ja tekoälyn käyttö
 
-The preview is published by `.github/workflows/pages.yml` after each push to `main`. For first-time setup, select **Settings → Pages → Build and deployment → Source → GitHub Actions**, then run **Actions → Publish web preview → Run workflow**. The link becomes available after the first successful deployment.
+Olen tuonut projektiin aiheen, käyttötapaukset ja käyttöliittymätoiveet sekä kokeillut sovellusta ja ohjannut muutoksia. Koodi, testit ja dokumentaatio on tehty suurelta osin ChatGPT:n ja Codexin avulla. Tämä ei siis ole näyttö siitä, että olisin kirjoittanut kaiken koodin itsenäisesti.
 
-To preview locally with Node.js 24:
+Projektissa harjoittelen sovellusidean rajaamista, GitHubin käyttöä ja sitä, miten oma palaute muuttuu toimivaksi toteutukseksi. Kehitysvaiheet ja korjaukset näkyvät repon issueissa ja pull requesteissa.
+
+## Tekniikka
+
+| Osa            | Toteutus                                                                |
+| -------------- | ----------------------------------------------------------------------- |
+| Käyttöliittymä | Expo, React Native, TypeScript ja Expo Router                           |
+| Selaindemo     | GitHub Pages                                                            |
+| Chat-palvelin  | Cloudflare Workers; paikalliseen kehitykseen myös Node.js-palvelin      |
+| Kielimalli     | Groq, `openai/gpt-oss-120b`                                             |
+| Tallennus      | Selaimessa localStorage, natiivisovelluksen toteutuksessa Expo SQLite   |
+| Tarkistukset   | TypeScript, ESLint, Prettier, Jest ja palvelintestit GitHub Actionsissa |
+
+Toteutus suosii ilmaisia palvelutasoja. API-avain on palvelimella, eikä sitä sisällytetä sovellukseen tai repoon.
+
+## Mitä vielä puuttuu?
+
+- iOS- ja Android-laitteilla tehtävä kattava testaus.
+- Järjestelmällinen saavutettavuuden ja suomenkielisten tekoälyvastausten arviointi.
+- Riippuvuuksien tietoturvahavaintojen läpikäynti.
+
+Muistilistat, pilvisynkronointi ja sovelluskauppajulkaisu ovat mahdollisia jatkoideoita, eivät tämän version lupauksia. Chat käyttää rajattuja lähdekatkelmia eikä tee kattavaa kirjallisuuskatsausta. Lähdeviite ei yksin takaa vastauksen oikeellisuutta.
+
+## Käynnistys omalla koneella
+
+Node.js 24:
 
 ```sh
 npm ci
 npm run web
 ```
 
-For the Pages build, the workflow sets `GITHUB_PAGES=true`. `app.config.js` exports static HTML for each route and sets `/anestesiahelppi` as the base URL only for that build. Local development and native builds keep their normal paths.
+Ilman `EXPO_PUBLIC_CHAT_API_URL`-asetusta käytössä ovat valmiit esimerkkivastaukset. Oikean lähdehaun asetukset löytyvät [chatin kehitysohjeesta](docs/chat-development.md).
 
-## Roadmap
+## Dokumentaatio
 
-| Phase | Outcome |
-| --- | --- |
-| v0.1 | Runnable Expo prototype for iOS, Android and web preview |
-| v0.2 | Versioned checklist content model and reviewed example content |
-| v0.3 | Searchable reference library with source metadata |
-| v0.4 | Constrained, source-based assistant prototype |
-| v1.0 | Tested native mobile release candidate with offline support |
+- [Idea ja rajaus](docs/concept.md)
+- [Käyttöpolut](docs/user-journeys.md)
+- [Ulkoasun periaatteet](docs/ui-guidelines.md)
+- [Kehityksen tilanne](docs/roadmap.md) ja [avoimet tehtävät](docs/backlog.md)
+- [Kehittäminen ja tarkistukset](docs/development.md)
+- [Chatin toiminta ja lähteet](docs/research-demo.md)
+- [Cloudflaren käyttöönotto ja sulkeminen](docs/cloudflare-deployment.md)
+- [Sisällön rajat](docs/clinical-safety.md) ja [chatin arviointi](docs/chat-evaluation.md)
+- Alkuperäiset tekniset päätökset: [Expo](docs/decisions/0001-expo-react-native.md), [chat ja tallennus](docs/decisions/0002-source-chat-memory.md)
 
-## Technology direction
+## Lisenssit
 
-The application will use Expo, React Native and strict TypeScript. This provides a shared implementation for iOS and Android while retaining an optional web preview. See [ADR 0001](docs/decisions/0001-expo-react-native.md) for the alternatives, trade-offs and distribution constraints.
-
-The project owner directs product decisions and tests visible builds. Coding, automated checks and technical documentation are handled through the implementation workflow.
-
-## Documentation
-
-- [Product concept](docs/concept.md)
-- [MVP user journeys](docs/user-journeys.md)
-- [UI and interaction guidelines](docs/ui-guidelines.md)
-- [Roadmap](docs/roadmap.md)
-- [Clinical safety principles](docs/clinical-safety.md)
-- [Development approach](docs/development.md)
-- [Architecture decisions](docs/decisions/0001-expo-react-native.md)
-- [Initial backlog](docs/backlog.md)
-- [Chat setup and source integration](docs/chat-development.md)
-- [Chat and memory architecture](docs/decisions/0002-source-chat-memory.md)
-- [Pending live model evaluation](docs/chat-evaluation.md)
-
-## Portfolio goals
-
-This project is intended to demonstrate product discovery, accessible cross-platform mobile development, safety-aware healthcare design, test automation and transparent technical decision-making.
-
-## Working language
-
-The product and clinical content are primarily planned in Finnish. Technical documentation may use English when it improves accessibility for an international portfolio audience.
-
-## License
-
-No license has been selected yet. Until one is added, all rights are reserved.
+Projektin omalle koodille ei ole vielä valittu avointa lisenssiä. Ulkopuolisilla lähdeteksteillä on omat käyttöehtonsa. WikiAnesthesiaan perustuvien tekstien CC BY-SA 4.0 -merkinnät ja tekijätiedot ovat vastauksen lähdetiedoissa. Tämä lisenssi ei koske koko sovelluksen koodia.
