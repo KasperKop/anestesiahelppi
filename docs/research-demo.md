@@ -1,78 +1,68 @@
-# Research abstract demo
+# Chatin toiminta ja lähteet
 
-This is a separate evidence mode from the reviewed local corpus. The user approved testing PubMed, Europe PMC and DOAJ on 2026-09-19. Research results are not marked as reviewed clinical guidance. No patient data or dosing questions belong in this demo.
+Päivitetty 20.9.2026. Julkaistu chat on yleisten oppimiskysymysten hakudemo. Se käyttää julkisia lähdepalveluja, ei projektin omaa tarkistettua korpusta. Wikiartikkeleita ja tutkimusabstrakteja ei merkitä kliinisesti tarkistetuiksi.
 
-## Retrieval and rights
+## Kysymyksestä vastaukseen
 
-1. Groq `openai/gpt-oss-120b` translates an eligible general question into bounded English search terms. Ineligible questions abstain before literature API calls. Only terms are sent to literature services; the original question is sent to Groq.
-2. PubMed ESearch + ESummary discover up to four titles/PMIDs/DOIs. PubMed abstract text is not copied into the model context.
-3. Europe PMC core search returns up to six OA records. Only explicit CC BY or CC0 licenses qualify an abstract for synthesis. OA alone, missing licenses and NC/ND variants do not qualify.
-4. DOAJ searches up to six articles. Abstract metadata falls under DOAJ's CC0 metadata waiver; this does not license the linked publisher full text.
-5. PMID/DOI duplicates are combined. Explicit retraction, withdrawal, expression-of-concern and preprint flags found in returned metadata exclude synthesis. These services do not guarantee complete or current retraction coverage.
-6. At most three complete abstracts (120–6000 characters each) are used. Titles without usable abstracts remain discovery links, not evidence. No full text is downloaded in this version.
-7. The existing source-bound summarizer produces Finnish text and returns passage IDs. The server verifies IDs and builds all citations from retrieved records. Missing support abstains; all-provider failure is an error; partial failures are visible beside the answer.
+1. Groqin `openai/gpt-oss-120b` muodostaa yleisestä kysymyksestä lyhyet englanninkieliset hakusanat. Potilaskohtaiset ohjeet ja lääkeannoskysymykset on rajattu pois.
+2. Palvelin hakee neljästä ennalta valitusta palvelusta. Alkuperäinen kysymys menee Groqille; lähdepalveluille menevät hakusanat.
+3. Käyttöehdoiltaan sopivat katkelmat annetaan mallille. Otsikko yksin ei kelpaa vastauksen perusteeksi.
+4. Malli palauttaa suomenkielisen tiivistelmän ja katkelmatunnisteet. Palvelin tarkistaa tunnisteet ja rakentaa viitteet haetuista tiedoista.
+5. Hakusanat, hakujen tilat, lähdekatkelmat ja lisenssit löytyvät **Näytä lähteet** -painikkeesta. Sydäntallennus säilyttää vastauksen ja sen metatiedot paikallisena kopiona.
 
-Snapshots include abstract text, license, provider, retrieval time, article identifiers, query and per-provider status. They are saved with the existing heart/stack flow. They do not acquire reviewer names, review dates or automatic updates.
+Jos riittävää tukea ei löydy, vastaus kertoo tiedon puuttumisesta. Yhden lähdepalvelun virhe ei estä muiden käyttöä; virhe näkyy hakutiedoissa. Kaikkien lähteiden yhteysvirhe on palveluvirhe, ei väite tiedon puuttumisesta.
 
-## Limits and operation
+## Vastausten muotoilu
 
-Workers use the existing persistent global quota: 50 accepted requests per UTC day, at least 60 seconds apart. A request uses at most two Groq calls (query planning and summary). Empty/blocked searches use only the planning call. Translation is bounded to 10 seconds, each source request to 12 seconds, and summarization to 20 seconds. PubMed makes two sequential calls; the client allows 65 seconds. Provider bodies are bounded to 600 KB and redirects are refused. Arbitrary publisher links are never fetched. No questions or responses are logged by application code; source platforms receive search terms.
+21.9.2026 päivitetty ohje painottaa konkreettista, lähteisiin perustuvaa oppimisvastausta. Tavallinen pituus on 60–150 sanaa. Vastaus alkaa **Lyhyesti:**-kohdalla. **Käytännössä:** sisältää 3–5 valmisteluun, seurantaan tai käsittelyyn liittyvää huomiota vain, jos lähteet tukevat niitä. **Huomioi:** kertoo tarvittaessa olennaisen rajoituksen. Lyhyt määritelmä ei tarvitse kaikkia osioita eikä tekstiä venytetä sanamäärän vuoksi.
 
-Cloudflare activation: `CHAT_ENABLED=true` and `RESEARCH_ENABLED=true`. `CHAT_ENABLED=false` disables chat. `RESEARCH_ENABLED=false` restores the reviewed local-corpus path (currently empty). Local Node development uses `RESEARCH_ENABLED=true` in `server/.env`.
+Ohje ei salli annosvastauksia, potilaskohtaisia toimintaohjeita tai lähteettömän ”asiantuntijakäytännön” lisäämistä. Näytön varmuutta ei päätellä pelkästä tutkimusasetelmasta. Viitteet jäävät lähdepainikkeen taakse. Malliasetus on edelleen `reasoning_effort: low`; muotoiluohje ei muuta lähdepalvelujen hakua tai tee hoitosuosituksista automaattisesti ensisijaisia.
 
-GitHub Pages uses the verified Worker `/chat` endpoint as the public workflow default. Native builds still require `EXPO_PUBLIC_CHAT_API_URL`. The UI retains the prewritten demo toggle.
+## Lähteiden erot
 
-## Verification status
+| Lähde          | Mitä haetaan ja käytetään?                                                                                                                                               |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| PubMed         | Enintään 4 artikkelin otsikko-, PMID- ja DOI-tiedot. PubMedin abstraktitekstiä ei kopioida mallille.                                                                     |
+| Europe PMC     | Enintään 6 avointa hakutulosta. Vain selvästi CC BY- tai CC0-lisensoidut abstraktit kelpaavat tiivistelmään.                                                             |
+| DOAJ           | Enintään 6 hakutulosta. Abstraktimetatietoja käytetään DOAJ:n CC0-ehtojen perusteella; tämä ei anna oikeutta kustantajan kokotekstiin.                                   |
+| WikiAnesthesia | Enintään 3 wikiartikkelin tekstihaku. Mallille valitaan enintään 2 alkuosan katkelmaa, korkeintaan 5 500 merkkiä kumpikin. Tyhjät sivut ja lähdeluettelot jätetään pois. |
 
-- Deterministic tests exercise query rejection, license filtering, deduplication, API outages, response-size limits, title-only abstention, source attribution, and persistent saved research cards.
-- A real source-only query `anesthesia depth monitoring` returned results from all three providers and three eligible abstracts. This proves retrieval connectivity, not answer quality.
-- Live Groq/Cloudflare acceptance results are recorded separately after deployment. This research demo has not undergone clinical validation. The reviewed-corpus evaluation in `chat-evaluation.md` remains a separate, unfinished gate for that mode.
+Tutkimuksista käytetään enintään kolmea kokonaista abstraktia, 120–6 000 merkkiä kutakin. PMID- ja DOI-tunnisteilla yhdistetään päällekkäisiä julkaisuja. Palautetuissa metatiedoissa näkyvä peruutus-, huolenilmaisu- tai preprint-merkintä sulkee tutkimuksen pois tiivistelmästä. Tämä ei takaa kaikkien tällaisten merkintöjen havaitsemista.
 
-Official references:
-- https://www.ncbi.nlm.nih.gov/books/NBK25497/
-- https://www.ncbi.nlm.nih.gov/About/disclaimer.html
-- https://europepmc.org/RestfulWebService
-- https://doaj.org/docs/faq/
-- https://console.groq.com/docs/structured-outputs
+Haku ei lataa tutkimusten kokotekstejä eikä koko wikiä. WikiAnesthesian usean sivun kokotekstiotteet haetaan erikseen, koska sen TextExtracts-rajapinta palauttaa vain yhden kokonaisen otteen pyyntöä kohden. Kuvia, laskureita ja sivujen linkittämiä julkaisuja ei tuoda sovellukseen.
 
-## Live acceptance, 2026-09-19
+## WikiAnesthesian lisenssi ja tekijät
 
-A deployed browser query about anesthesia depth monitoring completed through the user's Groq secret, with 4 PubMed, 6 Europe PMC and 6 DOAJ discovery records and 3 eligible Europe PMC abstracts cited. The answer's numerical accuracy claim was present in its cited abstract. Opening citations showed full used abstracts, licenses and retrieval dates. Saving the answer with the heart and reopening it after a page reload preserved the answer and its research metadata.
+WikiAnesthesian [tekijänoikeusosio](https://wikianesthesia.org/wiki/WikiAnesthesia:General_disclaimer) ilmoittaa lisenssiksi CC BY-SA 4.0:n. Samalla sivulla on myös yleistä henkilökohtaiseen käyttöön viittaavaa sanamuotoa. Toteutus perustuu nimenomaiseen tekstin lisenssimerkintään: viitteessä säilytetään artikkelin versiolinkki, tekijähistoria, lisenssi ja hakupäivä. Wikiin perustuva vastausteksti merkitään tekoälyllä lyhennetyksi ja käännetyksi CC BY-SA 4.0 -tekstiksi.
 
-The first wording overgeneralized the small evidence sample. The research prompt was tightened to attribute findings to individual studies, mention study limitations, and include sample size when reporting accuracy. PubMed discovery now excludes animal-only MeSH records. Neither change is a guarantee of clinical accuracy or exhaustive relevance.
+Merkintä ei muuta sovelluskoodin tai erikseen lisensoitujen tutkimusabstraktien lisenssiä. Rajapinnan `rightsinfo` on tyhjä, joten sitä ei käytetä lisenssin päättelemiseen. Käyttöehdot on tarkistettava uudelleen, jos käyttöä laajennetaan esimerkiksi kaupalliseksi.
 
-A production-only failure was reproduced in workerd: `redirect: 'error'` raises a TypeError in the installed runtime. All upstream calls now use `manual`, reject non-success responses, and never follow redirect locations. Two real workerd tests cover successful query planning and rejecting a redirect without forwarding credentials. CI installs the Worker dependencies before linting those tests.
+## Rajat
 
-A no-evidence browser query for a deliberately fictitious monitor name (`Zyxqvorn`) returned zero results from all three providers and the fixed Finnish no-source answer, with no citations. It did not invent a device description.
+- Yhteinen 50 hyväksytyn pyynnön päiväkohtainen kiintiö, vähintään 60 sekuntia pyyntöjen välissä.
+- Enintään kaksi Groq-kutsua kysymystä kohden: hakusanojen muodostus ja tiivistys. Tyhjä tai estetty haku ei tarvitse tiivistyskutsua.
+- Hakusanojen muodostuksen aikaraja 10 s, yksittäisen lähdepyynnön 12 s, tiivistyksen 20 s ja asiakkaan kokonaisodotuksen 65 s.
+- Lähdepalvelujen vastauskoko on rajattu 600 kilotavuun. Uudelleenohjauksia ei seurata eikä satunnaisia kustantajalinkkejä haeta.
+- Tallennetut vastaukset eivät päivity lähteiden muuttuessa. Niille ei keksitä tarkistajaa tai kliinisiä tarkistuspäiviä.
 
-## WikiAnesthesia (20.9.2026)
+[Cloudflare-ohje](cloudflare-deployment.md) kertoo käyttöönoton, sulkemisen ja tietojen käsittelyn.
 
-The live educational search also queries WikiAnesthesia's public MediaWiki API.
-It searches main-namespace pages, skips empty placeholders, retrieves at most
-three text extracts and includes up to two opening excerpts (whole paragraphs,
-maximum 5,500 characters each). Bibliographies are excluded. This is a bounded
-online search, not a full-site import or a complete evidence review. A source
-failure is displayed and does not prevent the other sources from answering.
+## Tehdyt tarkistukset
 
-Wiki evidence is explicitly typed `wiki`; it is not labelled a research abstract
-or clinically reviewed content. The prompt distinguishes wiki explanations from
-individual study findings. Existing patient-specific and medication-dose
-restrictions remain in place. Each citation preserves its revision permalink,
-revision timestamp, contributors/history link, retrieval date and license.
-These fields survive saving/reloading a card. No new API key is needed.
+19.9.2026 julkaistussa selaindemossa kysymys anestesiasyvyyden seurannasta palautti hakutuloksia kolmesta tutkimuspalvelusta ja viittasi kolmeen Europe PMC:n abstraktiin. Tallennus säilyi sivun päivityksessä. Keksitty monitorinimi `Zyxqvorn` palautti tyhjän haun eikä keksittyä laitekuvausta. Yksi potilaskohtainen annoskysymys palautti rajauksen.
 
-The site's copyright section specifies CC BY-SA 4.0:
-https://wikianesthesia.org/wiki/WikiAnesthesia:General_disclaimer
-Its surrounding terms also contain generic personal-use wording; this integration
-relies on the explicit text copyright license, attributes the contributors and
-marks wiki-derived answer text as an AI-translated/shortened CC BY-SA 4.0
-adaptation. This notice does not license the application's code or separately
-attributed research abstracts under CC BY-SA. Images, logos, calculators and
-linked third-party publications are not imported. The API's `rightsinfo` is
-empty, so it is not used to invent a license. Review the source's terms again
-before any commercial reuse.
+Ensimmäinen tutkimustiivistelmä yleisti pienen tutkimusotoksen havaintoja. Mallin ohjetta muutettiin kuvaamaan yksittäisten tutkimusten tuloksia ja niiden rajoja. Tämä ei takaa kaikkien vastausten oikeellisuutta.
 
-Tests cover empty-page exclusion, bibliography exclusion, fixed API host,
-revision/attribution preservation, wiki-only synthesis with other sources offline,
-and saved-card license display/validation. API checks confirmed the search and
-plain-text extracts for combined spinal-epidural anesthesia.
+Cloudflaren workerd-ajoympäristössä havaittiin, ettei `redirect: 'error'` toiminut käytetyssä versiossa. Kutsut vaihdettiin `manual`-tilaan ja ei-onnistuneet vastaukset hylätään. Kaksi workerd-testiä varmistaa kyselyn ja uudelleenohjauksen hylkäyksen ilman tunnisteiden välittämistä eteenpäin.
+
+20.9.2026 kysymys yhdistetystä spinaali-epiduraalipuudutuksesta palautti WikiAnesthesiaan perustuvan vastauksen. Viite, tekijähistoria ja lisenssi näkyivät, ja tallennettu kortti säilyi sivun päivityksessä. PubMed-haku epäonnistui tässä kokeessa ja virhe näkyi oikein muiden lähteiden tulosten rinnalla.
+
+Automaattiset testit kattavat muun muassa käyttöoikeussuodatuksen, päällekkäiset tulokset, tyhjät sivut, lähdepalvelujen virheet, katkelmatunnisteet ja tallennuksen. [Laajempi vastausten laadun arviointi](chat-evaluation.md) on edelleen tekemättä.
+
+## Rajapintojen ohjeet
+
+- [PubMed E-utilities](https://www.ncbi.nlm.nih.gov/books/NBK25497/)
+- [PubMedin käyttöehdot](https://www.ncbi.nlm.nih.gov/About/disclaimer.html)
+- [Europe PMC](https://europepmc.org/RestfulWebService)
+- [DOAJ:n käyttöehdot](https://doaj.org/docs/faq/)
+- [Groqin rakenteinen vastaus](https://console.groq.com/docs/structured-outputs)

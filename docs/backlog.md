@@ -1,22 +1,17 @@
-# Initial backlog
+# Avoimet tehtävät
 
-This document mirrors the initial GitHub issue backlog and preserves its prioritization in the repository.
+GitHubin issuet ovat tehtävien varsinainen lista. Tässä on lyhyt hakemisto; toteutushistoria löytyy suljetuista issueista ja pull requesteista.
 
-## P0 — Foundation
+## Nykyisen demon viimeistely
 
-1. Define MVP user journeys.
-2. Record the frontend stack decision.
-3. Create the v0.1 application scaffold.
+- [#5 Saavutettavuuden tarkistus](https://github.com/KasperKop/anestesiahelppi/issues/5)
+- [#10 Riippuvuuksien tietoturvahavaintojen selvitys](https://github.com/KasperKop/anestesiahelppi/issues/10)
+- [#4 Pieni käytettävyyskokeilu](https://github.com/KasperKop/anestesiahelppi/issues/4)
 
-## P1 — Prototype
+## Jatkoideat
 
-4. Build mobile navigation and checklist shell.
-5. Define the versioned content schema.
-6. Establish accessibility tests.
+- [#1 Muistilistan kokeilu](https://github.com/KasperKop/anestesiahelppi/issues/1)
+- [#7 Tarkistetun sisältökokoelman tietomalli](https://github.com/KasperKop/anestesiahelppi/issues/7)
+- [#8 Sisällön tarkistuskäytäntö](https://github.com/KasperKop/anestesiahelppi/issues/8)
 
-## P2 — Discovery and governance
-
-7. Plan user interviews and usability testing.
-8. Define the clinical content review workflow.
-
-Each GitHub issue contains detailed acceptance criteria. The backlog will evolve as discovery produces new evidence.
+Jatkoideat eivät estä portfoliodemon esittelyä. Avoin tehtävä ei myöskään tarkoita, että sitä olisi luvattu toteuttaa tiettyyn päivään mennessä.

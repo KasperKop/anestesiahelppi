@@ -1,53 +1,46 @@
-# Development approach
+# Kehittäminen
 
-## Portfolio workflow
+Projekti on tehty tekoälyavusteisesti. Kasperi suunnittelee käyttötapauksia, kokeilee sovellusta ja ohjaa muutoksia; ChatGPT ja Codex ovat auttaneet koodin, testien ja dokumentaation tekemisessä. Tarkoitus on oppia ja säilyttää ymmärrettävä kehityshistoria.
 
-Work is split into small issues and focused commits. Pull requests should explain the problem, chosen approach, alternatives, tests and screenshots when the interface changes.
+## Paikallinen käynnistys
 
-The project owner directs product decisions and reviews visible outcomes. The implementation agent is responsible for code, tests and technical documentation, so participation does not require the owner to write code.
+Käytä Node.js 24:ää. Riippuvuuksien versiot ovat `package.json`- ja lukitustiedostoissa.
 
-## Branches and commits
+```sh
+npm ci
+npm run web
+```
 
-- Keep `main` in a reviewable state.
-- Use short-lived feature branches once application development starts.
-- Prefer conventional commit prefixes such as `docs:`, `feat:`, `fix:`, `test:` and `chore:`.
-- Keep unrelated changes in separate commits.
+Ilman chatin osoitetta sovellus käyttää esittelytilaa. [Chatin kehitysohje](chat-development.md) kertoo palvelimen asetukset.
 
-## Definition of done
+## Tarkistukset
 
-A change is done when its acceptance criteria are met, relevant automated checks pass, documentation is updated and safety or accessibility implications have been considered.
+Aja repon juuresta:
 
-## Decision records
+```sh
+npm ci --prefix cloudflare
+npm run format:check
+npm run lint
+npm run typecheck
+npm test
+npm run test:server
+npm run build:web
+npm run check --prefix cloudflare
+npm run test:runtime --prefix cloudflare
+```
 
-Material choices — application stack, content storage, offline update model and assistant architecture — are recorded under `docs/decisions/`.
+Cloudflaren riippuvuudet tarvitaan myös sen ajonaikaisten testien ja lint-tarkistuksen käyttöön. GitHub Actions suorittaa nämä tarkistukset PR:issä ja päähaaran muutoksissa. Automaattiset testit eivät arvioi lääketieteellistä oikeellisuutta tai korvaa laitetestausta.
 
-- [ADR 0001: Use Expo and React Native for the application](decisions/0001-expo-react-native.md)
+## Muutosten tekeminen
 
-## Selected development baseline
+Pidä yksi PR yhdessä aiheessa. Kuvaa lyhyesti mitä muuttui, miksi ja miten kokeilit sitä. Suomenkielinen teksti riittää; työkalujen nimet, koodin tunnisteet ja tekniset virheilmoitukset voivat olla englanniksi. Aiemmat englanninkieliset PR:t ovat osa historiaa.
 
-- Expo with React Native and strict TypeScript
-- Expo Router for iOS, Android and optional web navigation
-- Jest and React Native Testing Library for component behavior
-- GitHub Actions for formatting, linting, type checking and tests
-- EAS development and preview builds when installable device testing begins
+Nykyinen Cloudflare Builds seuraa `feat/cloudflare-chat`-haaraa. Siihen viety muutos voi julkaista palvelimen jo ennen PR:n yhdistämistä. GitHub Pages julkaisee selainversion `main`-haarasta. Älä poista tai nimeä palvelinhaaraa uudelleen päivittämättä ensin Cloudflaren asetusta.
 
-Exact dependency versions will be selected and committed with the v0.1 scaffold.
+## Julkaisu ja tallennus
 
-## Proposed quality gates
+Selaindemo julkaistaan `.github/workflows/pages.yml`-työnkululla. `GITHUB_PAGES=true` lisää `/anestesiahelppi`-polun vain Pages-koontiin. Paikallinen ja natiivikehitys käyttävät tavallisia polkuja.
 
-- Formatting and linting
-- Strict TypeScript checks
-- Unit and component tests
-- Accessibility checks for core flows
-- Android and iOS device-level verification
-- Responsive web smoke tests for the portfolio preview
-- Dependency and secret scanning
-- Content-schema validation once clinical content is introduced
+Selain tallentaa kortit localStorageen; natiivisovelluksen tallennus on toteutettu Expo SQLitellä. Natiiviversion toiminta on vielä varmistettava laitteilla. Sovelluskauppajulkaisua tai pilvisynkronointia ei ole.
 
-## Supported review workflow
-
-The owner can review progress through GitHub pull requests, screenshots, a web preview and later installable Android/iOS preview builds. Store releases, developer accounts and signing credentials remain separate, explicitly approved release steps.
-
-## Content contributions
-
-Clinical content changes require traceable sources and review metadata. A software review alone does not make content clinically approved.
+Tekniset päätökset löytyvät [Expo-päätöksestä](decisions/0001-expo-react-native.md) ja [chatin päätöksestä](decisions/0002-source-chat-memory.md). Ne on säilytetty alkuperäisinä päivättyinä muistiinpanoina.

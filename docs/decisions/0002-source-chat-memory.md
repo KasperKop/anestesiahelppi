@@ -1,5 +1,7 @@
 # ADR 0002: Source-grounded chat and a local memory bank
 
+> Historiallinen päätösmuistio: säilytetty alkuperäisellä kielellä ja päätöspäivän tilanteessa. Nykyinen toteutus ja testauksen tila löytyvät [kehitysohjeesta](../development.md) ja [chatin kuvauksesta](../research-demo.md). Erityisesti hosting, julkinen lähdehaku ja käyttörajat ovat muuttuneet alkuperäisen suunnitelman jälkeen.
+
 - Status: Accepted direction; live model evaluation pending
 - Date: 2026-09-13
 - Scope: Educational portfolio prototype

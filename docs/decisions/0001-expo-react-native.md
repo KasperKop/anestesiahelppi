@@ -1,5 +1,7 @@
 # ADR 0001: Use Expo and React Native for the application
 
+> Historiallinen päätösmuistio: säilytetty alkuperäisellä kielellä ja päätöspäivän tilanteessa. Nykyinen toteutus ja testauksen tila löytyvät [kehitysohjeesta](../development.md) ja [chatin kuvauksesta](../research-demo.md). Erityisesti hosting, julkinen lähdehaku ja käyttörajat ovat muuttuneet alkuperäisen suunnitelman jälkeen.
+
 - **Status:** Accepted
 - **Date:** 2026-09-06
 - **Decision owners:** Project owner and implementation agent
