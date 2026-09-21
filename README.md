@@ -24,11 +24,11 @@ Chat on tämän portfoliovaiheen osalta valmis kokeiltavaksi. Koko sovellus on e
 
 Chatilla on yhteinen käyttöraja: enintään 50 hyväksyttyä pyyntöä vuorokaudessa ja vähintään minuutti pyyntöjen välillä. Raja koskee kaikkia demon käyttäjiä yhteensä. Jos haku ei onnistu, esittelytilalla voi silti kokeilla tallennusta ja pinoja. Kortit tallentuvat paikallisesti; selaintietojen poistaminen poistaa myös selaimeen tallennetut kortit.
 
-## Oma roolini ja tekoälyn käyttö
+## Miksi tein tämän?
 
-Olen tuonut projektiin aiheen, käyttötapaukset ja käyttöliittymätoiveet sekä kokeillut sovellusta ja ohjannut muutoksia. Koodi, testit ja dokumentaatio on tehty suurelta osin ChatGPT:n ja Codexin avulla. Tämä ei siis ole näyttö siitä, että olisin kirjoittanut kaiken koodin itsenäisesti.
+Halusin kokeilla, miten anestesiahoitajan työstä lähtenyt idea muuttuu toimivaksi sovellukseksi. Suunnittelin käyttötapaukset ja ulkoasun, kokeilin eri ratkaisuja ja muokkasin kokonaisuutta sen perusteella, mikä tuntui käytössä selkeältä. Toteutuksessa olen käyttänyt apuna ChatGPT:tä ja Codexia.
 
-Projektissa harjoittelen sovellusidean rajaamista, GitHubin käyttöä ja sitä, miten oma palaute muuttuu toimivaksi toteutukseksi. Kehitysvaiheet ja korjaukset näkyvät repon issueissa ja pull requesteissa.
+Tämä on ensimmäinen tällainen projektini, joten opettelen samalla GitHubin käyttöä ja sovelluskehityksen eri vaiheita. Olen pitänyt kehitysvaiheet ja korjaukset näkyvillä issueissa ja pull requesteissa, jotta projektin etenemistä voi seurata.
 
 ## Tekniikka
 

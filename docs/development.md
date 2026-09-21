@@ -1,6 +1,6 @@
 # Kehittäminen
 
-Projekti on tehty tekoälyavusteisesti. Kasperi suunnittelee käyttötapauksia, kokeilee sovellusta ja ohjaa muutoksia; ChatGPT ja Codex ovat auttaneet koodin, testien ja dokumentaation tekemisessä. Tarkoitus on oppia ja säilyttää ymmärrettävä kehityshistoria.
+Olen rakentanut sovellusta vaihe kerrallaan: ensin käyttöliittymä ja painokortit, sitten chat ja tallennetut vastaukset. Kokeilen muutoksia selaindemossa ja tarkennan toteutusta havaintojen perusteella. ChatGPT ja Codex ovat olleet apuna kehityksessä. Tähän olen koonnut käynnistysohjeet ja projektissa käytetyt tarkistukset.
 
 ## Paikallinen käynnistys
 
@@ -33,7 +33,7 @@ Cloudflaren riippuvuudet tarvitaan myös sen ajonaikaisten testien ja lint-tarki
 
 ## Muutosten tekeminen
 
-Pidä yksi PR yhdessä aiheessa. Kuvaa lyhyesti mitä muuttui, miksi ja miten kokeilit sitä. Suomenkielinen teksti riittää; työkalujen nimet, koodin tunnisteet ja tekniset virheilmoitukset voivat olla englanniksi. Aiemmat englanninkieliset PR:t ovat osa historiaa.
+Pyrin pitämään yhden PR:n yhdessä aiheessa ja kuvaamaan lyhyesti, mitä muuttui, miksi ja miten muutos tarkistettiin. Kirjoitan projektin kuvaukset suomeksi. Työkalujen nimet, koodin tunnisteet ja tekniset virheilmoitukset ovat tarvittaessa englanniksi. Aiemmat englanninkieliset PR:t ovat osa kehityshistoriaa.
 
 Nykyinen Cloudflare Builds seuraa `feat/cloudflare-chat`-haaraa. Siihen viety muutos voi julkaista palvelimen jo ennen PR:n yhdistämistä. GitHub Pages julkaisee selainversion `main`-haarasta. Älä poista tai nimeä palvelinhaaraa uudelleen päivittämättä ensin Cloudflaren asetusta.
 

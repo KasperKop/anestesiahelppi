@@ -1,10 +1,10 @@
 # Idea ja rajaus
 
-AnestesiaHelppi on anestesiahoitajan ensimmäinen harrastus- ja portfolioprojekti. Lähtökohtana oli ajatus puhelimella käytettävästä muistilista- ja tietopankkisovelluksesta. Rakentamisen aikana painopiste siirtyi painokortteihin, lähdehakuun ja omien vastauskorttien järjestämiseen.
+AnestesiaHelppi on ensimmäinen harrastus- ja portfolioprojektini. Idea lähti omasta työstäni anestesiahoitajana: halusin kokeilla puhelimella käytettävää muistilista- ja tietopankkisovellusta. Rakentamisen aikana keskityin painokortteihin, lähdehakuun ja omien vastauskorttien järjestämiseen.
 
 ## Nykyinen tavoite
 
-Rakentaa kokeiltava demo ja oppia sovelluksen suunnittelua sekä tekoälyavusteista kehitystä. Käyttäjä voi valita painokortin, kysyä yleisen oppimiskysymyksen ja tallentaa vastauksen omaan pinoon. Käyttöliittymä pidetään rauhallisena ja suomenkielisenä.
+Tavoitteeni on saada aikaan kokeiltava demo ja oppia samalla sovelluksen suunnittelua sekä tekoälyavusteista kehitystä. Käyttäjä voi valita painokortin, kysyä yleisen oppimiskysymyksen ja tallentaa vastauksen omaan pinoon. Käyttöliittymä pidetään rauhallisena ja suomenkielisenä.
 
 Kohderyhmä tässä vaiheessa ovat projektia kokeilevat ihmiset ja portfolioon tutustuvat arvioijat. Käytettävyyttä oikeassa potilastyössä tai ammatillista hyötyä ei ole osoitettu käyttäjätutkimuksella.
 
