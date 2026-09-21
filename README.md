@@ -14,7 +14,7 @@ Ensimmäinen harrastus- ja portfolioprojektini: anestesiahoitotyön aiheista syn
 - Tallentaa vastauksen sydämestä ja järjestää kortteja itse nimettyihin **Omat pinot** -kokoelmiin.
 - Kokeilla valmiita esimerkkivastauksia **Esittelytilassa** ilman mallikutsuja.
 
-Chat on tämän portfoliovaiheen osalta valmis kokeiltavaksi. Koko sovellus on edelleen prototyyppi. Selainversio on julkaistu; erillisiä iOS- ja Android-julkaisuja ei ole tehty.
+Selainversio on julkaistu kokeiltavaksi. Sovellus on edelleen prototyyppi; erillisiä iOS- ja Android-julkaisuja ei ole tehty.
 
 ## Kokeile näin
 
@@ -22,7 +22,7 @@ Chat on tämän portfoliovaiheen osalta valmis kokeiltavaksi. Koko sovellus on e
 2. Avaa lähteet nähdäksesi, mihin vastaus perustuu.
 3. Tallenna vastaus sydämestä ja siirry **Omat pinot** -välilehdelle.
 
-Chatilla on yhteinen käyttöraja: enintään 50 hyväksyttyä pyyntöä vuorokaudessa ja vähintään minuutti pyyntöjen välillä. Raja koskee kaikkia demon käyttäjiä yhteensä. Jos haku ei onnistu, esittelytilalla voi silti kokeilla tallennusta ja pinoja. Kortit tallentuvat paikallisesti; selaintietojen poistaminen poistaa myös selaimeen tallennetut kortit.
+Demon yhteinen käyttöraja on 50 pyyntöä vuorokaudessa ja vähintään minuutti pyyntöjen välillä. Esittelytila toimii myös ilman lähdehakua. Kortit tallentuvat paikallisesti: selaintietojen poistaminen poistaa myös kortit.
 
 ## Miksi tein tämän?
 
@@ -43,14 +43,6 @@ Tämä on ensimmäinen tällainen projektini, joten opettelen samalla GitHubin k
 
 Toteutus suosii ilmaisia palvelutasoja. API-avain on palvelimella, eikä sitä sisällytetä sovellukseen tai repoon.
 
-## Mitä vielä puuttuu?
-
-- iOS- ja Android-laitteilla tehtävä kattava testaus.
-- Järjestelmällinen saavutettavuuden ja suomenkielisten tekoälyvastausten arviointi.
-- Riippuvuuksien tietoturvahavaintojen läpikäynti.
-
-Muistilistat, pilvisynkronointi ja sovelluskauppajulkaisu ovat mahdollisia jatkoideoita, eivät tämän version lupauksia. Chat käyttää rajattuja lähdekatkelmia eikä tee kattavaa kirjallisuuskatsausta. Lähdeviite ei yksin takaa vastauksen oikeellisuutta.
-
 ## Käynnistys omalla koneella
 
 Node.js 24:
@@ -62,17 +54,14 @@ npm run web
 
 Ilman `EXPO_PUBLIC_CHAT_API_URL`-asetusta käytössä ovat valmiit esimerkkivastaukset. Oikean lähdehaun asetukset löytyvät [chatin kehitysohjeesta](docs/chat-development.md).
 
-## Dokumentaatio
+## Lisätietoa
 
-- [Idea ja rajaus](docs/concept.md)
-- [Käyttöpolut](docs/user-journeys.md)
-- [Ulkoasun periaatteet](docs/ui-guidelines.md)
-- [Kehityksen tilanne](docs/roadmap.md) ja [avoimet tehtävät](docs/backlog.md)
-- [Kehittäminen ja tarkistukset](docs/development.md)
-- [Chatin toiminta ja lähteet](docs/research-demo.md)
-- [Cloudflaren käyttöönotto ja sulkeminen](docs/cloudflare-deployment.md)
-- [Sisällön rajat](docs/clinical-safety.md) ja [chatin arviointi](docs/chat-evaluation.md)
-- Alkuperäiset tekniset päätökset: [Expo](docs/decisions/0001-expo-react-native.md), [chat ja tallennus](docs/decisions/0002-source-chat-memory.md)
+| Aihe                 | Ohjeet                                                                                                                                         |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Projektin eteneminen | [Tehdyt ominaisuudet ja jatkoideat](docs/roadmap.md)                                                                                           |
+| Sovelluksen käyttö   | [Käyttöpolut](docs/user-journeys.md) · [Ulkoasun periaatteet](docs/ui-guidelines.md)                                                           |
+| Kehittäminen         | [Käynnistys ja tarkistukset](docs/development.md) · [Chatin asetukset](docs/chat-development.md) · [Cloudflare](docs/cloudflare-deployment.md) |
+| Lähteet ja rajat     | [Chatin toiminta](docs/research-demo.md) · [Vastausten arviointi](docs/chat-evaluation.md) · [Sisällön rajat](docs/clinical-safety.md)         |
 
 ## Lisenssit
 
