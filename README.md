@@ -3,7 +3,7 @@
 Ensimmäinen harrastus- ja portfolioprojektini: anestesiahoitotyön aiheista syntynyt mobiilikäyttöön suunniteltu sovellus. Olen anestesiahoitaja, ja halusin kokeilla, miten työstä tuttuja tiedonhakuun ja käyttöliittymiin liittyviä ideoita voisi toteuttaa itse suunnitellussa sovelluksessa.
 
 **[Kokeile selaindemoa](https://kasperkop.github.io/anestesiahelppi/)** · [Kehityksen tilanne](docs/roadmap.md) · [Paikallinen käynnistys](docs/development.md)
-
+![Etusivu](https://github.com/KasperKop/anestesiahelppi/blob/1a373b43b785f9756f1221cf3805ef0612baf07e/Screenshot_10.png)
 > Sovellus on oppimisprojekti, ei potilastyöhön tarkoitettu työkalu. Painokorttien sisältöä ja tekoälyn vastauksia ei ole validoitu kliiniseen käyttöön. Älä syötä potilastietoja.
 
 ## Mitä sovelluksella voi tehdä?
