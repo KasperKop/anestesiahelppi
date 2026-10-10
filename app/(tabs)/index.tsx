@@ -2,6 +2,7 @@ import { router } from 'expo-router';
 import {
   KeyboardAvoidingView,
   Platform,
+  Pressable,
   ScrollView,
   Text,
   View,
@@ -22,9 +23,38 @@ export default function HomeScreen() {
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={ui.page}
         >
-          <Text accessibilityRole="header" style={ui.label}>
-            ANESTESIAHELPPI
-          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 12,
+              flexWrap: 'wrap',
+            }}
+          >
+            <Text accessibilityRole="header" style={ui.label}>
+              ANESTESIAHELPPI
+            </Text>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Elvytys: avaa ikäryhmittäiset ohjeet"
+              onPress={() => router.push('/resuscitation')}
+              style={({ pressed }) => ({
+                borderWidth: 1,
+                borderColor: '#B42318',
+                backgroundColor: pressed ? '#FDECEB' : '#FFFFFF',
+                borderRadius: 16,
+                paddingHorizontal: 18,
+                paddingVertical: 14,
+              })}
+            >
+              <Text
+                style={{ color: '#B42318', fontWeight: '700', fontSize: 16 }}
+              >
+                ♡ Elvytys
+              </Text>
+            </Pressable>
+          </View>
           <View style={{ gap: 12 }}>
             <Text style={[ui.small, { textAlign: 'center' }]}>
               Valitse paino
