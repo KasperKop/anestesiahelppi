@@ -4,6 +4,7 @@ Ensimmäinen harrastus- ja portfolioprojektini: anestesiahoitotyön aiheista syn
 
 **[Kokeile selaindemoa](https://kasperkop.github.io/anestesiahelppi/)** · [Kehityksen tilanne](docs/roadmap.md) · [Paikallinen käynnistys](docs/development.md)
 ![Etusivu](https://github.com/KasperKop/anestesiahelppi/blob/1a373b43b785f9756f1221cf3805ef0612baf07e/Screenshot_10.png)
+
 > Sovellus on oppimisprojekti, ei potilastyöhön tarkoitettu työkalu. Painokorttien sisältöä ja tekoälyn vastauksia ei ole validoitu kliiniseen käyttöön. Älä syötä potilastietoja.
 
 ## Mitä sovelluksella voi tehdä?
@@ -66,3 +67,7 @@ Ilman `EXPO_PUBLIC_CHAT_API_URL`-asetusta käytössä ovat valmiit esimerkkivast
 ## Lisenssit
 
 Projektin omalle koodille ei ole vielä valittu avointa lisenssiä. Ulkopuolisilla lähdeteksteillä on omat käyttöehtonsa. WikiAnesthesiaan perustuvien tekstien CC BY-SA 4.0 -merkinnät ja tekijätiedot ovat vastauksen lähdetiedoissa. Tämä lisenssi ei koske koko sovelluksen koodia.
+
+## Elvytysohjeiden kokeilu
+
+Etusivun Elvytys-painikkeesta avautuvat ERC 2025 -ohjeisiin perustuvat suomenkieliset tiivistelmät vastasyntyneille syntymän yhteydessä, lapsille ja aikuisille. Kyseessä on epävirallinen, potilastyöhön validoimaton oppimissisältö. [Toteutus, lähteet ja rajaukset](docs/resuscitation.md).
