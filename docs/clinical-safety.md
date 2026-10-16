@@ -10,6 +10,8 @@ AnestesiaHelppi on harrastus- ja portfolioprojekti. Sisältöä ei ole validoitu
 
 **Tallennetut vastaukset** ovat paikallisia kopioita. Ne eivät päivity automaattisesti eikä tallentaminen tee niistä tarkistettuja.
 
+**Hätätilannekortit** ovat 12 tilanteen oppimistiivistelmiä. Paikallisten numeroiden ja sijaintien poistaminen ei tee niistä yleisesti hyväksyttyjä ohjeita. Annos- ja laimennostaulukot on rajattu pois, eikä lisätietonäkymä ole täydellinen hoitoprotokolla. Sisältöä ei päivitetä automaattisesti. [Lähteet, päiväykset ja rajaukset](emergency-cards.md).
+
 Potilastietoja ei pidä syöttää chattiin. Kysymys välitetään Groq-palveluun ja hakusanat lähdepalveluihin. Lisätiedot ovat [palvelimen dokumentaatiossa](cloudflare-deployment.md).
 
 ## Mahdollinen tarkistettu sisältökokoelma
