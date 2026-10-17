@@ -433,7 +433,7 @@ export const emergencyCards: EmergencyCard[] = [
         text: 'EtCO₂, verikaasut, sydämen ultraääni ja kuvantaminen.',
       },
       {
-        title: 'Valmistele kohdennettu hoito',
+        title: 'Kohdennettu hoito',
         text: 'Huomioi trombi-, ilma-, rasva- ja muut emboliat.',
       },
       {

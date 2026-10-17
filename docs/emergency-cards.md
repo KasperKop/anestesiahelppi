@@ -30,3 +30,11 @@ Ennen mahdollista kliinistä käyttöä tarvitaan sisällön ajantasaisuuden, k�
 - `__tests__/emergencies.test.tsx`: etusivun reitit, kaikki 12 korttia, rajat, suora valinta, lisätietojen sulkeminen, lähdelinkki ja verkkovirhe.
 
 Automaattiset testit eivät vahvista lääketieteellistä oikeellisuutta. Ne tarkistavat käyttöliittymän toimintaa ja estävät paikallisten yhteystietojen sekä annostaulukoiden tahattoman palauttamisen tähän sisältöön.
+
+### Selaintarkistus 17.10.2026
+
+Tarkistin kaikki 12 korttia Chromiumin mobiiliemuloinnissa koossa 390 × 844, 375 × 812 ja 360 × 800. Tiivistin mobiilin otsikkoaluetta ja korttien välejä; kaikissa näissä koossa pääkortin sisältö mahtui ilman pystysuuntaista vieritystä. Leipätekstin koko pysyi ennallaan.
+
+Kosketustapahtumilla testattu pyyhkäisy toimi molempiin suuntiin. Etusivun Elvytys- ja Hätätilanteet-painikkeet olivat samalla rivillä. Lisätiedot ja paluu korttiin toimivat. Hypoksiakortin lisätietoihin pääsi myös 844 × 390 -vaakanäkymässä ja 150 prosenttiin suurennetulla tekstillä; vieritys säilytti sisällön saavutettavana. Selaimessa ei havaittu JavaScript-virheitä.
+
+Tämä on selainemuloinnin tarkistus, ei testi fyysisellä puhelimella, iOS Safarilla tai natiivisovelluksella. Se ei ole sisällön kliininen tarkistus.

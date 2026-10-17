@@ -24,7 +24,7 @@ export default function EmergenciesScreen() {
   const [linkError, setLinkError] = useState(false);
   const { height } = useWindowDimensions();
   const scroll = useRef<ScrollView>(null);
-  const compact = height < 820;
+  const compact = height < 900;
   const card = emergencyCards[index];
   const count = emergencyCards.length;
   useEffect(() => {
@@ -112,7 +112,9 @@ export default function EmergenciesScreen() {
             >
               {card.title}
             </Text>
-            <Text style={s.subtitle}>{card.subtitle}</Text>
+            <Text style={[s.subtitle, compact && s.compactSubtitle]}>
+              {card.subtitle}
+            </Text>
             <View style={[s.steps, compact && s.compactSteps]}>
               {card.steps.map((step, stepIndex) => (
                 <View
@@ -368,7 +370,8 @@ const s = StyleSheet.create({
     color: colors.textPrimary,
     marginTop: 8,
   },
-  compactTitle: { fontSize: 25, lineHeight: 29 },
+  compactTitle: { fontSize: 22, lineHeight: 26, marginTop: 4 },
+  compactSubtitle: { marginTop: 2, marginBottom: 6 },
   subtitle: {
     fontSize: 14,
     lineHeight: 19,
@@ -377,7 +380,7 @@ const s = StyleSheet.create({
     marginBottom: 12,
   },
   steps: { gap: 9, flexGrow: 1, justifyContent: 'center' },
-  compactSteps: { gap: 6 },
+  compactSteps: { gap: 4 },
   step: {
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -386,7 +389,7 @@ const s = StyleSheet.create({
     backgroundColor: '#F1F8FC',
     borderRadius: 14,
   },
-  compactStep: { padding: 7 },
+  compactStep: { paddingVertical: 5, paddingHorizontal: 7 },
   alert: { backgroundColor: '#FFF0ED' },
   number: {
     width: 25,
