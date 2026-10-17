@@ -35,11 +35,16 @@ export default function HomeScreen() {
             <Text accessibilityRole="header" style={ui.label}>
               ANESTESIAHELPPI
             </Text>
+          </View>
+          <View style={{ flexDirection: 'row', gap: 10, flexWrap: 'wrap' }}>
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Elvytys: avaa ikäryhmittäiset ohjeet"
               onPress={() => router.push('/resuscitation')}
               style={({ pressed }) => ({
+                flex: 1,
+                minWidth: 130,
+                alignItems: 'center',
                 borderWidth: 1,
                 borderColor: '#B42318',
                 backgroundColor: pressed ? '#FDECEB' : '#FFFFFF',
@@ -52,6 +57,29 @@ export default function HomeScreen() {
                 style={{ color: '#B42318', fontWeight: '700', fontSize: 16 }}
               >
                 ♡ Elvytys
+              </Text>
+            </Pressable>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Hätätilanteet: avaa toimintakortit"
+              onPress={() => router.push('/emergencies')}
+              style={({ pressed }) => ({
+                flex: 1,
+                minWidth: 130,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderWidth: 1,
+                borderColor: '#B42318',
+                backgroundColor: pressed ? '#FDECEB' : '#FFFFFF',
+                borderRadius: 16,
+                paddingHorizontal: 14,
+                paddingVertical: 14,
+              })}
+            >
+              <Text
+                style={{ color: '#B42318', fontWeight: '700', fontSize: 16 }}
+              >
+                Hätätilanteet
               </Text>
             </Pressable>
           </View>

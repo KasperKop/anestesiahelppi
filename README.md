@@ -14,6 +14,7 @@ Ensimmäinen harrastus- ja portfolioprojektini: anestesiahoitotyön aiheista syn
 - Avata vastauksen lähteet ja hakutiedot **Näytä lähteet** -painikkeesta.
 - Tallentaa vastauksen sydämestä ja järjestää kortteja itse nimettyihin **Omat pinot** -kokoelmiin.
 - Kokeilla valmiita esimerkkivastauksia **Esittelytilassa** ilman mallikutsuja.
+- Selata **Hätätilanteet**-painikkeesta 12 oppimiskorttia sekä avata niiden lisätiedot ja lähteet. **Elvytys** on oma rinnakkainen näkymänsä.
 
 Selainversio on julkaistu kokeiltavaksi. Sovellus on edelleen prototyyppi; erillisiä iOS- ja Android-julkaisuja ei ole tehty.
 
@@ -71,3 +72,5 @@ Projektin omalle koodille ei ole vielä valittu avointa lisenssiä. Ulkopuolisil
 ## Elvytysohjeiden kokeilu
 
 Etusivun Elvytys-painikkeesta avautuvat ERC 2025 -ohjeisiin perustuvat suomenkieliset tiivistelmät vastasyntyneille syntymän yhteydessä, lapsille ja aikuisille. Kyseessä on epävirallinen, potilastyöhön validoimaton oppimissisältö. [Toteutus, lähteet ja rajaukset](docs/resuscitation.md).
+
+Hätätilannekorttien käyttöliittymäkokeilussa pääkohdat ovat lyhyinä, pyyhkäistävinä kortteina. Paikalliset yhteystiedot, säilytyspaikat ja lääkeannostaulukot eivät sisälly tähän kokeiluun. [Korttien toteutus ja rajaukset](docs/emergency-cards.md).
