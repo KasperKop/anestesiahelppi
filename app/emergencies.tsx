@@ -1,9 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { router } from 'expo-router';
 import {
   Linking,
   Modal,
-  PanResponder,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -22,34 +21,26 @@ export default function EmergenciesScreen() {
   const [index, setIndex] = useState(0);
   const [panel, setPanel] = useState<'list' | 'details' | null>(null);
   const [linkError, setLinkError] = useState(false);
-  const { height } = useWindowDimensions();
-  const scroll = useRef<ScrollView>(null);
+  const { height, width } = useWindowDimensions();
+  const [pageWidth, setPageWidth] = useState(Math.min(width, 620) - 28);
+  const pager = useRef<ScrollView>(null);
+  const selectedIndex = useRef(0);
   const compact = height < 900;
   const card = emergencyCards[index];
   const count = emergencyCards.length;
   useEffect(() => {
-    scroll.current?.scrollTo({ y: 0, animated: false });
-  }, [index]);
-  const swipe = useMemo(
-    () =>
-      PanResponder.create({
-        onMoveShouldSetPanResponder: (_, g) =>
-          Math.abs(g.dx) > 24 && Math.abs(g.dx) > Math.abs(g.dy) * 1.8,
-        onPanResponderRelease: (_, g) => {
-          if (Math.abs(g.dx) < 50 || Math.abs(g.dx) < Math.abs(g.dy) * 1.8)
-            return;
-          setIndex((current) =>
-            Math.max(0, Math.min(count - 1, current + (g.dx < 0 ? 1 : -1))),
-          );
-        },
-      }),
-    [count],
-  );
+    pager.current?.scrollTo({
+      x: selectedIndex.current * pageWidth,
+      animated: false,
+    });
+  }, [pageWidth]);
   function select(next: number) {
-    setIndex(Math.max(0, Math.min(count - 1, next)));
+    const target = Math.max(0, Math.min(count - 1, next));
+    selectedIndex.current = target;
+    setIndex(target);
     setPanel(null);
     setLinkError(false);
-    scroll.current?.scrollTo({ y: 0, animated: false });
+    pager.current?.scrollTo({ x: target * pageWidth, animated: true });
   }
   async function openReference() {
     try {
@@ -90,67 +81,103 @@ export default function EmergenciesScreen() {
           Oppimisdemo · Ei potilastyöhön. Käytä paikallista ohjetta.
         </Text>
         <ScrollView
-          ref={scroll}
+          ref={pager}
+          testID="emergency-pager"
+          horizontal
+          pagingEnabled
+          directionalLockEnabled
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={16}
+          onLayout={(event) => setPageWidth(event.nativeEvent.layout.width)}
+          onScroll={(event) => {
+            const { contentOffset, layoutMeasurement } = event.nativeEvent;
+            if (!layoutMeasurement.width) return;
+            const next = Math.max(
+              0,
+              Math.min(
+                count - 1,
+                Math.round(contentOffset.x / layoutMeasurement.width),
+              ),
+            );
+            selectedIndex.current = next;
+            setIndex(next);
+          }}
           style={s.scroll}
-          contentContainerStyle={s.scrollContent}
         >
-          <View
-            testID="emergency-card"
-            {...swipe.panHandlers}
-            style={[s.card, compact && s.compactCard]}
-          >
-            <View style={s.meta}>
-              <Text style={s.caption}>
-                TOIMINTAKORTTI {String(index + 1).padStart(2, '0')} / {count}
-              </Text>
-              <Text style={s.badge}>DEMO</Text>
-            </View>
-            <Text
-              accessibilityRole="header"
-              accessibilityLiveRegion="polite"
-              style={[s.title, compact && s.compactTitle]}
+          {emergencyCards.map((pageCard, pageIndex) => (
+            <ScrollView
+              key={pageCard.id}
+              style={{ width: pageWidth }}
+              contentContainerStyle={s.scrollContent}
+              nestedScrollEnabled
+              directionalLockEnabled
+              aria-hidden={pageIndex !== index}
+              accessibilityElementsHidden={pageIndex !== index}
+              importantForAccessibility={
+                pageIndex === index ? 'auto' : 'no-hide-descendants'
+              }
             >
-              {card.title}
-            </Text>
-            <Text style={[s.subtitle, compact && s.compactSubtitle]}>
-              {card.subtitle}
-            </Text>
-            <View style={[s.steps, compact && s.compactSteps]}>
-              {card.steps.map((step, stepIndex) => (
-                <View
-                  key={step.title}
-                  style={[
-                    s.step,
-                    stepIndex === 0 && s.alert,
-                    compact && s.compactStep,
-                  ]}
-                >
-                  <View style={[s.number, stepIndex === 0 && s.alertNumber]}>
-                    <Text
-                      style={[s.numberText, stepIndex === 0 && s.alertText]}
-                    >
-                      {stepIndex + 1}
-                    </Text>
-                  </View>
-                  <View style={s.stepCopy}>
-                    <Text style={s.stepTitle}>{step.title}</Text>
-                    <Text style={s.stepText}>{step.text}</Text>
-                  </View>
+              <View
+                testID={pageIndex === index ? 'emergency-card' : undefined}
+                style={[s.card, compact && s.compactCard]}
+              >
+                <View style={s.meta}>
+                  <Text style={s.caption}>
+                    TOIMINTAKORTTI {String(pageIndex + 1).padStart(2, '0')} /{' '}
+                    {count}
+                  </Text>
+                  <Text style={s.badge}>DEMO</Text>
                 </View>
-              ))}
-            </View>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel={`Lisätiedot ja lähteet: ${card.title}`}
-              onPress={() => {
-                setLinkError(false);
-                setPanel('details');
-              }}
-              style={s.detailsButton}
-            >
-              <Text style={s.link}>Lisätiedot ja lähteet ↗</Text>
-            </Pressable>
-          </View>
+                <Text
+                  accessibilityRole="header"
+                  accessibilityLiveRegion="polite"
+                  style={[s.title, compact && s.compactTitle]}
+                >
+                  {pageCard.title}
+                </Text>
+                <Text style={[s.subtitle, compact && s.compactSubtitle]}>
+                  {pageCard.subtitle}
+                </Text>
+                <View style={[s.steps, compact && s.compactSteps]}>
+                  {pageCard.steps.map((step, stepIndex) => (
+                    <View
+                      key={step.title}
+                      style={[
+                        s.step,
+                        stepIndex === 0 && s.alert,
+                        compact && s.compactStep,
+                      ]}
+                    >
+                      <View
+                        style={[s.number, stepIndex === 0 && s.alertNumber]}
+                      >
+                        <Text
+                          style={[s.numberText, stepIndex === 0 && s.alertText]}
+                        >
+                          {stepIndex + 1}
+                        </Text>
+                      </View>
+                      <View style={s.stepCopy}>
+                        <Text style={s.stepTitle}>{step.title}</Text>
+                        <Text style={s.stepText}>{step.text}</Text>
+                      </View>
+                    </View>
+                  ))}
+                </View>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel={`Lisätiedot ja lähteet: ${pageCard.title}`}
+                  onPress={() => {
+                    setLinkError(false);
+                    setPanel('details');
+                  }}
+                  style={s.detailsButton}
+                >
+                  <Text style={s.link}>Lisätiedot ja lähteet ↗</Text>
+                </Pressable>
+              </View>
+            </ScrollView>
+          ))}
         </ScrollView>
         <View style={s.navigation}>
           <Pressable
@@ -248,26 +275,6 @@ export default function EmergenciesScreen() {
                     </View>
                   ))}
                   <View style={s.detailSection}>
-                    <Text accessibilityRole="header" style={s.stepTitle}>
-                      Lähde ja rajaukset
-                    </Text>
-                    <Text style={s.body}>
-                      Pohja: projektiin toimitettu ”Toimintakortit
-                      hätätilanteissa 2023”, kortti {card.sourceNumber}, päiväys{' '}
-                      {card.sourceDate}. Suomenkielinen oppimistiivistelmä:
-                      AnestesiaHelppi, 16.10.2026.
-                    </Text>
-                    <Text style={s.body}>
-                      Paikalliset yhteystiedot, säilytyspaikat ja
-                      lääkeannostaulukot eivät sisälly demoon. Alkuperäistä
-                      PDF:ää ei julkaista. Kortti ei korvaa yksikön hyväksymää
-                      ohjetta. Myös lapsen hoito vaatii ikäkohtaisen ohjeen.
-                    </Text>
-                    <Text style={s.body}>
-                      Alla on erillinen julkinen vertailulähde, ei tämän kortin
-                      alkuperäinen PDF tai virallinen suomennos. Avaa QRH:n
-                      sisällysluettelosta tilanteeseen sopiva ohje.
-                    </Text>
                     <Pressable
                       accessibilityRole="link"
                       onPress={openReference}

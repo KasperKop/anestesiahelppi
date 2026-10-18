@@ -62,6 +62,29 @@ describe('Hätätilannekortit', () => {
     expect(screen.getByRole('header', { name: 'Hypoksia' })).toBeOnTheScreen();
     expect(screen.getByText('6 / 12')).toBeOnTheScreen();
   });
+  it('tracks consecutive swipes in both directions and keeps navigation in sync', async () => {
+    const screen = await render(<EmergenciesScreen />);
+    for (const page of [1, 2, 3, 2, 1, 0, 11]) {
+      await fireEvent.scroll(screen.getByTestId('emergency-pager'), {
+        nativeEvent: {
+          contentOffset: { x: page * 362, y: 0 },
+          layoutMeasurement: { width: 362, height: 650 },
+          contentSize: { width: 362 * 12, height: 650 },
+        },
+      });
+      expect(screen.getByText(`${page + 1} / 12`)).toBeOnTheScreen();
+      expect(
+        screen.getByRole('header', { name: emergencyCards[page].title }),
+      ).toBeOnTheScreen();
+    }
+    expect(
+      screen.getByRole('button', { name: 'Seuraava kortti' }),
+    ).toBeDisabled();
+    await fireEvent.press(
+      screen.getByRole('button', { name: 'Edellinen kortti' }),
+    );
+    expect(screen.getByText('11 / 12')).toBeOnTheScreen();
+  });
   it('keeps details separate and opens sources only on request', async () => {
     const open = jest.spyOn(Linking, 'openURL').mockResolvedValue(undefined);
     const screen = await render(<EmergenciesScreen />);
@@ -69,7 +92,10 @@ describe('Hätätilannekortit', () => {
     await fireEvent.press(
       screen.getByRole('button', { name: /Lisätiedot ja lähteet:/ }),
     );
-    expect(screen.getByText('Lähde ja rajaukset')).toBeOnTheScreen();
+    expect(screen.queryByText('Lähde ja rajaukset')).toBeNull();
+    expect(
+      screen.getByRole('link', { name: /Association of Anaesthetists/ }),
+    ).toBeOnTheScreen();
     expect(screen.getByText(/ei täydellinen hoito-ohje/)).toBeOnTheScreen();
     expect(open).not.toHaveBeenCalled();
     await fireEvent.press(
