@@ -41,13 +41,13 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Arvioi vaste',
-        text: 'Seuraa hengitystä, painetta ja rytmiä. Eloton → elvytys.',
+        text: 'Seuraa hengitystä, verenpainetta ja rytmiä. Eloton → elvytys.',
       },
     ],
     details: [
       {
         title: 'Tunnistaminen',
-        text: 'Hypotensio, bronkospasmi, nousevat hengitystiepaineet, turvotus ja iho-oireet voivat liittyä reaktioon. Iho-oireiden puuttuminen ei sulje anafylaksiaa pois.',
+        text: 'Reaktioon voi liittyä verenpaineen laskua, keuhkoputkien supistumista, hengitystiepaineiden nousua, turvotusta ja iho-oireita. Iho-oireiden puuttuminen ei sulje anafylaksiaa pois.',
       },
       {
         title: 'Lääkitys',
@@ -55,7 +55,7 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Tilanteen jälkeen',
-        text: 'Kirjaa altisteet, oireiden alku ja hoitovaste. Järjestä seuranta, tryptaasinäytteet ja allergologinen jatkoselvittely paikallisen ohjeen mukaan.',
+        text: 'Kirjaa epäillyt aiheuttajat, oireiden alkamisaika ja hoitovaste. Järjestä seuranta, tryptaasinäytteet ja allergian jatkoselvittely paikallisen ohjeen mukaan.',
       },
     ],
   },
@@ -81,12 +81,12 @@ export const emergencyCards: EmergencyCard[] = [
         text: 'Valmistele kouristuslääke lääkärin määräyksellä.',
       },
       {
-        title: 'Valmistele lipidihoito',
-        text: 'Hae 20 % lipidiemulsio. Käytä LAST-erityisohjetta.',
+        title: 'Valmistele rasvaemulsio',
+        text: 'Hae 20 % rasvaemulsio. Käytä myrkytyksen hoito-ohjetta.',
       },
       {
         title: 'Varaudu elvytykseen',
-        text: 'Defibrillaattori valmiiksi. LAST muuttaa lääkehoitoa.',
+        text: 'Defibrillaattori valmiiksi. Huomioi poikkeava lääkehoito.',
       },
     ],
     details: [
@@ -96,11 +96,11 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Erityinen elvytysohje',
-        text: 'Puudutusainemyrkytys (LAST) poikkeaa tavallisesta elvytyksestä: erityisesti adrenaliinin annostus ja vältettävät lääkkeet on tarkistettava erillisestä LAST-ohjeesta. Valmistele lipidihoito varhain. Annos, antonopeus ja kokonaismäärä tarkistetaan ajantasaisesta ohjeesta.',
+        text: 'Puudutusainemyrkytyksen (LAST, local anaesthetic systemic toxicity) elvytyshoito poikkeaa tavanomaisesta. Tarkista erityisesti adrenaliinin annostus ja vältettävät lääkkeet puudutusainemyrkytyksen hoito-ohjeesta. Valmistele rasvaemulsiohoito varhain. Tarkista annos, antonopeus ja kokonaismäärä ajantasaisesta ohjeesta.',
       },
       {
         title: 'Jatkohoito',
-        text: 'Varaudu pitkittyvään elvytykseen ja tehohoidon konsultaatioon. Neurologiset ja verenkierto-oireet edellyttävät jatkoseurantaa myös tilanteen korjauduttua.',
+        text: 'Varaudu pitkittyvään elvytykseen ja tehohoitolääkärin konsultaatioon. Hermoston ja verenkierron oireet edellyttävät jatkoseurantaa myös tilanteen korjauduttua.',
       },
     ],
   },
@@ -113,12 +113,12 @@ export const emergencyCards: EmergencyCard[] = [
     steps: [
       team,
       {
-        title: 'Keskeytä laukaisijat',
+        title: 'Poista aiheuttajat',
         text: 'Lopeta höyrystyvä anesteetti. Ei suksametonia.',
       },
       {
         title: 'Hapeta ja ventiloi',
-        text: 'Happi 100 %, suuri virtaus. Siirry IV-anestesiaan.',
+        text: 'Happi 100 %, suuri virtaus. Siirry laskimoanestesiaan.',
       },
       {
         title: 'Dantroleeni kiireesti',
@@ -130,17 +130,17 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Jäähdytys ja jatkohoito',
-        text: 'Hoida hypertermia. Valmistele tehohoitosiirto.',
+        text: 'Laske kehon lämpöä. Valmistele tehohoitosiirto.',
       },
     ],
     details: [
       {
         title: 'Älä odota kuumetta',
-        text: 'EtCO₂:n selittämätön nousu voi olla varhainen löydös. Lämpötilan nousu voi tulla myöhemmin. Arvioi myös lihasjäykkyys, rytmihäiriöt, asidoosi ja hyperkalemia.',
+        text: 'Uloshengityksen loppuvaiheen hiilidioksidin (EtCO₂) selittämätön nousu voi olla varhainen löydös. Lämpötilan nousu voi tulla myöhemmin. Arvioi myös lihasjäykkyys, rytmihäiriöt, veren happamoituminen ja kohonnut kaliumpitoisuus.',
       },
       {
         title: 'Laitteisto ja lääkkeet',
-        text: 'Poista höyrystyvän anesteetin lähde ja noudata anestesiakoneen MH-ohjetta. Laitteiston käsittely ei saa viivästyttää hapetusta tai dantroleenia. Valmistele dantroleeni käytössä olevan valmisteen ohjeella; eri valmisteiden laimennukset eroavat toisistaan.',
+        text: 'Poista höyrystyvän anesteetin lähde ja noudata anestesiakoneen malignin hypertermian ohjetta. Laitteiston käsittely ei saa viivästyttää hapetusta tai dantroleenia. Valmistele dantroleeni käytössä olevan valmisteen ohjeella; eri valmisteiden laimennukset eroavat toisistaan.',
       },
       {
         title: 'Seuranta',
@@ -161,7 +161,7 @@ export const emergencyCards: EmergencyCard[] = [
         text: 'Happi 100 %. Kahden henkilön maskiventilaatio.',
       },
       {
-        title: 'Optimoi olosuhteet',
+        title: 'Varmista olosuhteet',
         text: 'Asento, apuvälineet, anestesia ja relaksaatio.',
       },
       {
@@ -184,11 +184,11 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Vaihtoehtoinen hengitystie',
-        text: 'Valmistele supraglottinen hengitystieväline. Jos hapetus onnistuu, lääkäri arvioi herättämisen tai muun hengitystiesuunnitelman. Käytä potilaan ikäryhmälle soveltuvaa vaikean hengitystien ohjetta.',
+        text: 'Valmistele kurkunpään yläpuolelle asettuva hengitystieväline, kuten kurkunpäänaamari (LMA). Näitä kutsutaan supraglottisiksi välineiksi. Jos hapetus onnistuu, lääkäri arvioi herättämisen tai muun hengitystiesuunnitelman. Käytä potilaan ikäryhmälle soveltuvaa vaikean hengitystien ohjetta.',
       },
       {
         title: 'CICO',
-        text: 'CICO tarkoittaa tilannetta, jossa intubaatio eikä hapetus onnistu. Tilanne ilmoitetaan ääneen ja siirrytään viipymättä paikalliseen hätäilmatieprotokollaan. Menetelmä ja välineistö riippuvat muun muassa potilaan iästä ja osaamisesta; tämä kortti ei opeta toimenpidettä.',
+        text: 'CICO (cannot intubate, cannot oxygenate) tarkoittaa tilannetta, jossa intubaatio ja hapetus eivät onnistu. Ilmoita tilanne ääneen ja siirry tiimin kanssa viipymättä paikalliseen hätäilmatieohjeeseen. Menetelmä ja välineistö riippuvat muun muassa potilaan iästä ja osaamisesta; tämä kortti ei opeta toimenpidettä.',
       },
     ],
   },
@@ -201,7 +201,7 @@ export const emergencyCards: EmergencyCard[] = [
     steps: [
       team,
       {
-        title: 'Keskeytä sytytyslähde',
+        title: 'Poista sytytyslähde',
         text: 'Ilmoita palo. Keskeytä toimenpide.',
       },
       {
@@ -210,7 +210,7 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Muu potilaspalo',
-        text: 'Poista palavat peitteet. Keskeytä hapettava kaasu.',
+        text: 'Poista palavat peitteet. Katkaise paloa ruokkiva kaasu.',
       },
       {
         title: 'Sammuta ja suojaa',
@@ -254,11 +254,11 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Tarkista laitteisto',
-        text: 'Kierto, liitokset ja suodatin. Tarvittaessa erillinen palje.',
+        text: 'Hengityskierto, liitokset ja suodatin. Erillinen palje tarvittaessa.',
       },
       {
         title: 'Arvioi potilas',
-        text: 'Ventilaatio, anestesia, relaksaatio, paine ja rytmi.',
+        text: 'Ventilaatio, anestesia, relaksaatio, verenpaine ja rytmi.',
       },
       {
         title: 'Jos hypoksia jatkuu',
@@ -272,11 +272,11 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Laitteisto ja verenkierto',
-        text: 'Tarkista hengityskierto, suodatin, liitokset ja koneen säädöt. Tarvittaessa erillinen käsiventilaatiopalje auttaa arvioimaan laitevian mahdollisuutta. Tarkista verenpaine, rytmi ja perfuusio. Valmistele verikaasunäyte lääkärin harkinnan mukaan.',
+        text: 'Tarkista hengityskierto, suodatin, liitokset ja koneen säädöt. Tarvittaessa erillinen käsiventilaatiopalje auttaa arvioimaan laitevian mahdollisuutta. Tarkista verenpaine, rytmi ja verenkierron riittävyys. Valmistele verikaasunäyte lääkärin harkinnan mukaan.',
       },
       {
-        title: 'Erotusdiagnostiikka',
-        text: 'Mahdollisia syitä ovat putken virheasento tai tukos, bronko- tai laryngospasmi, aspiraatio, atelektaasi, ilmarinta, keuhkopöhö, embolia ja laitevika. Pitkittyessä sovi toimenpiteen tauottamisesta ja syyn kohdennetusta hoidosta.',
+        title: 'Mahdolliset syyt',
+        text: 'Mahdollisia syitä ovat putken virheasento tai tukos, keuhkoputkien tai kurkunpään kouristus, aspiraatio, keuhkoalueen ilmattomuus (atelektaasi), ilmarinta, keuhkopöhö, embolia ja laitevika. Jos tilanne pitkittyy, sovi toimenpiteen tauottamisesta ja syyn mukaisesta hoidosta.',
       },
     ],
   },
@@ -302,7 +302,7 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Valmistele tutkimukset',
-        text: 'Bronkoskopia tarpeen mukaan. Seuraa verikaasuja.',
+        text: 'Keuhkoputkien tähystys tarvittaessa. Seuraa verikaasuja.',
       },
       {
         title: 'Sovi jatkohoito',
@@ -316,7 +316,7 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Lisäarvio',
-        text: 'Arvioi bronkoskopian ja näytteiden tarve. Seuraa hapetusta, hengitystiepaineita ja verikaasuja. Keuhkokuva ja jatkoseuranta suunnitellaan oireiden ja tilanteen perusteella.',
+        text: 'Arvioi keuhkoputkien tähystyksen (bronkoskopian) ja näytteiden tarve. Seuraa hapetusta, hengitystiepaineita ja verikaasuja. Keuhkokuva ja jatkoseuranta suunnitellaan oireiden ja tilanteen perusteella.',
       },
       {
         title: 'Huomioitavaa',
@@ -342,15 +342,15 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Valmistele avaava lääke',
-        text: 'Anna bronkodilataattori lääkärin määräyksellä.',
+        text: 'Anna keuhkoputkia avaava lääke määräyksen mukaan.',
       },
       {
         title: 'Varmista uloshengitys',
-        text: 'Riittävä uloshengitysaika. Huomioi ansailma.',
+        text: 'Anna aikaa uloshengitykselle. Huomioi ilman kertyminen.',
       },
       {
         title: 'Arvioi vaste ja syy',
-        text: 'Seuraa SpO₂, CO₂ ja paineet. Huomioi anafylaksia.',
+        text: 'SpO₂, CO₂ ja hengitystiepaineet. Huomioi anafylaksia.',
       },
     ],
     details: [
@@ -360,11 +360,11 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Ventilaation arvio',
-        text: 'Seuraa uloshengityksen riittävyyttä, hiilidioksidikäyrää, hengitystiepaineita ja verenkiertoa. Riittävä uloshengitysaika on tärkeä ansailman välttämiseksi. Vaikeassa tilanteessa hengitysäänet voivat olla hiljaiset.',
+        text: 'Seuraa uloshengitystä, hiilidioksidikäyrää, hengitystiepaineita ja verenkiertoa. Jos uloshengitys jää kesken ennen seuraavaa sisäänhengitystä, ilmaa kertyy keuhkoihin. Varmista siksi riittävä uloshengitysaika. Vaikeassa tilanteessa hengitysäänet voivat olla hiljaiset.',
       },
       {
         title: 'Hoito ja jatko',
-        text: 'Lääkäri päättää anestesian syventämisestä, bronkodilataattoreista ja lisälääkityksestä. Valmistele lääke ja sen antolaite. Arvioi verikaasujen, kuvantamisen ja jatkovalvonnan tarve.',
+        text: 'Lääkäri päättää anestesian syventämisestä, keuhkoputkia avaavista lääkkeistä ja muusta lääkityksestä. Valmistele lääke ja sen antolaite. Arvioi verikaasujen, kuvantamisen ja jatkovalvonnan tarve.',
       },
     ],
   },
@@ -400,7 +400,7 @@ export const emergencyCards: EmergencyCard[] = [
     details: [
       {
         title: 'Ensitoimet',
-        text: 'Minimoi hengitystien ärsytys, avaa hengitystie ja varmista maskin tiiviys. Arvioi myös ylempänä oleva hengitystie-este. Voimakas ventilaatio voi täyttää mahalaukkua.',
+        text: 'Vähennä hengitystien ärsytystä, avaa hengitystie ja varmista maskin tiiviys. CPAP tarkoittaa jatkuvaa positiivista hengitystiepainetta. Arvioi myös ylempänä oleva hengitystie-este. Voimakas ventilaatio voi täyttää mahalaukkua.',
       },
       {
         title: 'Tilanteen pitkittyessä',
@@ -408,7 +408,7 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Tilanteen jälkeen',
-        text: 'Arvioi aspiraatio ja negatiivisen paineen aiheuttama keuhkopöhö. Suunnittele turvallinen ekstubaatio, avun saatavuus ja jatkoseuranta. Huomioi muut ylähengitystien tukoksen syyt.',
+        text: 'Arvioi aspiraatio ja voimakkaiden sisäänhengitysyritysten aiheuttama alipainekeuhkopöhö. Suunnittele intubaatioputken turvallinen poisto, avun saatavuus ja jatkoseuranta. Huomioi muut ylähengitystien tukoksen syyt.',
       },
     ],
   },
@@ -434,7 +434,7 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Kohdennettu hoito',
-        text: 'Huomioi trombi-, ilma-, rasva- ja muut emboliat.',
+        text: 'Huomioi verihyytymä-, ilma-, rasva- ja muut emboliat.',
       },
       {
         title: 'Sovi jatkohoito',
@@ -444,11 +444,11 @@ export const emergencyCards: EmergencyCard[] = [
     details: [
       {
         title: 'Tunnistaminen',
-        text: 'EtCO₂:n lasku, hypoksemia, hypotensio ja takykardia voivat herättää epäilyn. Arvioi tapahtuman yhteys toimenpiteeseen. Verikaasut, sydämen ultraääni ja TT-angiografia valitaan potilaan tilan mukaan.',
+        text: 'EtCO₂:n lasku, veren happipitoisuuden väheneminen, verenpaineen lasku ja sykkeen nopeutuminen voivat herättää epäilyn. Arvioi tapahtuman yhteys toimenpiteeseen. Verikaasut, sydämen ultraääni ja keuhkovaltimoiden TT-kuvaus valitaan potilaan tilan mukaan.',
       },
       {
         title: 'Aiheuttaja vaikuttaa hoitoon',
-        text: 'Tromboembolia, ilmaembolia, lapsivesiembolia, rasvaembolia ja sementtiin liittyvä tapahtuma eivät ole sama hoitotilanne. Lääkäri ratkaisee kohdennetun hoidon ja konsultaatiot. Ilmaemboliassa estetään lisäilman pääsy verenkiertoon.',
+        text: 'Verihyytymän aiheuttama embolia, ilmaembolia, lapsivesiembolia, rasvaembolia ja luusementtiin liittyvä tapahtuma vaativat eri hoitotapoja. Lääkäri päättää syyn mukaisesta hoidosta ja tarvittavista konsultaatioista. Ilmaemboliassa estetään lisäilman pääsy verenkiertoon.',
       },
       {
         title: 'Jatkohoito',
@@ -478,7 +478,7 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Varaudu tahdistukseen',
-        text: 'Defibrillaattori ja elektrodit. Varmista mekaaninen vaste.',
+        text: 'Defibrillaattori ja elektrodit. Tarkista pulssi ja verenpaine.',
       },
       {
         title: 'Seuraa ja arvioi',
@@ -492,7 +492,7 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Mahdolliset syyt',
-        text: 'Hypoksia, vagusheijaste, lääkkeet, korkea spinaalipuudutus, sydänlihasiskemia, johtumishäiriö, elektrolyyttihäiriö ja hypotermia ovat huomioitavia syitä.',
+        text: 'Huomioi hapenpuute, vagushermon välittämä heijaste, lääkkeet, korkea spinaalipuudutus, sydänlihaksen hapenpuute, johtumishäiriö, veren suolatasapainon häiriö ja alilämpöisyys.',
       },
       {
         title: 'Tahdistuksen valmistelu',
@@ -526,7 +526,7 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Arvioi vaste',
-        text: 'Seuraa painetta ja rytmiä. Eloton → elvytys.',
+        text: 'Seuraa verenpainetta ja rytmiä. Eloton → elvytys.',
       },
     ],
     details: [
@@ -540,7 +540,7 @@ export const emergencyCards: EmergencyCard[] = [
       },
       {
         title: 'Sinustakykardian syyt',
-        text: 'Kipu, pinnallinen anestesia, hypovolemia, anemia, hypoksia, hyperkapnia, kuume, sepsis, anafylaksia ja maligni hypertermia voivat aiheuttaa takykardian. Nopeutunut syke voi olla kompensatorinen; pelkkä hidastaminen ei korjaa syytä.',
+        text: 'Kipu, pinnallinen anestesia, pieni kiertävä verimäärä, anemia, hapenpuute, hiilidioksidin kertyminen, kuume, sepsis, anafylaksia ja maligni hypertermia voivat nopeuttaa sykettä. Syke voi nousta elimistön yrittäessä ylläpitää verenkiertoa; pelkkä hidastaminen ei korjaa syytä.',
       },
     ],
   },

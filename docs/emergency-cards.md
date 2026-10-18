@@ -38,3 +38,15 @@ Tarkistin kaikki 12 korttia Chromiumin mobiiliemuloinnissa koossa 390 × 844, 37
 Kosketustapahtumilla testattu pyyhkäisy toimi molempiin suuntiin. Etusivun Elvytys- ja Hätätilanteet-painikkeet olivat samalla rivillä. Lisätiedot ja paluu korttiin toimivat. Hypoksiakortin lisätietoihin pääsi myös 844 × 390 -vaakanäkymässä ja 150 prosenttiin suurennetulla tekstillä; vieritys säilytti sisällön saavutettavana. Selaimessa ei havaittu JavaScript-virheitä.
 
 Tämä on selainemuloinnin tarkistus, ei testi fyysisellä puhelimella, iOS Safarilla tai natiivisovelluksella. Se ei ole sisällön kliininen tarkistus.
+
+### Sanamuotojen selkeytys 17.10.2026
+
+Kävin kaikkien korttien sanamuodot läpi. Esimerkiksi ansailma on kuvattu ilman kertymisenä keuhkoihin, bronkodilataattori keuhkoputkia avaavana lääkkeenä ja mekaaninen tahdistusvaste pulssin ja verenpaineen tarkistamisena. Harvinaisia lyhenteitä on avattu lisätiedoissa. Hoitolinjoja tai annoksia ei muutettu.
+
+Poistin jokaisessa lisätietonäkymässä toistuneen Lähde ja rajaukset -osion. QRH-linkki säilyy näkymän lopussa. Lähdekorttien numerot ja päiväykset ovat edelleen sisältötiedostossa, ja alkuperä sekä rajaukset on kuvattu tässä dokumentissa.
+
+### Pyyhkäisyn korjaus 18.10.2026
+
+Korvasin erillisen eleenkäsittelijän vaakasuuntaisella, sivuttain asettuvalla vieritysnäkymällä. Kortti seuraa sormea vedon aikana, ja seuraava pyyhkäisy jatkuu näkyvästä kortista. Nuolipainikkeet ja korttiluettelo käyttävät samaa vieritysnäkymää. Pystysuuntainen vieritys on edelleen mahdollista pienessä näkymässä tai suurennetulla tekstillä.
+
+Chromiumin mobiiliemuloinnissa tarkistin kolme peräkkäistä pyyhkäisyä kumpaankin suuntaan, liikkeen ennen sormen irrottamista ja lyhyen pyyhkäisyn palautumisen lähtökorttiin. Kaikki 12 korttia mahtuivat edelleen edellä mainittuihin pystynäkymiin. Myös vaakanäkymä, suurennettu teksti ja QRH-linkin säilyminen tarkistettiin. Automaattiseen testiin lisäsin peräkkäisten sivunvaihtojen ja painikenavigoinnin yhteistoiminnan tarkistuksen. Testejä on yhteensä 25, ja ne läpäisivät ajon. Fyysisellä puhelimella ja iOS Safarilla tätä muutosta ei vielä testattu.
