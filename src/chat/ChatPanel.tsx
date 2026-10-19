@@ -1,5 +1,12 @@
 import { useRef, useState } from 'react';
-import { ActivityIndicator, Text, TextInput, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import { NoteComposer } from '../memory/NoteComposer';
 import { useMemory } from '../memory/context';
 import { Button, Panel, ui } from '../ui/primitives';
 import { AnswerCard } from './AnswerCard';
@@ -7,6 +14,7 @@ import { askLive, chatEndpoint } from './client';
 import { demoAnswer, examples } from './demo';
 import { Answer } from './types';
 export function ChatPanel() {
+  const [tab, setTab] = useState<'chat' | 'note'>('chat');
   const [mode, setMode] = useState<'demo' | 'live'>(
     chatEndpoint ? 'live' : 'demo',
   );
@@ -35,115 +43,162 @@ export function ChatPanel() {
   }
   return (
     <Panel>
-      <Text accessibilityRole="header" style={ui.title}>
-        Kysy lähteistä
-      </Text>
-      <Text style={ui.small}>
-        {mode === 'demo'
-          ? 'Esittelytila · Kokeile chatia ja sydäntallennusta valmiilla esimerkeillä.'
-          : 'Tutkimushakudemo · WikiAnesthesia, PubMed, Europe PMC ja DOAJ. Kysymys käsitellään Groq-palvelussa ja englanninkieliset hakusanat lähetetään lähdepalveluihin. Älä kirjoita potilastietoja.'}
-      </Text>
-      {!!chatEndpoint && (
-        <View style={ui.row}>
-          <Button
-            label="Tutkimushaku"
-            primary={mode === 'live'}
-            disabled={loading}
-            onPress={() => setMode('live')}
-          />
-          <Button
-            label="Esittelytila"
-            primary={mode === 'demo'}
-            disabled={loading}
-            onPress={() => setMode('demo')}
-          />
-        </View>
-      )}
-      {mode === 'demo' &&
-        examples.map((e) => (
-          <Button
-            key={e.question}
-            label={e.question}
-            disabled={loading}
-            onPress={() => {
-              void send(e.question);
-            }}
-          />
-        ))}
-      {mode === 'live' && answers.length === 0 && (
-        <Button
-          label="Mitä tutkimuksissa kerrotaan anestesiasyvyyden seurannasta?"
-          disabled={loading}
-          onPress={() => {
-            void send(
-              'Mitä tutkimuksissa kerrotaan anestesiasyvyyden seurannasta?',
-            );
-          }}
-        />
-      )}
-      {answers.map((answer) => {
-        const saved = memory.state.cards.some((c) => c.answer.id === answer.id);
-        return (
-          <View
-            key={answer.id}
-            style={{
-              gap: 16,
-              borderTopWidth: 1,
-              borderColor: '#C8E8F7',
-              paddingTop: 20,
-            }}
+      <View
+        accessibilityRole="tablist"
+        style={{ flexDirection: 'row', gap: 8 }}
+      >
+        {(
+          [
+            { id: 'chat', label: 'Kysy lähteistä', icon: '?' },
+            { id: 'note', label: 'Luo muistiinpano', icon: '✎' },
+          ] as const
+        ).map((item) => (
+          <Pressable
+            key={item.id}
+            accessibilityRole="tab"
+            accessibilityLabel={item.label}
+            accessibilityState={{ selected: tab === item.id }}
+            onPress={() => setTab(item.id)}
+            style={[
+              ui.button,
+              { flex: 1, paddingHorizontal: 8, alignItems: 'center', gap: 4 },
+              tab === item.id && ui.primary,
+            ]}
           >
-            <Text style={ui.label}>SINÄ</Text>
-            <Text selectable style={ui.body}>
-              {answer.question}
+            <Text
+              accessible={false}
+              style={[
+                ui.title,
+                { color: tab === item.id ? '#FFFFFF' : '#136489' },
+              ]}
+            >
+              {item.icon}
             </Text>
-            <AnswerCard answer={answer} />
+            <Text
+              style={[
+                ui.buttonText,
+                { textAlign: 'center' },
+                tab === item.id && { color: '#FFFFFF' },
+              ]}
+            >
+              {item.label}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+      <View style={{ display: tab === 'note' ? 'flex' : 'none' }}>
+        <NoteComposer />
+      </View>
+      <View style={{ display: tab === 'chat' ? 'flex' : 'none', gap: 16 }}>
+        <Text style={ui.small}>
+          {mode === 'demo'
+            ? 'Esittelytila · Kokeile chatia ja sydäntallennusta valmiilla esimerkeillä.'
+            : 'Tutkimushakudemo · WikiAnesthesia, PubMed, Europe PMC ja DOAJ. Kysymys käsitellään Groq-palvelussa ja englanninkieliset hakusanat lähetetään lähdepalveluihin. Älä kirjoita potilastietoja.'}
+        </Text>
+        {!!chatEndpoint && (
+          <View style={ui.row}>
             <Button
-              label={saved ? '♥ Tallennettu' : '♡ Tallenna vastaus'}
-              disabled={saved || !memory.ready || memory.busy}
-              onPress={() => {
-                void memory
-                  .act({ type: 'save', answer })
-                  .catch((e: Error) => setError(e.message));
-              }}
+              label="Tutkimushaku"
+              primary={mode === 'live'}
+              disabled={loading}
+              onPress={() => setMode('live')}
+            />
+            <Button
+              label="Esittelytila"
+              primary={mode === 'demo'}
+              disabled={loading}
+              onPress={() => setMode('demo')}
             />
           </View>
-        );
-      })}
-      {loading && (
-        <View accessibilityLiveRegion="polite" style={ui.row}>
-          <ActivityIndicator />
-          <Text style={ui.small}>Haetaan vastausta…</Text>
-        </View>
-      )}
-      {!!(error || memory.error) && (
-        <Text accessibilityRole="alert" style={ui.body}>
-          {error || memory.error}
-        </Text>
-      )}
-      <TextInput
-        accessibilityLabel="Kysymys chatille"
-        placeholder={
-          mode === 'demo'
-            ? 'Kokeile esimerkkikysymystä…'
-            : 'Kysy yleinen oppimiskysymys…'
-        }
-        placeholderTextColor="#6B7280"
-        multiline
-        maxLength={1000}
-        value={question}
-        onChangeText={setQuestion}
-        editable={!loading}
-        style={[ui.input, { minHeight: 84, textAlignVertical: 'top' }]}
-      />
-      <Button
-        label="Lähetä kysymys ↑"
-        primary
-        disabled={loading || !question.trim()}
-        onPress={() => {
-          void send();
-        }}
-      />
+        )}
+        {mode === 'demo' &&
+          examples.map((e) => (
+            <Button
+              key={e.question}
+              label={e.question}
+              disabled={loading}
+              onPress={() => {
+                void send(e.question);
+              }}
+            />
+          ))}
+        {mode === 'live' && answers.length === 0 && (
+          <Button
+            label="Mitä tutkimuksissa kerrotaan anestesiasyvyyden seurannasta?"
+            disabled={loading}
+            onPress={() => {
+              void send(
+                'Mitä tutkimuksissa kerrotaan anestesiasyvyyden seurannasta?',
+              );
+            }}
+          />
+        )}
+        {answers.map((answer) => {
+          const saved = memory.state.cards.some(
+            (c) => c.answer.id === answer.id,
+          );
+          return (
+            <View
+              key={answer.id}
+              style={{
+                gap: 16,
+                borderTopWidth: 1,
+                borderColor: '#C8E8F7',
+                paddingTop: 20,
+              }}
+            >
+              <Text style={ui.label}>SINÄ</Text>
+              <Text selectable style={ui.body}>
+                {answer.question}
+              </Text>
+              <AnswerCard answer={answer} />
+              <Button
+                label={saved ? '♥ Tallennettu' : '♡ Tallenna vastaus'}
+                disabled={saved || !memory.ready || memory.busy}
+                onPress={() => {
+                  void memory
+                    .act({ type: 'save', answer })
+                    .catch((e: Error) => setError(e.message));
+                }}
+              />
+            </View>
+          );
+        })}
+        {loading && (
+          <View accessibilityLiveRegion="polite" style={ui.row}>
+            <ActivityIndicator />
+            <Text style={ui.small}>Haetaan vastausta…</Text>
+          </View>
+        )}
+        {!!(error || memory.error) && (
+          <Text accessibilityRole="alert" style={ui.body}>
+            {error || memory.error}
+          </Text>
+        )}
+        <TextInput
+          accessibilityLabel="Kysymys chatille"
+          placeholder={
+            mode === 'demo'
+              ? 'Kokeile esimerkkikysymystä…'
+              : 'Kysy yleinen oppimiskysymys…'
+          }
+          placeholderTextColor="#6B7280"
+          multiline
+          maxLength={1000}
+          value={question}
+          onChangeText={setQuestion}
+          editable={!loading}
+          style={[ui.input, { minHeight: 84, textAlignVertical: 'top' }]}
+        />
+        <Button
+          label="Lähetä kysymys ↑"
+          primary
+          disabled={loading || !question.trim()}
+          onPress={() => {
+            void send();
+          }}
+        />
+      </View>
     </Panel>
   );
 }

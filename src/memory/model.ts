@@ -1,15 +1,18 @@
 import { Answer, newId } from '../chat/types';
 import { isAnswer } from '../chat/client';
 export const OWNER_ID = 'local-owner';
+export type PersonalNote = Omit<Answer, 'mode'> & { mode: 'note' };
+export const NOTES_STACK_NAME = 'Omat muistiinpanot';
 export type SavedCard = {
   id: string;
   ownerId: string;
-  answer: Answer;
+  answer: Answer | PersonalNote;
   stackId: string | null;
   savedAt: string;
   position: number;
 };
 export type MemoryStack = {
+  purpose?: 'personal-notes';
   id: string;
   ownerId: string;
   name: string;
@@ -28,6 +31,7 @@ export const emptyMemory = (): MemoryState => ({
   stacks: [],
 });
 export type MemoryAction =
+  | { type: 'saveNote'; id: string; text: string }
   | { type: 'save'; answer: Answer }
   | { type: 'remove'; id: string }
   | { type: 'createStack'; name: string }
@@ -55,7 +59,10 @@ export function decodeMemory(raw: string | null): MemoryState {
         !x ||
         typeof x.id !== 'string' ||
         x.ownerId !== OWNER_ID ||
-        !isAnswer(x.answer) ||
+        !(
+          isAnswer(x.answer) ||
+          (x.answer?.mode === 'note' && isAnswer({ ...x.answer, mode: 'demo' }))
+        ) ||
         typeof x.savedAt !== 'string' ||
         !Number.isFinite(x.position) ||
         (x.stackId !== null && !s.stacks.some((p) => p.id === x.stackId)),
@@ -72,6 +79,56 @@ export function changeMemory(
   action: MemoryAction,
 ): MemoryState {
   const now = new Date().toISOString();
+  if (action.type === 'saveNote') {
+    const text = action.text.trim();
+    if (!text || text.length > 10000)
+      throw new Error('Kirjoita 1–10 000 merkin muistiinpano.');
+    if (state.cards.some((c) => c.answer.id === action.id)) return state;
+    const existing =
+      state.stacks.find((s) => s.purpose === 'personal-notes') ??
+      state.stacks.find(
+        (s) =>
+          s.name.toLocaleLowerCase('fi') ===
+          NOTES_STACK_NAME.toLocaleLowerCase('fi'),
+      );
+    const stack: MemoryStack = existing
+      ? { ...existing, purpose: 'personal-notes' }
+      : {
+          id: newId(),
+          ownerId: OWNER_ID,
+          name: NOTES_STACK_NAME,
+          purpose: 'personal-notes',
+          createdAt: now,
+          updatedAt: now,
+          position: state.stacks.length,
+        };
+    return {
+      ...state,
+      stacks: existing
+        ? state.stacks.map((s) => (s.id === stack.id ? stack : s))
+        : [...state.stacks, stack],
+      cards: [
+        ...state.cards,
+        {
+          id: newId(),
+          ownerId: OWNER_ID,
+          stackId: stack.id,
+          savedAt: now,
+          position: Math.max(-1, ...state.cards.map((c) => c.position)) + 1,
+          answer: {
+            id: action.id,
+            mode: 'note',
+            status: 'answered',
+            question: '',
+            title: text.split('\n')[0].slice(0, 80),
+            body: text,
+            citations: [],
+            createdAt: now,
+          },
+        },
+      ],
+    };
+  }
   if (action.type === 'save') {
     if (state.cards.some((c) => c.answer.id === action.answer.id)) return state;
     return {

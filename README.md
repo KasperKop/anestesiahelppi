@@ -13,6 +13,7 @@ Ensimmäinen harrastus- ja portfolioprojektini: anestesiahoitotyön aiheista syn
 - Kysyä yleisiä oppimiskysymyksiä chatilta, joka hakee lähteitä WikiAnesthesiasta, PubMedista, Europe PMC:stä ja DOAJ:sta.
 - Avata vastauksen lähteet ja hakutiedot **Näytä lähteet** -painikkeesta.
 - Tallentaa vastauksen sydämestä ja järjestää kortteja itse nimettyihin **Omat pinot** -kokoelmiin.
+- Kirjoittaa etusivun **Luo muistiinpano** -valinnasta oman tekstin ja tallentaa sen sydämestä **Omat muistiinpanot** -pinoon. Muistiinpanoja ei lähetetä tekoälylle.
 - Kokeilla valmiita esimerkkivastauksia **Esittelytilassa** ilman mallikutsuja.
 - Selata **Hätätilanteet**-painikkeesta 12 oppimiskorttia sekä avata niiden lisätiedot ja lähteet. **Elvytys** on oma rinnakkainen näkymänsä.
 
