@@ -52,7 +52,7 @@ export default function SavedScreen() {
             Omat pinot
           </Text>
           <Text style={ui.small}>
-            Tallennetut vastaukset tällä laitteella.{' '}
+            Tallennetut vastaukset ja omat muistiinpanot tällä laitteella.{' '}
             {Platform.OS === 'web'
               ? 'Selaintietojen poistaminen poistaa myös kortit.'
               : 'Sovelluksen poistaminen poistaa myös paikalliset kortit.'}
@@ -82,9 +82,23 @@ export default function SavedScreen() {
                   setConfirm(null);
                 }}
               />
-              <Text style={ui.small}>KYSYMYS</Text>
-              <Text style={ui.body}>{opened.answer.question}</Text>
-              <AnswerCard answer={opened.answer} />
+              {opened.answer.mode === 'note' ? (
+                <>
+                  <Text style={ui.small}>OMA MUISTIINPANO</Text>
+                  <Text accessibilityRole="header" style={ui.title}>
+                    {opened.answer.title}
+                  </Text>
+                  <Text selectable style={ui.body}>
+                    {opened.answer.body}
+                  </Text>
+                </>
+              ) : (
+                <>
+                  <Text style={ui.small}>KYSYMYS</Text>
+                  <Text style={ui.body}>{opened.answer.question}</Text>
+                  <AnswerCard answer={opened.answer} />
+                </>
+              )}
               <Text style={ui.small}>
                 Tallennettu {new Date(opened.savedAt).toLocaleString('fi-FI')}
               </Text>
@@ -260,10 +274,10 @@ export default function SavedScreen() {
               )}
               {cards.length === 0 && (
                 <Panel>
-                  <Text style={ui.title}>Tilaa tärkeille vastauksille</Text>
+                  <Text style={ui.title}>Tilaa omille korteille</Text>
                   <Text style={ui.body}>
-                    Tallenna etusivun chat-vastaus sydämellä. Avaa kortti
-                    siirtääksesi sen omaan pinoon.
+                    Tallenna etusivun vastaus tai oma muistiinpano sydämellä.
+                    Avaa kortti siirtääksesi sen omaan pinoon.
                   </Text>
                 </Panel>
               )}
@@ -279,18 +293,22 @@ export default function SavedScreen() {
                     style={{ gap: 8, minHeight: 80 }}
                   >
                     <Text style={ui.small}>
-                      {card.answer.mode === 'demo'
-                        ? 'VALMIS ESIMERKKI'
-                        : 'AI-TIIVISTELMÄ'}
+                      {card.answer.mode === 'note'
+                        ? 'OMA MUISTIINPANO'
+                        : card.answer.mode === 'demo'
+                          ? 'VALMIS ESIMERKKI'
+                          : 'AI-TIIVISTELMÄ'}
                     </Text>
                     <Text style={ui.title}>{card.answer.title}</Text>
-                    <Text numberOfLines={2} style={ui.small}>
-                      {card.answer.question}
-                    </Text>
+                    {!!card.answer.question && (
+                      <Text numberOfLines={2} style={ui.small}>
+                        {card.answer.question}
+                      </Text>
+                    )}
                     <Text numberOfLines={3} style={ui.body}>
                       {card.answer.body}
                     </Text>
-                    <Text style={ui.small}>Avaa vastaus ja järjestä →</Text>
+                    <Text style={ui.small}>Avaa kortti ja järjestä →</Text>
                   </Pressable>
                   <View style={ui.row}>
                     <Button

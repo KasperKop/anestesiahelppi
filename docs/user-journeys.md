@@ -19,6 +19,17 @@ Kortit sisältävät myös lääketietoja, mutta sisältö ei ole kliinisesti va
 
 Jos sopivaa tietoa ei löydy, chat kertoo siitä. Palveluvirhe tai käyttöraja näkyy virheilmoituksena. **Esittelytila** käyttää valmiita vastauksia ilman lähdehakua.
 
+## Oma muistiinpano
+
+1. Valitse etusivun laatikosta **Luo muistiinpano** ja kirjoita teksti.
+2. Paina **Tallenna muistiinpano** -sydäntä. **Omat muistiinpanot** -pino syntyy ensimmäisellä tallennuksella.
+3. Avaa muistiinpano **Omat pinot** -välilehdeltä. Sen voi siirtää ja poistaa kuten muutkin kortit.
+4. **Kysy lähteistä** palauttaa chatin. Keskeneräinen muistiinpano ja chat säilyvät näiden valintojen välillä.
+
+Muistiinpanot tallentuvat vain käytetylle laitteelle, eikä niitä lähetetä chat-palvelulle. Tallentamaton luonnos ei säily sivun uudelleenlatauksessa. Onnistuneen tallennuksen jälkeen **Luo uusi muistiinpano** avaa tyhjän tekstikentän. Muistiinpanon ensimmäisestä rivistä muodostuu kortin otsikko. Tallennetun tekstin muokkaus ei vielä sisälly tähän versioon.
+
+Automaattisen pinon voi nimetä uudelleen: seuraavatkin muistiinpanot menevät samaan pinoon. Jos pinon poistaa, vanhat kortit jäävät Järjestämättömiin ja seuraava tallennus luo uuden Omat muistiinpanot -pinon.
+
 ## Korttien järjestäminen
 
 1. Luo nimetty pino Omat pinot -näkymässä.
@@ -28,4 +39,4 @@ Jos sopivaa tietoa ei löydy, chat kertoo siitä. Palveluvirhe tai käyttöraja 
 
 Pinon poistaminen jättää kortit Järjestämättömiin. Kortin poistaminen pyytää vahvistuksen. Tallennus on paikallinen eikä päivitä vastausta lähteiden muuttuessa.
 
-Pyyhkäisy ja raahaaminen eivät ole toteutettuja toimintoja. Muistilistan kuittauspolku on vasta jatkoidea.
+Tallennettujen korttien järjestäminen raahaamalla ei ole toteutettu toiminto. Muistilistan kuittauspolku on vasta jatkoidea.
