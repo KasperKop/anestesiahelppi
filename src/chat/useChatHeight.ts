@@ -28,8 +28,9 @@ export function useChatHeight() {
     };
   }, []);
   // Reserve space for navigation and safe-area edges when the keyboard opens.
-  return Math.min(
-    640,
-    Math.max(260, (visibleHeight ?? height) - keyboardHeight - 112),
-  );
+  // Static HTML and the first browser render must agree. Otherwise hydration
+  // can retain the server's zero-window-height style until the next resize.
+  const viewportHeight =
+    Platform.OS === 'web' ? (visibleHeight ?? 752) : height;
+  return Math.min(640, Math.max(260, viewportHeight - keyboardHeight - 112));
 }
