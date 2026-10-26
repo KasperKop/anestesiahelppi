@@ -19,6 +19,10 @@ Kortit sisältävät myös lääketietoja, mutta sisältö ei ole kliinisesti va
 
 Jos sopivaa tietoa ei löydy, chat kertoo siitä. Palveluvirhe tai käyttöraja näkyy virheilmoituksena. **Esittelytila** käyttää valmiita vastauksia ilman lähdehakua.
 
+Chat on rajatun korkuinen laatikko: viestit vierivät sen sisällä ja kirjoituskenttä sekä lähetyspainike pysyvät alareunassa. Kysymys näkyy heti lähetyksen jälkeen. Seuraavan kysymyksen luonnosta voi kirjoittaa haun aikana. Yhteysvirheen jälkeen **Yritä uudelleen** lähettää alkuperäisen kysymyksen uudestaan.
+
+Jos luet vanhempia viestejä vastauksen saapuessa, lukukohta säilyy ja **Uusi vastaus ↓** vie uusimpaan viestiin. Näppäimistön avautuessa laatikon korkeus mukautuu käytettävissä olevaan tilaan. Pitkä kirjoitus vierii tekstikentän sisällä. Mobiilissa Enter tekee rivinvaihdon; kysymys lähetetään painikkeesta.
+
 ## Oma muistiinpano
 
 1. Valitse etusivun laatikosta **Luo muistiinpano** ja kirjoita teksti.
@@ -31,6 +35,8 @@ Muistiinpanot tallentuvat vain käytetylle laitteelle, eikä niitä lähetetä c
 Automaattisen pinon voi nimetä uudelleen: seuraavatkin muistiinpanot menevät samaan pinoon. Jos pinon poistaa, vanhat kortit jäävät Järjestämättömiin ja seuraava tallennus luo uuden Omat muistiinpanot -pinon.
 
 ## Korttien järjestäminen
+
+Myös omien muistiinpanojen kirjoituskenttä pysyy laatikon alareunassa. Tämän käyttökerran aikana tallennetut muistiinpanot näkyvät vieritettävällä alueella. Kaikki tallennetut muistiinpanot löytyvät edelleen Omat pinot -välilehdeltä.
 
 1. Luo nimetty pino Omat pinot -näkymässä.
 2. Avaa tallennettu kortti ja siirrä se haluamaasi pinoon.
