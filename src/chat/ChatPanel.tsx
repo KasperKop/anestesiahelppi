@@ -159,10 +159,10 @@ export function ChatPanel() {
             </>
           }
         >
-          <Text style={ui.small}>
+          <Text style={[ui.small, { fontSize: 12, lineHeight: 18 }]}>
             {mode === 'demo'
-              ? 'Esittelytila · Kokeile chatia ja sydäntallennusta valmiilla esimerkeillä.'
-              : 'Tutkimushakudemo · WikiAnesthesia, PubMed, Europe PMC ja DOAJ. Kysymys käsitellään Groq-palvelussa ja englanninkieliset hakusanat lähetetään lähdepalveluihin. Älä kirjoita potilastietoja.'}
+              ? 'Esittelytila · Valmiit esimerkit, ei tekoälyhakua.'
+              : 'Tutkimushakudemo · Älä kirjoita potilastietoja.'}
           </Text>
           {!!chatEndpoint && (
             <View style={ui.row}>

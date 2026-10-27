@@ -12,6 +12,12 @@ Kortit sisältävät myös lääketietoja, mutta sisältö ei ole kliinisesti va
 
 ## Kysymys ja vastauksen tallennus
 
+Chatissa näkyy lyhyt ilmoitus: **Tutkimushakudemo · Älä kirjoita potilastietoja.** Pidempi kuvaus on säilytetty alla myöhempää käyttäjäilmoitusta varten:
+
+> Tutkimushakudemo · WikiAnesthesia, PubMed, Europe PMC ja DOAJ. Kysymys käsitellään Groq-palvelussa ja englanninkieliset hakusanat lähetetään lähdepalveluihin. Älä kirjoita potilastietoja.
+
+Esittelytilan aiempi kuvaus: ”Kokeile chatia ja sydäntallennusta valmiilla esimerkeillä.” Näkymässä se on tiivistetty muotoon ”Esittelytila · Valmiit esimerkit, ei tekoälyhakua.” Teksti saa rivittyä hyvin pienellä näytöllä tai suurennetulla fontilla, jotta ilmoituksen loppu ei leikkaannu.
+
 1. Kirjoita chatille yleinen oppimiskysymys tai valitse esimerkkikysymys.
 2. Lue tiivistelmä. **Näytä lähteet** avaa hakusanat, hakujen tilat, katkelmat ja lisenssit.
 3. Paina **Tallenna vastaus** -sydäntä.
