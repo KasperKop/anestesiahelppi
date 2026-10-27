@@ -2,14 +2,14 @@
 
 Nykyinen selainversio käyttää Cloudflare Workersissa toimivaa lähdehakua. Erillinen Node.js-palvelin on paikallista kehitystä varten. Oma tarkistettu lähdekorpus on edelleen tyhjä; julkisten lähteiden haku toimii siitä erillään.
 
-## Esittelytila ilman avainta
+## Käyttö ilman chat-palvelua
 
 ```sh
 npm ci
 npm run web
 ```
 
-Jätä `EXPO_PUBLIC_CHAT_API_URL` asettamatta. Esittelytilan valmiit vastaukset kertovat sovelluksesta, eivät lääketieteestä. Niillä voi kokeilla sydäntallennusta, pinoja ja kortin uudelleenavaamista.
+Tutkimushaku edellyttää `EXPO_PUBLIC_CHAT_API_URL`-asetusta. Ilman sitä haku kertoo palvelun puuttumisesta. Muistiinpanot ja aiemmin tallennetut kortit toimivat paikallisesti. Esittelytila on poistettu käyttöliittymästä; vanhat tallennetut esimerkkikortit säilyvät luettavina.
 
 ## Paikallinen lähdehaku
 

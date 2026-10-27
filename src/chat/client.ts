@@ -76,6 +76,10 @@ export function isAnswer(value: unknown): value is Answer {
   );
 }
 export async function askLive(question: string): Promise<Answer> {
+  if (!chatEndpoint)
+    throw new Error(
+      'Tutkimushaku ei ole käytettävissä. Palvelun osoite puuttuu.',
+    );
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 65000);
   try {
@@ -89,7 +93,7 @@ export async function askLive(question: string): Promise<Answer> {
       throw new Error('Chatin käyttöraja täyttyi. Yritä myöhemmin uudelleen.');
     if (response.status === 503)
       throw new Error(
-        'Chat-palvelua ei ole vielä otettu käyttöön. Voit kokeilla esittelytilaa.',
+        'Tutkimushaku ei ole juuri nyt käytettävissä. Yritä myöhemmin uudelleen.',
       );
     if (!response.ok) {
       const failure: unknown = await response.json().catch(() => null);

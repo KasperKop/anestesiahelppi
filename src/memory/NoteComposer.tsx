@@ -5,7 +5,13 @@ import { Button, ui } from '../ui/primitives';
 import { useMemory } from './context';
 import { ConversationPane, conversationStyles } from '../chat/ConversationPane';
 
-export function NoteComposer({ compact = false }: { compact?: boolean }) {
+export function NoteComposer({
+  compact = false,
+  maxLogHeight = 300,
+}: {
+  compact?: boolean;
+  maxLogHeight?: number;
+}) {
   const memory = useMemory();
   const [text, setText] = useState('');
   const [saved, setSaved] = useState(false);
@@ -33,6 +39,8 @@ export function NoteComposer({ compact = false }: { compact?: boolean }) {
   return (
     <ConversationPane
       label="notes"
+      maxLogHeight={maxLogHeight}
+      empty={!savedIds.length && !error && !memory.error}
       revision={savedIds.length}
       request={savedIds.length}
       composer={
@@ -54,7 +62,8 @@ export function NoteComposer({ compact = false }: { compact?: boolean }) {
             ]}
           />
           <Button
-            label={saved ? '♥ Tallennettu' : '♡ Tallenna muistiinpano'}
+            label={saved ? 'Tallennettu' : 'Tallenna muistiinpano'}
+            icon="heart"
             primary={!saved}
             disabled={
               saved || saving || !text.trim() || !memory.ready || memory.busy
@@ -77,10 +86,6 @@ export function NoteComposer({ compact = false }: { compact?: boolean }) {
         </>
       }
     >
-      <Text style={ui.small}>
-        Kirjoita oma muistilista tai huomio. Teksti tallennetaan vain tälle
-        laitteelle, eikä sitä lähetetä tekoälylle. Älä kirjaa potilastietoja.
-      </Text>
       {memory.state.cards
         .filter((card) => savedIds.includes(card.answer.id))
         .map((card) => (
@@ -98,7 +103,7 @@ export function NoteComposer({ compact = false }: { compact?: boolean }) {
               {card.answer.body}
             </Text>
             <Text style={ui.small}>
-              ♥ Tallennettu · {new Date(card.savedAt).toLocaleString('fi-FI')}
+              Tallennettu · {new Date(card.savedAt).toLocaleString('fi-FI')}
             </Text>
           </View>
         ))}

@@ -31,7 +31,7 @@ Avain lisätään Cloudflaren Worker-asetuksissa kohtaan **Variables and Secrets
 
 Muuta `cloudflare/wrangler.jsonc`-tiedostossa `CHAT_ENABLED` arvoksi `false` ja julkaise uudelleen. `/health` näyttää silloin `chatEnabled: false`. Pelkkä sivun aukiolo ei tämän toteutuksen perusteella käynnistä mallikutsuja: kysymys lähetetään käyttäjän toiminnosta.
 
-Jos myös selainversion halutaan pysyvän esittelytilassa, poista Pages-työnkulun chat-osoitteen oletusarvo ja mahdollinen GitHub-muuttuja `EXPO_PUBLIC_CHAT_API_URL`, ja kokoa selainversio uudelleen. Pelkkä GitHub-muuttujan tyhjentäminen ei poista työnkulun oletusarvoa.
+Jos myös selainversion tutkimushaku halutaan poistaa käytöstä, poista Pages-työnkulun chat-osoitteen oletusarvo ja mahdollinen GitHub-muuttuja `EXPO_PUBLIC_CHAT_API_URL`, ja kokoa selainversio uudelleen. Pelkkä GitHub-muuttujan tyhjentäminen ei poista työnkulun oletusarvoa.
 
 `RESEARCH_ENABLED=false` vaihtaa omaan tarkistettuun korpukseen. Se on tällä hetkellä tyhjä, joten tämä asetus ei vastaa julkisten lähteiden hakua. Korpushaku tarvitsee aineiston ja oman [arvioinnin](chat-evaluation.md).
 

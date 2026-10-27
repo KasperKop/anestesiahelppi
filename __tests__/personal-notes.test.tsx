@@ -35,13 +35,13 @@ test('draft survives mode switches and saved note reopens from its automatic sta
   );
   await fireEvent.press(screen.getByRole('tab', { name: 'Luo muistiinpano' }));
   expect(
-    screen.getByRole('button', { name: '♡ Tallenna muistiinpano' }),
+    screen.getByRole('button', { name: 'Tallenna muistiinpano' }),
   ).toBeDisabled();
   await fireEvent.changeText(
     screen.getByLabelText('Oma muistiinpano'),
     'Oma muistilista\nTarkista välineet.',
   );
-  await fireEvent.press(screen.getByRole('tab', { name: 'Kysy lähteistä' }));
+  await fireEvent.press(screen.getByRole('tab', { name: 'Tutkimushaku' }));
   expect(screen.getByLabelText('Kysymys chatille')).toHaveDisplayValue(
     'Keskeneräinen kysymys',
   );
@@ -50,12 +50,12 @@ test('draft survives mode switches and saved note reopens from its automatic sta
     'Oma muistilista\nTarkista välineet.',
   );
   await fireEvent.press(
-    screen.getByRole('button', { name: '♡ Tallenna muistiinpano' }),
+    screen.getByRole('button', { name: 'Tallenna muistiinpano' }),
   );
   await waitFor(() => expect(stored.cards).toHaveLength(1));
   expect(stored.stacks[0].name).toBe('Omat muistiinpanot');
   expect(stored.cards[0].stackId).toBe(stored.stacks[0].id);
-  expect(screen.getByRole('button', { name: '♥ Tallennettu' })).toBeDisabled();
+  expect(screen.getByRole('button', { name: 'Tallennettu' })).toBeDisabled();
   await screen.unmount();
   screen = await render(
     <MemoryProvider>
@@ -90,7 +90,7 @@ test('failed save retains draft and retry creates only one note', async () => {
     'Säilytä teksti',
   );
   await fireEvent.press(
-    screen.getByRole('button', { name: '♡ Tallenna muistiinpano' }),
+    screen.getByRole('button', { name: 'Tallenna muistiinpano' }),
   );
   expect(await screen.findByRole('alert')).toHaveTextContent(
     'Tallennustila täynnä',
@@ -100,7 +100,7 @@ test('failed save retains draft and retry creates only one note', async () => {
   );
   expect(stored.cards).toHaveLength(0);
   await fireEvent.press(
-    screen.getByRole('button', { name: '♡ Tallenna muistiinpano' }),
+    screen.getByRole('button', { name: 'Tallenna muistiinpano' }),
   );
   await waitFor(() => expect(stored.cards).toHaveLength(1));
 });

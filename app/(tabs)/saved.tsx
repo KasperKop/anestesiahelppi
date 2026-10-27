@@ -76,7 +76,8 @@ export default function SavedScreen() {
           {opened ? (
             <Panel>
               <Button
-                label="← Takaisin kortteihin"
+                label="Takaisin kortteihin"
+                icon="left"
                 onPress={() => {
                   setOpenId(null);
                   setConfirm(null);
@@ -186,7 +187,8 @@ export default function SavedScreen() {
                 <Text style={ui.title}>Uusi pino</Text>
                 <Input label="Pinon nimi" value={name} onChangeText={setName} />
                 <Button
-                  label="Luo pino +"
+                  label="Luo pino"
+                  icon="plus"
                   disabled={disabled || !name.trim()}
                   onPress={() => {
                     void perform({ type: 'createStack', name }, () =>
@@ -312,7 +314,8 @@ export default function SavedScreen() {
                   </Pressable>
                   <View style={ui.row}>
                     <Button
-                      label="Siirrä ylemmäs ↑"
+                      label="Siirrä ylemmäs"
+                      icon="up"
                       disabled={disabled || index === 0}
                       onPress={() => {
                         void perform({
@@ -323,7 +326,8 @@ export default function SavedScreen() {
                       }}
                     />
                     <Button
-                      label="Siirrä alemmas ↓"
+                      label="Siirrä alemmas"
+                      icon="down"
                       disabled={disabled || index === cards.length - 1}
                       onPress={() => {
                         void perform({

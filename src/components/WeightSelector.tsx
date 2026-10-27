@@ -1,4 +1,5 @@
-import Slider from '@react-native-community/slider';
+import { WeightRange } from './WeightRange';
+import { Icon } from '../ui/Icon';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
@@ -36,7 +37,7 @@ export function WeightSelector({ onConfirm }: WeightSelectorProps) {
 
       <View style={styles.controls}>
         <Pressable
-          accessibilityLabel="Vähennä painoa yhdellä kilogrammalla"
+          accessibilityLabel="Vähennä painoa 1 kg"
           accessibilityRole="button"
           disabled={weight === MIN_WEIGHT}
           onPress={() => changeWeight(weight - 1)}
@@ -46,32 +47,24 @@ export function WeightSelector({ onConfirm }: WeightSelectorProps) {
             weight === MIN_WEIGHT && styles.disabled,
           ]}
         >
-          <Text style={styles.stepSymbol}>−</Text>
+          <Icon
+            name="minus"
+            color={weight === MIN_WEIGHT ? '#85847E' : '#136489'}
+          />
         </Pressable>
 
-        <Text style={styles.limit}>{MIN_WEIGHT}</Text>
-        <Slider
-          accessibilityLabel="Potilaan paino kilogrammoina"
-          accessibilityValue={{
-            min: MIN_WEIGHT,
-            max: MAX_WEIGHT,
-            now: weight,
-            text: `${weight} kilogrammaa`,
-          }}
-          maximumTrackTintColor="#DED9CE"
-          maximumValue={MAX_WEIGHT}
-          minimumTrackTintColor={colors.interactive}
-          minimumValue={MIN_WEIGHT}
-          onValueChange={changeWeight}
-          step={1}
-          style={styles.slider}
-          thumbTintColor={colors.interactive}
-          value={weight}
-        />
-        <Text style={styles.limit}>{MAX_WEIGHT}</Text>
+        <View style={{ flex: 1, minWidth: 0 }}>
+          <WeightRange value={weight} onChange={changeWeight} />
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+          >
+            <Text style={styles.limit}>3 kg</Text>
+            <Text style={styles.limit}>30 kg</Text>
+          </View>
+        </View>
 
         <Pressable
-          accessibilityLabel="Lisää painoa yhdellä kilogrammalla"
+          accessibilityLabel="Lisää painoa 1 kg"
           accessibilityRole="button"
           disabled={weight === MAX_WEIGHT}
           onPress={() => changeWeight(weight + 1)}
@@ -81,7 +74,10 @@ export function WeightSelector({ onConfirm }: WeightSelectorProps) {
             weight === MAX_WEIGHT && styles.disabled,
           ]}
         >
-          <Text style={styles.stepSymbol}>+</Text>
+          <Icon
+            name="plus"
+            color={weight === MAX_WEIGHT ? '#85847E' : '#136489'}
+          />
         </Pressable>
       </View>
 
@@ -96,56 +92,57 @@ export function WeightSelector({ onConfirm }: WeightSelectorProps) {
         ]}
       >
         <Text style={styles.confirmText}>Näytä painokortti</Text>
-        <Text aria-hidden style={styles.arrow}>
-          →
-        </Text>
+        <Icon name="right" />
       </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { gap: spacing.xl, width: '100%' },
+  container: { gap: spacing.md, width: '100%' },
   value: {
     color: colors.textPrimary,
-    fontSize: 76,
+    fontSize: 56,
     fontWeight: '700',
-    letterSpacing: -3,
+    letterSpacing: -2,
     textAlign: 'center',
   },
   unit: { fontSize: 18, fontWeight: '600', letterSpacing: 0 },
   controls: { alignItems: 'center', flexDirection: 'row', gap: spacing.sm },
   stepButton: {
     alignItems: 'center',
-    borderColor: colors.border,
+    borderColor: '#136489',
+    backgroundColor: '#FFFFFF',
     borderRadius: radii.md,
-    borderWidth: 1.5,
+    borderWidth: 2,
     height: 48,
     justifyContent: 'center',
     width: 48,
   },
   stepButtonPressed: { backgroundColor: colors.supportingSurface },
-  disabled: { opacity: 0.35 },
+  disabled: { backgroundColor: '#EEECE7', borderColor: '#D1CFC9' },
   stepSymbol: {
     color: colors.interactivePressed,
     fontSize: 26,
     lineHeight: 28,
   },
-  limit: { color: colors.textPrimary, fontSize: 14, fontWeight: '600' },
+  limit: { color: colors.textPrimary, fontSize: 12, fontWeight: '600' },
   slider: { flex: 1, height: 48 },
   confirmButton: {
     alignItems: 'center',
     alignSelf: 'center',
-    backgroundColor: colors.interactive,
+    backgroundColor: colors.supportingSurface,
+    borderColor: '#83B9CC',
+    borderWidth: 1,
     borderRadius: radii.pill,
     flexDirection: 'row',
     gap: spacing.sm,
     justifyContent: 'center',
-    minHeight: 56,
+    minHeight: 48,
     paddingHorizontal: spacing.lg,
     width: '100%',
   },
-  confirmButtonPressed: { backgroundColor: colors.interactivePressed },
-  confirmText: { color: colors.surface, fontSize: 17, fontWeight: '700' },
+  confirmButtonPressed: { backgroundColor: '#C5E6F3' },
+  confirmText: { color: '#136489', fontSize: 17, fontWeight: '700' },
   arrow: { color: colors.surface, fontSize: 23, lineHeight: 24 },
 });

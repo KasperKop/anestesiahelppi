@@ -9,12 +9,16 @@ export function ConversationPane({
   revision,
   request,
   label,
+  empty = false,
+  maxLogHeight = 300,
 }: {
   children: ReactNode;
   composer: ReactNode;
   revision: number;
   request: number;
   label: string;
+  empty?: boolean;
+  maxLogHeight?: number;
 }) {
   const log = useRef<ScrollView>(null);
   const following = useRef(true);
@@ -32,41 +36,45 @@ export function ConversationPane({
     log.current?.scrollToEnd({ animated: false });
   }, [request]);
   return (
-    <View style={conversationStyles.fill}>
-      <ScrollView
-        ref={log}
-        testID={`${label}-log`}
-        accessibilityLabel={
-          label === 'chat' ? 'Keskustelun viestit' : 'Omat muistiinpanot'
-        }
-        style={conversationStyles.fill}
-        contentContainerStyle={conversationStyles.log}
-        nestedScrollEnabled
-        keyboardShouldPersistTaps="handled"
-        scrollEventThrottle={32}
-        onScroll={({ nativeEvent: e }) => {
-          following.current =
-            e.contentSize.height -
-              e.contentOffset.y -
-              e.layoutMeasurement.height <
-            60;
-          const atBottom = following.current;
-          setPosition((previous) => ({
-            atBottom,
-            seen: atBottom ? revision : previous.seen,
-            request,
-          }));
-        }}
-        onContentSizeChange={() => {
-          if (following.current) log.current?.scrollToEnd({ animated: false });
-        }}
-      >
-        {children}
-      </ScrollView>
+    <View style={{ minHeight: 0 }}>
+      {!empty && (
+        <ScrollView
+          ref={log}
+          testID={`${label}-log`}
+          accessibilityLabel={
+            label === 'chat' ? 'Keskustelun viestit' : 'Omat muistiinpanot'
+          }
+          style={{ maxHeight: maxLogHeight, flexShrink: 1 }}
+          contentContainerStyle={conversationStyles.log}
+          nestedScrollEnabled
+          keyboardShouldPersistTaps="handled"
+          scrollEventThrottle={32}
+          onScroll={({ nativeEvent: e }) => {
+            following.current =
+              e.contentSize.height -
+                e.contentOffset.y -
+                e.layoutMeasurement.height <
+              60;
+            const atBottom = following.current;
+            setPosition((previous) => ({
+              atBottom,
+              seen: atBottom ? revision : previous.seen,
+              request,
+            }));
+          }}
+          onContentSizeChange={() => {
+            if (following.current)
+              log.current?.scrollToEnd({ animated: false });
+          }}
+        >
+          {children}
+        </ScrollView>
+      )}
       {unread && (
         <View style={conversationStyles.jump}>
           <Button
-            label={label === 'chat' ? 'Uusi vastaus ↓' : 'Uusi muistiinpano ↓'}
+            label={label === 'chat' ? 'Uusi vastaus' : 'Uusi muistiinpano'}
+            icon="down"
             onPress={() => {
               following.current = true;
               setPosition({ atBottom: true, seen: revision, request });
@@ -82,7 +90,7 @@ export function ConversationPane({
   );
 }
 export const conversationStyles = StyleSheet.create({
-  fill: { flex: 1, minHeight: 0 },
+  fill: { minHeight: 0 },
   log: { padding: 16, gap: 16 },
   composer: {
     flexShrink: 0,

@@ -11,7 +11,7 @@ npm ci
 npm run web
 ```
 
-Ilman chatin osoitetta sovellus käyttää esittelytilaa. [Chatin kehitysohje](chat-development.md) kertoo palvelimen asetukset.
+Ilman chatin osoitetta tutkimushaku näyttää palvelun puuttumisesta kertovan virheen. Muistiinpanoja voi silti käyttää. [Chatin kehitysohje](chat-development.md) kertoo palvelimen asetukset.
 
 ## Tarkistukset
 

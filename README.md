@@ -14,7 +14,6 @@ Ensimmäinen harrastus- ja portfolioprojektini: anestesiahoitotyön aiheista syn
 - Avata vastauksen lähteet ja hakutiedot **Näytä lähteet** -painikkeesta.
 - Tallentaa vastauksen sydämestä ja järjestää kortteja itse nimettyihin **Omat pinot** -kokoelmiin.
 - Kirjoittaa etusivun **Luo muistiinpano** -valinnasta oman tekstin ja tallentaa sen sydämestä **Omat muistiinpanot** -pinoon. Muistiinpanoja ei lähetetä tekoälylle.
-- Kokeilla valmiita esimerkkivastauksia **Esittelytilassa** ilman mallikutsuja.
 - Selata **Hätätilanteet**-painikkeesta 12 oppimiskorttia sekä avata niiden lisätiedot ja lähteet. **Elvytys** on oma rinnakkainen näkymänsä.
 
 Selainversio on julkaistu kokeiltavaksi. Sovellus on edelleen prototyyppi; erillisiä iOS- ja Android-julkaisuja ei ole tehty.
@@ -25,7 +24,7 @@ Selainversio on julkaistu kokeiltavaksi. Sovellus on edelleen prototyyppi; erill
 2. Avaa lähteet nähdäksesi, mihin vastaus perustuu.
 3. Tallenna vastaus sydämestä ja siirry **Omat pinot** -välilehdelle.
 
-Demon yhteinen käyttöraja on 50 pyyntöä vuorokaudessa ja vähintään minuutti pyyntöjen välillä. Esittelytila toimii myös ilman lähdehakua. Kortit tallentuvat paikallisesti: selaintietojen poistaminen poistaa myös kortit.
+Demon yhteinen käyttöraja on 50 pyyntöä vuorokaudessa ja vähintään minuutti pyyntöjen välillä. Tutkimushaku tarvitsee toimivan yhteyden chat-palveluun. Kortit tallentuvat paikallisesti: selaintietojen poistaminen poistaa myös kortit.
 
 ## Miksi tein tämän?
 

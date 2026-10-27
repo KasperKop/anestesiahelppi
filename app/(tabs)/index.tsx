@@ -12,7 +12,10 @@ import { PrototypeNotice } from '@/src/components/PrototypeNotice';
 import { WeightSelector } from '@/src/components/WeightSelector';
 import { ChatPanel } from '@/src/chat/ChatPanel';
 import { ui } from '@/src/ui/primitives';
+import { Icon } from '@/src/ui/Icon';
+import { useKeyboardVisible } from '@/src/ui/useKeyboardVisible';
 export default function HomeScreen() {
+  const keyboard = useKeyboardVisible();
   return (
     <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right']}>
       <KeyboardAvoidingView
@@ -21,80 +24,83 @@ export default function HomeScreen() {
       >
         <ScrollView
           keyboardShouldPersistTaps="handled"
-          contentContainerStyle={ui.page}
+          contentContainerStyle={[
+            ui.page,
+            { padding: 16, gap: 16, paddingBottom: 24 },
+          ]}
         >
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 12,
-              flexWrap: 'wrap',
-            }}
-          >
+          <View style={{ gap: 16, display: keyboard ? 'none' : 'flex' }}>
             <Text accessibilityRole="header" style={ui.label}>
               ANESTESIAHELPPI
             </Text>
-          </View>
-          <View style={{ flexDirection: 'row', gap: 10, flexWrap: 'wrap' }}>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Elvytys: avaa ikäryhmittäiset ohjeet"
-              onPress={() => router.push('/resuscitation')}
-              style={({ pressed }) => ({
-                flex: 1,
-                minWidth: 130,
-                alignItems: 'center',
-                borderWidth: 1,
-                borderColor: '#B42318',
-                backgroundColor: pressed ? '#FDECEB' : '#FFFFFF',
-                borderRadius: 16,
-                paddingHorizontal: 18,
-                paddingVertical: 14,
-              })}
-            >
+            <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
+              {(
+                [
+                  {
+                    title: 'Elvytys',
+                    icon: 'activity',
+                    path: '/resuscitation',
+                  },
+                  {
+                    title: 'Hätätilanteet',
+                    icon: 'alert',
+                    path: '/emergencies',
+                  },
+                ] as const
+              ).map((item) => (
+                <Pressable
+                  key={item.path}
+                  accessibilityRole="button"
+                  accessibilityLabel={item.title}
+                  onPress={() => router.push(item.path)}
+                  style={({ pressed }) => ({
+                    flex: 1,
+                    minWidth: 136,
+                    minHeight: 44,
+                    paddingHorizontal: 8,
+                    paddingVertical: 8,
+                    borderRadius: 12,
+                    backgroundColor: pressed ? '#8F1C13' : '#B42318',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
+                  })}
+                >
+                  <Icon name={item.icon} size={20} color="#FFFFFF" />
+                  <Text
+                    style={{
+                      flexShrink: 1,
+                      color: '#FFFFFF',
+                      fontWeight: '700',
+                      fontSize: 14,
+                    }}
+                  >
+                    {item.title}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+            <View style={{ gap: 8 }}>
               <Text
-                style={{ color: '#B42318', fontWeight: '700', fontSize: 16 }}
+                style={{
+                  textAlign: 'center',
+                  color: '#454B52',
+                  fontSize: 17,
+                  fontWeight: '600',
+                }}
               >
-                ♡ Elvytys
+                Valitse paino
               </Text>
-            </Pressable>
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Hätätilanteet: avaa toimintakortit"
-              onPress={() => router.push('/emergencies')}
-              style={({ pressed }) => ({
-                flex: 1,
-                minWidth: 130,
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderWidth: 1,
-                borderColor: '#B42318',
-                backgroundColor: pressed ? '#FDECEB' : '#FFFFFF',
-                borderRadius: 16,
-                paddingHorizontal: 14,
-                paddingVertical: 14,
-              })}
-            >
-              <Text
-                style={{ color: '#B42318', fontWeight: '700', fontSize: 16 }}
-              >
-                Hätätilanteet
-              </Text>
-            </Pressable>
-          </View>
-          <View style={{ gap: 12 }}>
-            <Text style={[ui.small, { textAlign: 'center' }]}>
-              Valitse paino
-            </Text>
-            <WeightSelector
-              onConfirm={(weight) =>
-                router.push({ pathname: '/weight-card', params: { weight } })
-              }
-            />
+              <WeightSelector
+                onConfirm={(weight) =>
+                  router.push({ pathname: '/weight-card', params: { weight } })
+                }
+              />
+            </View>
           </View>
           <ChatPanel />
-          <PrototypeNotice />
+          {!keyboard && <PrototypeNotice />}
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

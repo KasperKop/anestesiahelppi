@@ -1,16 +1,19 @@
 import { PropsWithChildren } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Icon, IconName } from './Icon';
 import { colors, radii, spacing } from '../theme/tokens';
 export function Button({
   label,
   onPress,
   disabled = false,
   primary = false,
+  icon,
 }: {
   label: string;
   onPress: () => void;
   disabled?: boolean;
   primary?: boolean;
+  icon?: IconName;
 }) {
   return (
     <Pressable
@@ -21,10 +24,26 @@ export function Button({
       style={({ pressed }) => [
         ui.button,
         primary && ui.primary,
-        (pressed || disabled) && { opacity: 0.55 },
+        pressed &&
+          !disabled && { backgroundColor: primary ? '#0C4B68' : '#D9EFF8' },
+        disabled && { backgroundColor: '#ECEFF1', borderColor: '#D4D9DD' },
+        { flexDirection: 'row', gap: 8, alignItems: 'center' },
       ]}
     >
-      <Text style={[ui.buttonText, primary && { color: colors.surface }]}>
+      {icon && (
+        <Icon
+          name={icon}
+          color={disabled ? '#505B64' : primary ? '#FFFFFF' : '#136489'}
+        />
+      )}
+      <Text
+        style={[
+          ui.buttonText,
+          { flexShrink: 1 },
+          primary && { color: colors.surface },
+          disabled && { color: '#505B64' },
+        ]}
+      >
         {label}
       </Text>
     </Pressable>
