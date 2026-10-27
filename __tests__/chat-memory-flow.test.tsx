@@ -8,6 +8,13 @@ jest.mock('../src/memory/storage', () => ({
   readMemory: jest.fn(),
   writeMemory: jest.fn(),
 }));
+jest.mock('../src/chat/client', () => ({
+  ...jest.requireActual('../src/chat/client'),
+  askLive: jest.fn(async (q: string) => ({
+    ...jest.requireActual('../src/chat/demo').demoAnswer(q),
+    mode: 'live',
+  })),
+}));
 let stored: MemoryState;
 beforeEach(() => {
   stored = emptyMemory();
@@ -18,7 +25,7 @@ beforeEach(() => {
     stored = JSON.parse(JSON.stringify(s));
   });
 });
-test('demo answer can be saved, filed, reopened after reload, renamed and unfiled by deleting its stack', async () => {
+test('retrieved answer can be saved, filed, reopened after reload, renamed and unfiled by deleting its stack', async () => {
   const user = userEvent.setup();
   let view = await render(
     <MemoryProvider>
@@ -26,13 +33,15 @@ test('demo answer can be saved, filed, reopened after reload, renamed and unfile
       <SavedScreen />
     </MemoryProvider>,
   );
-  await user.press(
-    view.getByRole('button', { name: 'Miten tallennan vastauksen?' }),
+  await user.type(
+    view.getByLabelText('Kysymys chatille'),
+    'Miten tallennan vastauksen?',
   );
-  await user.press(view.getByRole('button', { name: '♡ Tallenna vastaus' }));
-  expect(view.getByRole('button', { name: '♥ Tallennettu' })).toBeDisabled();
+  await user.press(view.getByRole('button', { name: 'Lähetä kysymys' }));
+  await user.press(view.getByRole('button', { name: 'Tallenna vastaus' }));
+  expect(view.getByRole('button', { name: 'Tallennettu' })).toBeDisabled();
   await user.type(view.getByLabelText('Pinon nimi'), 'Omat aiheet');
-  await user.press(view.getByRole('button', { name: 'Luo pino +' }));
+  await user.press(view.getByRole('button', { name: 'Luo pino' }));
   await user.press(
     view.getByRole('button', { name: 'Avaa kortti: Oma tietopankki' }),
   );

@@ -20,10 +20,10 @@ describe('Hätätilannekortit', () => {
   it('offers sibling home destinations', async () => {
     const screen = await render(<HomeScreen />);
     await fireEvent.press(
-      screen.getByRole('button', { name: /Hätätilanteet:/ }),
+      screen.getByRole('button', { name: /^Hätätilanteet$/ }),
     );
     expect(router.push).toHaveBeenCalledWith('/emergencies');
-    await fireEvent.press(screen.getByRole('button', { name: /Elvytys:/ }));
+    await fireEvent.press(screen.getByRole('button', { name: /^Elvytys$/ }));
     expect(router.push).toHaveBeenCalledWith('/resuscitation');
   });
   it('has 12 unique six-step summaries without local contact or dose tables', () => {

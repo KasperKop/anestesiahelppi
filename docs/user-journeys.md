@@ -16,14 +16,14 @@ Chatissa näkyy lyhyt ilmoitus: **Tutkimushakudemo · Älä kirjoita potilastiet
 
 > Tutkimushakudemo · WikiAnesthesia, PubMed, Europe PMC ja DOAJ. Kysymys käsitellään Groq-palvelussa ja englanninkieliset hakusanat lähetetään lähdepalveluihin. Älä kirjoita potilastietoja.
 
-Esittelytilan aiempi kuvaus: ”Kokeile chatia ja sydäntallennusta valmiilla esimerkeillä.” Näkymässä se on tiivistetty muotoon ”Esittelytila · Valmiit esimerkit, ei tekoälyhakua.” Teksti saa rivittyä hyvin pienellä näytöllä tai suurennetulla fontilla, jotta ilmoituksen loppu ei leikkaannu.
+Esittelytilan aiempi kuvaus: ”Kokeile chatia ja sydäntallennusta valmiilla esimerkeillä.” Esittelytila on sittemmin poistettu käyttöliittymästä. Teksti saa rivittyä hyvin pienellä näytöllä tai suurennetulla fontilla, jotta ilmoituksen loppu ei leikkaannu.
 
 1. Kirjoita chatille yleinen oppimiskysymys tai valitse esimerkkikysymys.
 2. Lue tiivistelmä. **Näytä lähteet** avaa hakusanat, hakujen tilat, katkelmat ja lisenssit.
 3. Paina **Tallenna vastaus** -sydäntä.
 4. Avaa vasemmanpuoleinen **Omat pinot** -välilehti.
 
-Jos sopivaa tietoa ei löydy, chat kertoo siitä. Palveluvirhe tai käyttöraja näkyy virheilmoituksena. **Esittelytila** käyttää valmiita vastauksia ilman lähdehakua.
+Jos sopivaa tietoa ei löydy, chat kertoo siitä. Palveluvirhe tai käyttöraja näkyy virheilmoituksena. Esittelytila on poistettu käyttöliittymästä. Palveluvirhe ei vaihda hakua valmiisiin esimerkkivastauksiin.
 
 Chat on rajatun korkuinen laatikko: viestit vierivät sen sisällä ja kirjoituskenttä sekä lähetyspainike pysyvät alareunassa. Kysymys näkyy heti lähetyksen jälkeen. Seuraavan kysymyksen luonnosta voi kirjoittaa haun aikana. Yhteysvirheen jälkeen **Yritä uudelleen** lähettää alkuperäisen kysymyksen uudestaan.
 
@@ -34,7 +34,7 @@ Jos luet vanhempia viestejä vastauksen saapuessa, lukukohta säilyy ja **Uusi v
 1. Valitse etusivun laatikosta **Luo muistiinpano** ja kirjoita teksti.
 2. Paina **Tallenna muistiinpano** -sydäntä. **Omat muistiinpanot** -pino syntyy ensimmäisellä tallennuksella.
 3. Avaa muistiinpano **Omat pinot** -välilehdeltä. Sen voi siirtää ja poistaa kuten muutkin kortit.
-4. **Kysy lähteistä** palauttaa chatin. Keskeneräinen muistiinpano ja chat säilyvät näiden valintojen välillä.
+4. **Tutkimushaku** palauttaa chatin. Keskeneräinen muistiinpano ja chat säilyvät näiden valintojen välillä.
 
 Muistiinpanot tallentuvat vain käytetylle laitteelle, eikä niitä lähetetä chat-palvelulle. Tallentamaton luonnos ei säily sivun uudelleenlatauksessa. Onnistuneen tallennuksen jälkeen **Luo uusi muistiinpano** avaa tyhjän tekstikentän. Muistiinpanon ensimmäisestä rivistä muodostuu kortin otsikko. Tallennetun tekstin muokkaus ei vielä sisälly tähän versioon.
 
@@ -52,3 +52,11 @@ Myös omien muistiinpanojen kirjoituskenttä pysyy laatikon alareunassa. Tämän
 Pinon poistaminen jättää kortit Järjestämättömiin. Kortin poistaminen pyytää vahvistuksen. Tallennus on paikallinen eikä päivitä vastausta lähteiden muuttuessa.
 
 Tallennettujen korttien järjestäminen raahaamalla ei ole toteutettu toiminto. Muistilistan kuittauspolku on vasta jatkoidea.
+
+## Etusivun mobiiliasettelu
+
+Tutkimushaku ja Luo muistiinpano ovat ainoat chatin valinnat. Tyhjä keskustelu ei varaa viestialuetta. Viestit vierivät rajatussa alueessa, ja syöttöalue pysyy sen ulkopuolella. Potilastietovaroitus näkyy molemmissa tiloissa. Muistiinpanot tallentuvat vain laitteelle.
+
+Hätätoimintopainikkeet ovat punaiset ja vähintään 44 px korkeat (noin 15 % mallin 52 px painikkeita pienemmät). Alanavigaatio on osa näkymän asettelua, joten sen korkeus ja turva-alue varataan automaattisesti sisällön ulkopuolelle. Lisäksi sisältöalueella on 24 px alaväli. Näppäimistön aikana painovalitsin ja alanavigaatio väistyvät; verkkoversio seuraa VisualViewport-rajapintaa.
+
+Ikonit ovat Lucide-kirjastosta; react-native-svg on sen tarvitsema piirtoalusta ja versio on sovitettu Expon mukana toimitettuun versioon. Verkon painosäädin käyttää natiivia range-elementtiä, joten se toimii myös näppäimistöllä. Natiivisovelluksen säädin käyttää käyttöjärjestelmän slideria.

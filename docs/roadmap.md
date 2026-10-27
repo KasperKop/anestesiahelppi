@@ -6,7 +6,7 @@ Päivitetty 21.9.2026. Projekti etenee harrastuksena ilman julkaisuaikataulua. C
 
 - Expo-, React Native- ja TypeScript-sovelluspohja.
 - Painovalitsin ja painokortit 3–30 kg:n alueelle.
-- Chat painovalitsimen alapuolella sekä erillinen esittelytila.
+- Tutkimushaku ja omat muistiinpanot painovalitsimen alapuolella.
 - WikiAnesthesia-, PubMed-, Europe PMC- ja DOAJ-haku.
 - Lähde- ja hakutiedot avattavan painikkeen takana.
 - Vastauksen tallennus ja omien pinojen luonti, nimeäminen ja järjestäminen.

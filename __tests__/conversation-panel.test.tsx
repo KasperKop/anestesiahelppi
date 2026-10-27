@@ -15,6 +15,20 @@ jest.mock('../src/memory/storage', () => ({
   writeMemory: jest.fn(async () => undefined),
 }));
 
+test('empty home chat has one mode row and no reserved message space', async () => {
+  const screen = await render(
+    <MemoryProvider>
+      <ChatPanel />
+    </MemoryProvider>,
+  );
+  expect(screen.getAllByRole('tab')).toHaveLength(2);
+  expect(screen.getByRole('tab', { name: 'Tutkimushaku' })).toBeOnTheScreen();
+  expect(screen.queryByText('Esittelytila')).toBeNull();
+  expect(screen.queryByTestId('chat-log')).toBeNull();
+  expect(screen.getByTestId('chat-composer')).toBeOnTheScreen();
+  expect(screen.getByText('Älä kirjoita potilastietoja.')).toBeOnTheScreen();
+});
+
 test('composer stays outside log and new content does not steal the reading position', async () => {
   const pane = (revision: number) => (
     <ConversationPane
@@ -41,10 +55,10 @@ test('composer stays outside log and new content does not steal the reading posi
     },
   });
   await screen.rerender(pane(1));
-  await fireEvent.press(screen.getByRole('button', { name: 'Uusi vastaus ↓' }));
-  expect(screen.queryByRole('button', { name: 'Uusi vastaus ↓' })).toBeNull();
+  await fireEvent.press(screen.getByRole('button', { name: 'Uusi vastaus' }));
+  expect(screen.queryByRole('button', { name: 'Uusi vastaus' })).toBeNull();
   await screen.rerender(pane(2));
-  expect(screen.queryByRole('button', { name: 'Uusi vastaus ↓' })).toBeNull();
+  expect(screen.queryByRole('button', { name: 'Uusi vastaus' })).toBeNull();
 });
 
 test('pending question appears immediately, retry keeps the next draft and avoids duplicate turns', async () => {
@@ -64,9 +78,7 @@ test('pending question appears immediately, retry keeps the next draft and avoid
     screen.getByLabelText('Kysymys chatille'),
     'Ensimmäinen kysymys',
   );
-  await fireEvent.press(
-    screen.getByRole('button', { name: 'Lähetä kysymys ↑' }),
-  );
+  await fireEvent.press(screen.getByRole('button', { name: 'Lähetä kysymys' }));
   expect(
     within(screen.getByTestId('chat-log')).getByText('Ensimmäinen kysymys'),
   ).toBeOnTheScreen();
