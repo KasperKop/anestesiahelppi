@@ -35,50 +35,50 @@ export function WeightSelector({ onConfirm }: WeightSelectorProps) {
         </Text>
       </View>
 
-      <View style={styles.controls}>
-        <Pressable
-          accessibilityLabel="Vähennä painoa 1 kg"
-          accessibilityRole="button"
-          disabled={weight === MIN_WEIGHT}
-          onPress={() => changeWeight(weight - 1)}
-          style={({ pressed }) => [
-            styles.stepButton,
-            pressed && styles.stepButtonPressed,
-            weight === MIN_WEIGHT && styles.disabled,
-          ]}
-        >
-          <Icon
-            name="minus"
-            color={weight === MIN_WEIGHT ? '#85847E' : '#136489'}
-          />
-        </Pressable>
-
-        <View style={{ flex: 1, minWidth: 0 }}>
-          <WeightRange value={weight} onChange={changeWeight} />
-          <View
-            style={{ flexDirection: 'row', justifyContent: 'space-between' }}
+      <View>
+        <View style={styles.controls}>
+          <Pressable
+            accessibilityLabel="Vähennä painoa 1 kg"
+            accessibilityRole="button"
+            disabled={weight === MIN_WEIGHT}
+            onPress={() => changeWeight(weight - 1)}
+            style={({ pressed }) => [
+              styles.stepButton,
+              pressed && styles.stepButtonPressed,
+              weight === MIN_WEIGHT && styles.disabled,
+            ]}
           >
-            <Text style={styles.limit}>3 kg</Text>
-            <Text style={styles.limit}>30 kg</Text>
-          </View>
-        </View>
+            <Icon
+              name="minus"
+              color={weight === MIN_WEIGHT ? '#85847E' : '#136489'}
+            />
+          </Pressable>
 
-        <Pressable
-          accessibilityLabel="Lisää painoa 1 kg"
-          accessibilityRole="button"
-          disabled={weight === MAX_WEIGHT}
-          onPress={() => changeWeight(weight + 1)}
-          style={({ pressed }) => [
-            styles.stepButton,
-            pressed && styles.stepButtonPressed,
-            weight === MAX_WEIGHT && styles.disabled,
-          ]}
-        >
-          <Icon
-            name="plus"
-            color={weight === MAX_WEIGHT ? '#85847E' : '#136489'}
-          />
-        </Pressable>
+          <View style={{ flex: 1, minWidth: 0 }}>
+            <WeightRange value={weight} onChange={changeWeight} />
+          </View>
+
+          <Pressable
+            accessibilityLabel="Lisää painoa 1 kg"
+            accessibilityRole="button"
+            disabled={weight === MAX_WEIGHT}
+            onPress={() => changeWeight(weight + 1)}
+            style={({ pressed }) => [
+              styles.stepButton,
+              pressed && styles.stepButtonPressed,
+              weight === MAX_WEIGHT && styles.disabled,
+            ]}
+          >
+            <Icon
+              name="plus"
+              color={weight === MAX_WEIGHT ? '#85847E' : '#136489'}
+            />
+          </Pressable>
+        </View>
+        <View style={styles.limits}>
+          <Text style={styles.limit}>3 kg</Text>
+          <Text style={styles.limit}>30 kg</Text>
+        </View>
       </View>
 
       <Pressable
@@ -109,6 +109,12 @@ const styles = StyleSheet.create({
   },
   unit: { fontSize: 18, fontWeight: '600', letterSpacing: 0 },
   controls: { alignItems: 'center', flexDirection: 'row', gap: spacing.sm },
+  limits: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 48 + spacing.sm,
+    marginTop: spacing.xs,
+  },
   stepButton: {
     alignItems: 'center',
     borderColor: '#136489',
