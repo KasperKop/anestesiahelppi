@@ -1,3 +1,6 @@
+import { useSettings } from '@/src/settings/context';
+import { drugs, resolveDrug } from '@/src/settings/model';
+import { ModifiedBadge, SettingsNotice } from '@/src/settings/SettingsScreen';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -42,8 +45,32 @@ function MedicationRow({
   item,
 }: {
   inverted?: boolean;
-  item: MedicationValue;
+  item: MedicationValue & { modified?: boolean; defaultValue?: string };
 }) {
+  if (item.modified)
+    return (
+      <View
+        style={{
+          borderBottomWidth: 1,
+          borderBottomColor: '#E6EBED',
+          paddingVertical: 8,
+          gap: 4,
+        }}
+      >
+        <Text
+          style={[styles.medicationLabel, { color: '#202124', fontSize: 11 }]}
+        >
+          {item.name}
+        </Text>
+        <Text style={[styles.medicationValue, { fontSize: 12, marginLeft: 0 }]}>
+          {item.value}
+        </Text>
+        <ModifiedBadge />
+        <Text style={{ fontSize: 10, lineHeight: 15, color: '#505B64' }}>
+          Oletus: {item.defaultValue}
+        </Text>
+      </View>
+    );
   return (
     <View
       style={[styles.medicationRow, inverted && styles.invertedMedicationRow]}
@@ -71,6 +98,7 @@ function MedicationRow({
 }
 
 export default function WeightCardScreen() {
+  const { settings, ready } = useSettings();
   const params = useLocalSearchParams<{ weight?: string }>();
   const requestedWeight = Math.round(Number(params.weight));
   const card = weightCards[requestedWeight];
@@ -97,12 +125,41 @@ export default function WeightCardScreen() {
     );
   }
 
+  if (!ready)
+    return (
+      <SafeAreaView style={styles.safeArea}>
+        <Text style={{ padding: 24 }}>Ladataan annosasetuksia…</Text>
+      </SafeAreaView>
+    );
+  const medicines = drugs.map((drug) =>
+    resolveDrug(drug, card.weight, settings.overrides),
+  );
+  const modifiedCount = medicines.filter((item) => item.modified).length;
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
+        <SettingsNotice />
+        {modifiedCount > 0 && (
+          <Pressable
+            accessibilityRole="link"
+            accessibilityLabel={`Käytössä ${modifiedCount} muokattua annosta. Avaa asetukset`}
+            onPress={() => router.push('/settings')}
+            style={{
+              minHeight: 44,
+              padding: 12,
+              backgroundColor: '#FFF0CA',
+              borderRadius: 12,
+              justifyContent: 'center',
+            }}
+          >
+            <Text style={{ color: '#704600', fontSize: 14 }}>
+              Käytössä {modifiedCount} muokattua annosta · Asetukset
+            </Text>
+          </Pressable>
+        )}
         <View style={styles.heroRow}>
           <Pressable
             accessibilityLabel="Palaa painon valintaan"
@@ -190,7 +247,7 @@ export default function WeightCardScreen() {
                   <Text style={styles.sectionTitle}>Lääkitys</Text>
                 </View>
               </View>
-              {card.anaesthesiaMedications.map((item) => (
+              {medicines.map((item) => (
                 <MedicationRow item={item} key={item.name} />
               ))}
             </View>

@@ -1,3 +1,4 @@
+import { useSettings } from '@/src/settings/context';
 import { router } from 'expo-router';
 import {
   KeyboardAvoidingView,
@@ -16,6 +17,7 @@ import { Icon } from '@/src/ui/Icon';
 import { useKeyboardVisible } from '@/src/ui/useKeyboardVisible';
 export default function HomeScreen() {
   const keyboard = useKeyboardVisible();
+  const { weight, setWeight } = useSettings();
   return (
     <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right']}>
       <KeyboardAvoidingView
@@ -93,6 +95,8 @@ export default function HomeScreen() {
                 Valitse paino
               </Text>
               <WeightSelector
+                selectedWeight={weight}
+                onWeightChange={setWeight}
                 onConfirm={(weight) =>
                   router.push({ pathname: '/weight-card', params: { weight } })
                 }

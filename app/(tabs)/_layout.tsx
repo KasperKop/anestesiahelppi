@@ -36,11 +36,17 @@ export default function TabLayout() {
             {state.routes.map((route, index) => {
               const active = state.index === index;
               const home = route.name === 'index';
+              const settings = route.name === 'settings';
+              const label = home
+                ? 'Etusivu'
+                : settings
+                  ? 'Asetukset'
+                  : 'Omat pinot';
               return (
                 <Pressable
                   key={route.key}
                   accessibilityRole="tab"
-                  accessibilityLabel={home ? 'Etusivu' : 'Omat pinot'}
+                  accessibilityLabel={label}
                   accessibilityState={{ selected: active }}
                   {...(Platform.OS === 'web' && active
                     ? { 'aria-current': 'page' as const }
@@ -73,7 +79,7 @@ export default function TabLayout() {
                     }}
                   >
                     <Icon
-                      name={home ? 'home' : 'heart'}
+                      name={home ? 'home' : settings ? 'settings' : 'heart'}
                       color={active ? '#136489' : '#505B64'}
                       filled={active}
                     />
@@ -87,7 +93,7 @@ export default function TabLayout() {
                       textAlign: 'center',
                     }}
                   >
-                    {home ? 'Etusivu' : 'Omat pinot'}
+                    {label}
                   </Text>
                 </Pressable>
               );
@@ -98,6 +104,7 @@ export default function TabLayout() {
     >
       <Tabs.Screen name="saved" options={{ title: 'Omat pinot' }} />
       <Tabs.Screen name="index" options={{ title: 'Etusivu' }} />
+      <Tabs.Screen name="settings" options={{ title: 'Asetukset' }} />
     </Tabs>
   );
 }
