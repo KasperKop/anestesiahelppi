@@ -1,3 +1,4 @@
+import { weightAgeLabel } from '../data/weightAges';
 import { WeightRange } from './WeightRange';
 import { Icon } from '../ui/Icon';
 import { useState } from 'react';
@@ -27,12 +28,13 @@ export function WeightSelector({ onConfirm }: WeightSelectorProps) {
     <View style={styles.container}>
       <View
         accessible
-        accessibilityLabel={`Valittu paino ${weight} kilogrammaa`}
+        accessibilityLabel={`Valittu paino ${weight} kilogrammaa, painoa vastaava ikäarvio ${weightAgeLabel(weight)}`}
       >
         <Text style={styles.value}>
           {weight}
           <Text style={styles.unit}> kg</Text>
         </Text>
+        <Text style={styles.age}>{weightAgeLabel(weight)}</Text>
       </View>
 
       <View>
@@ -99,7 +101,9 @@ export function WeightSelector({ onConfirm }: WeightSelectorProps) {
 }
 
 const styles = StyleSheet.create({
-  container: { gap: spacing.md, width: '100%' },
+  // The 16 px age line uses the space released by two gaps (16 → 8 px).
+  container: { gap: spacing.sm, width: '100%' },
+  age: { fontSize: 14, lineHeight: 16, textAlign: 'center', color: '#454B52' },
   value: {
     color: colors.textPrimary,
     fontSize: 56,

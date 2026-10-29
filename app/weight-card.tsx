@@ -2,6 +2,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import { weightAgeLabel } from '@/src/data/weightAges';
 import { MedicationValue, weightCards } from '@/src/data/weightCards';
 import { colors, radii } from '@/src/theme/tokens';
 
@@ -119,7 +120,17 @@ export default function WeightCardScreen() {
               {card.weight}
               <Text style={styles.weightUnit}> kg</Text>
             </Text>
-            <Text style={styles.eyebrow}>VALITTU PAINO</Text>
+            <Text
+              accessibilityLabel={`Painoa vastaava ikäarvio: ${weightAgeLabel(card.weight)}`}
+              style={{
+                fontSize: 14,
+                lineHeight: 16,
+                color: '#454B52',
+                textAlign: 'center',
+              }}
+            >
+              {weightAgeLabel(card.weight)}
+            </Text>
           </View>
           <View style={styles.heroSpacer} />
         </View>
