@@ -15,8 +15,10 @@ nollaa, negatiivista tai virheellistä vaihteluväliä ei voi tallentaa. Yli 50 
 poikkeama oletuksesta vaatii erillisen vahvistuksen. Tämä on vertailu alkuperäiseen
 dataan, ei lääkkeen turvallisen annoksen tarkistus.
 
-Muokattu annos näkyy kaikissa painokorteissa. Kortti näyttää myös alkuperäisen
-annoksen ja linkin asetuksiin. Yksittäisen lääkkeen tai kaikkien lääkkeiden
+Muokattu annos näkyy kaikissa painokorteissa. Pieni kynäkuvake merkitsee
+muokattua lääkeriviä; riviä napauttamalla näkee oletusannoksen erillisessä
+ikkunassa. Yhteenvetopalkkia ei näytetä, ja rivien alkuperäinen korkeus sekä
+tekstikoko säilyvät. Yksittäisen lääkkeen tai kaikkien lääkkeiden
 palautus poistaa vain annosmuutokset; tallennetut vastaukset ja muistiinpanot säilyvät.
 
 ## Oletukset ja poikkeustapaukset
