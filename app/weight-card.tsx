@@ -1,8 +1,18 @@
+import { useState } from 'react';
+import { Icon } from '@/src/ui/Icon';
+import { Button, ui } from '@/src/ui/primitives';
 import { useSettings } from '@/src/settings/context';
 import { drugs, resolveDrug } from '@/src/settings/model';
-import { ModifiedBadge, SettingsNotice } from '@/src/settings/SettingsScreen';
+import { SettingsNotice } from '@/src/settings/SettingsScreen';
 import { router, useLocalSearchParams } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { weightAgeLabel } from '@/src/data/weightAges';
@@ -43,38 +53,30 @@ function DataRow({ compact, inverted, label, unit, value }: DataRowProps) {
 function MedicationRow({
   inverted,
   item,
+  onShowDefault,
 }: {
   inverted?: boolean;
   item: MedicationValue & { modified?: boolean; defaultValue?: string };
+  onShowDefault?: () => void;
 }) {
-  if (item.modified)
-    return (
-      <View
-        style={{
-          borderBottomWidth: 1,
-          borderBottomColor: '#E6EBED',
-          paddingVertical: 8,
-          gap: 4,
-        }}
-      >
-        <Text
-          style={[styles.medicationLabel, { color: '#202124', fontSize: 11 }]}
-        >
-          {item.name}
-        </Text>
-        <Text style={[styles.medicationValue, { fontSize: 12, marginLeft: 0 }]}>
-          {item.value}
-        </Text>
-        <ModifiedBadge />
-        <Text style={{ fontSize: 10, lineHeight: 15, color: '#505B64' }}>
-          Oletus: {item.defaultValue}
-        </Text>
-      </View>
-    );
+  const Row = item.modified ? Pressable : View;
   return (
-    <View
+    <Row
+      {...(item.modified
+        ? {
+            accessibilityRole: 'button' as const,
+            accessibilityLabel: `${item.name}, ${item.value}. Muokattu annos. Näytä oletusannos.`,
+            onPress: onShowDefault,
+            hitSlop: { top: 5, bottom: 5, left: 0, right: 0 },
+          }
+        : {})}
       style={[styles.medicationRow, inverted && styles.invertedMedicationRow]}
     >
+      {item.modified && (
+        <View pointerEvents="none" style={{ position: 'absolute', left: -9 }}>
+          <Icon name="pencil" size={10} color="#704600" />
+        </View>
+      )}
       <Text
         numberOfLines={1}
         style={[
@@ -93,12 +95,17 @@ function MedicationRow({
       >
         {item.value}
       </Text>
-    </View>
+    </Row>
   );
 }
 
 export default function WeightCardScreen() {
   const { settings, ready } = useSettings();
+  const [detail, setDetail] = useState<{
+    name: string;
+    value: string;
+    defaultValue: string;
+  }>();
   const params = useLocalSearchParams<{ weight?: string }>();
   const requestedWeight = Math.round(Number(params.weight));
   const card = weightCards[requestedWeight];
@@ -134,7 +141,6 @@ export default function WeightCardScreen() {
   const medicines = drugs.map((drug) =>
     resolveDrug(drug, card.weight, settings.overrides),
   );
-  const modifiedCount = medicines.filter((item) => item.modified).length;
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView
@@ -142,24 +148,6 @@ export default function WeightCardScreen() {
         showsVerticalScrollIndicator={false}
       >
         <SettingsNotice />
-        {modifiedCount > 0 && (
-          <Pressable
-            accessibilityRole="link"
-            accessibilityLabel={`Käytössä ${modifiedCount} muokattua annosta. Avaa asetukset`}
-            onPress={() => router.push('/settings')}
-            style={{
-              minHeight: 44,
-              padding: 12,
-              backgroundColor: '#FFF0CA',
-              borderRadius: 12,
-              justifyContent: 'center',
-            }}
-          >
-            <Text style={{ color: '#704600', fontSize: 14 }}>
-              Käytössä {modifiedCount} muokattua annosta · Asetukset
-            </Text>
-          </Pressable>
-        )}
         <View style={styles.heroRow}>
           <Pressable
             accessibilityLabel="Palaa painon valintaan"
@@ -248,7 +236,11 @@ export default function WeightCardScreen() {
                 </View>
               </View>
               {medicines.map((item) => (
-                <MedicationRow item={item} key={item.name} />
+                <MedicationRow
+                  item={item}
+                  key={item.name}
+                  onShowDefault={() => setDetail(item)}
+                />
               ))}
             </View>
           </View>
@@ -299,6 +291,36 @@ export default function WeightCardScreen() {
           PORTFOLIOPROTOTYYPPI · EI KLIINISEEN KÄYTTÖÖN
         </Text>
       </ScrollView>
+      <Modal
+        visible={!!detail}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setDetail(undefined)}
+      >
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.45)',
+            justifyContent: 'center',
+            padding: 16,
+          }}
+        >
+          <View
+            accessibilityViewIsModal
+            style={[
+              ui.panel,
+              { width: '100%', maxWidth: 440, alignSelf: 'center' },
+            ]}
+          >
+            <Text accessibilityRole="header" style={ui.title}>
+              {detail?.name}
+            </Text>
+            <Text style={ui.body}>Muokattu annos: {detail?.value}</Text>
+            <Text style={ui.body}>Oletus: {detail?.defaultValue}</Text>
+            <Button label="Sulje" onPress={() => setDetail(undefined)} />
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
