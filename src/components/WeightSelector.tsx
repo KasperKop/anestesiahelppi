@@ -12,16 +12,25 @@ export const DEFAULT_WEIGHT = 15;
 
 type WeightSelectorProps = {
   onConfirm: (weight: number) => void;
+  selectedWeight?: number;
+  onWeightChange?: (weight: number) => void;
 };
 
 const clampWeight = (weight: number) =>
   Math.min(MAX_WEIGHT, Math.max(MIN_WEIGHT, weight));
 
-export function WeightSelector({ onConfirm }: WeightSelectorProps) {
-  const [weight, setWeight] = useState(DEFAULT_WEIGHT);
+export function WeightSelector({
+  onConfirm,
+  selectedWeight,
+  onWeightChange,
+}: WeightSelectorProps) {
+  const [localWeight, setWeight] = useState(DEFAULT_WEIGHT);
+  const weight = selectedWeight ?? localWeight;
 
   const changeWeight = (nextWeight: number) => {
-    setWeight(clampWeight(Math.round(nextWeight)));
+    const value = clampWeight(Math.round(nextWeight));
+    setWeight(value);
+    onWeightChange?.(value);
   };
 
   return (

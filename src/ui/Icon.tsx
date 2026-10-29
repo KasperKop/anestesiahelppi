@@ -1,4 +1,7 @@
 import {
+  Settings,
+  Square,
+  SquareCheck,
   Activity,
   TriangleAlert,
   Search,
@@ -18,6 +21,9 @@ import {
 import { View } from 'react-native';
 
 const icons = {
+  settings: Settings,
+  square: Square,
+  check: SquareCheck,
   activity: Activity,
   alert: TriangleAlert,
   search: Search,

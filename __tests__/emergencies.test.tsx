@@ -5,6 +5,10 @@ import EmergenciesScreen, { referenceUrl } from '../app/emergencies';
 import HomeScreen from '../app/(tabs)/index';
 import { emergencyCards } from '../src/emergencies/cards';
 
+jest.mock('../src/settings/context', () => ({
+  useSettings: () => ({ weight: 15, setWeight: jest.fn() }),
+}));
+
 jest.mock('expo-router', () => ({
   router: { replace: jest.fn(), push: jest.fn() },
 }));
