@@ -9,6 +9,7 @@ export type SavedCard = {
   answer: Answer | PersonalNote;
   stackId: string | null;
   savedAt: string;
+  updatedAt?: string;
   position: number;
 };
 export type MemoryStack = {
@@ -31,6 +32,7 @@ export const emptyMemory = (): MemoryState => ({
   stacks: [],
 });
 export type MemoryAction =
+  | { type: 'editNote'; id: string; text: string }
   | { type: 'saveNote'; id: string; text: string }
   | { type: 'save'; answer: Answer }
   | { type: 'remove'; id: string }
@@ -79,6 +81,30 @@ export function changeMemory(
   action: MemoryAction,
 ): MemoryState {
   const now = new Date().toISOString();
+  if (action.type === 'editNote') {
+    const text = action.text.trim();
+    if (!text || text.length > 10000)
+      throw new Error('Kirjoita 1–10 000 merkin muistiinpano.');
+    const card = state.cards.find((c) => c.id === action.id);
+    if (!card || card.answer.mode !== 'note')
+      throw new Error('Vain omaa muistiinpanoa voi muokata.');
+    return {
+      ...state,
+      cards: state.cards.map((c) =>
+        c.id === card.id
+          ? {
+              ...c,
+              updatedAt: now,
+              answer: {
+                ...c.answer,
+                title: text.split('\n')[0].slice(0, 80),
+                body: text,
+              },
+            }
+          : c,
+      ),
+    };
+  }
   if (action.type === 'saveNote') {
     const text = action.text.trim();
     if (!text || text.length > 10000)
