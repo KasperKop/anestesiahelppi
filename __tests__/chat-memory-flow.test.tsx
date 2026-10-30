@@ -40,8 +40,9 @@ test('retrieved answer can be saved, filed, reopened after reload, renamed and u
   await user.press(view.getByRole('button', { name: 'Lähetä kysymys' }));
   await user.press(view.getByRole('button', { name: 'Tallenna vastaus' }));
   expect(view.getByRole('button', { name: 'Tallennettu' })).toBeDisabled();
-  await user.type(view.getByLabelText('Pinon nimi'), 'Omat aiheet');
   await user.press(view.getByRole('button', { name: 'Luo pino' }));
+  await user.type(view.getByLabelText('Pinon nimi'), 'Omat aiheet');
+  await user.press(view.getByRole('button', { name: 'Luo uusi pino' }));
   await user.press(
     view.getByRole('button', { name: 'Avaa kortti: Oma tietopankki' }),
   );

@@ -1,4 +1,5 @@
 import {
+  Trash2,
   Settings,
   Square,
   SquareCheck,
@@ -21,6 +22,7 @@ import {
 import { View } from 'react-native';
 
 const icons = {
+  trash: Trash2,
   settings: Settings,
   square: Square,
   check: SquareCheck,
