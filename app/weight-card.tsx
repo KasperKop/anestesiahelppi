@@ -273,10 +273,10 @@ export default function WeightCardScreen() {
             <View style={[styles.sectionCard, styles.emergencyCard]}>
               <View style={styles.sectionHeadingRow}>
                 <View style={styles.emergencyIcon}>
-                  <Text style={styles.emergencyIconText}>!</Text>
+                  <Icon name="activity" size={20} color={colors.critical} />
                 </View>
                 <View style={styles.headingCopy}>
-                  <Text style={styles.emergencyEyebrow}>HÄTÄTILANNE</Text>
+                  <Text style={styles.emergencyEyebrow}>ELVYTYS</Text>
                   <Text style={styles.emergencyTitle}>Lääkitys</Text>
                 </View>
               </View>
@@ -438,11 +438,6 @@ const styles = StyleSheet.create({
     height: 38,
     justifyContent: 'center',
     width: 38,
-  },
-  emergencyIconText: {
-    color: colors.critical,
-    fontSize: 22,
-    fontWeight: '900',
   },
   emergencyEyebrow: {
     color: colors.surface,
