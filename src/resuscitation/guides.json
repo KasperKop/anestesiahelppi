@@ -1,0 +1,240 @@
+[
+  {
+    "label": "Vastasyntynyt",
+    "title": "Vastasyntyneen elvytys",
+    "scope": "Syntymän yhteydessä • Hengityksen käynnistäminen ja verenkierron tuki",
+    "start": {
+      "title": "Valmistaudu ja arvioi",
+      "lines": [
+        "Kutsu tarvittava apu. Käynnistä kello syntymästä ja pidä lapsi lämpimänä.",
+        "Arvioi hengitys ja syke. Kuivaa, stimuloi hellästi, peittele ja laita päähine. Viivästetty napanuoran sulku tilanteen mukaan."
+      ],
+      "tone": "blue"
+    },
+    "sections": [
+      {
+        "title": "1 · Avaa hengitystie ja tue hengitystä",
+        "lines": [
+          "Jos hengitys puuttuu tai on haukkovaa: 5 alkupuhallusta.",
+          "Vähintään 32 raskausviikkoa: aloituspaine 30 cmH₂O, PEEP 6 cmH₂O, happi 21 %.",
+          "Alle 32 raskausviikkoa: aloituspaine 25 cmH₂O, PEEP 6 cmH₂O, happi vähintään 30 %. Hengittävälle CPAP 6 cmH₂O.",
+          "Alle 32-viikkoinen kuivamatta muovipussiin, päähine ja ulkoinen lämmönlähde. Harkitse oikean käden SpO₂-seurantaa ja EKG:tä."
+        ]
+      },
+      {
+        "title": "2 · Liikkuuko rintakehä, nouseeko syke?",
+        "lines": [
+          "Jos rintakehä ei liiku: korjaa maskin tiiviys ja pään asento, kohota leukaa. Kokeile muita hengitystien avaamiskeinoja ja tarvittaessa suurempaa painetta.",
+          "Toista 5 alkupuhallusta ja arvioi uudelleen.",
+          "Kun rintakehä liikkuu: jatka tehokasta ylipaineventilaatiota ja arvioi syke 30 sekunnin kuluttua."
+        ],
+        "tone": "blue"
+      },
+      {
+        "title": "3 · Syke edelleen alle 60/min",
+        "lines": [
+          "Varmista ensin vähintään 30 sekuntia tehokasta ventilaatiota. Jos syke nousee, harkitse vielä 30 sekuntia ventilaatiota.",
+          "Aloita painelu ja ventilaatio suhteessa 3:1, happi 100 %. Harkitse supraglottista hengitystievälinettä tai intubaatiota.",
+          "Arvioi syke 30 sekunnin välein. Lopeta painelu sykkeen noustessa yli 60/min ja verenkierron parantuessa; jatka tarvittavaa hengitystukea."
+        ],
+        "tone": "red"
+      },
+      {
+        "title": "4 · Syke alle 60/min tehokkaasta elvytyksestä huolimatta",
+        "lines": [
+          "Napalaskimoyhteys (UVC) tai luuydinyhteys (IO). Harkitse lääkkeitä ja nestettä.",
+          "Adrenaliini 10–30 µg/kg UVC/IO, tarvittaessa 4 minuutin välein.",
+          "Harkitse verivolyymin korjausta 10 ml/kg, jos epäilet verenhukkaa tai hypovolemiaa.",
+          "Jos verensokeri on matala: 10 % glukoosi 2 ml/kg.",
+          "Arvioi ilmarinta, hypovolemia, synnynnäinen poikkeavuus ja välinevika."
+        ]
+      },
+      {
+        "title": "Hapetus ja jatkohoito",
+        "lines": [
+          "Oikean käden SpO₂-tavoite: 3 min 70–75 %, 5 min 80–85 %, 10 min 85–95 %.",
+          "Säädä happea tavoitteen mukaan. Ylläpidä normaalia lämpötilaa, seuraa hengitystä, sykettä ja glukoosia.",
+          "Kerro tilanteesta vanhemmille ja käy tapahtuma läpi tiimin kanssa."
+        ],
+        "tone": "green",
+        "id": "rosc"
+      }
+    ],
+    "source": "https://www.erc.edu/media/rgrn0faa/gl2025-08-nls-e.pdf"
+  },
+  {
+    "label": "Lapset",
+    "title": "Lasten hoitoelvytys",
+    "scope": "Imeväiset, lapset ja nuoret • Ei vastasyntyneen elvytystä syntymässä",
+    "start": {
+      "title": "Tunnista ja aloita",
+      "lines": [
+        "Ei elonmerkkejä tai syke alle 60/min ja heikko verenkierto riittävästä hengityksen tuesta huolimatta.",
+        "Kutsu elvytysryhmä.",
+        "5 alkupuhallusta, sitten painelu-puhallus 15:2.",
+        "Kytke defibrillaattori / monitori."
+      ],
+      "tone": "blue"
+    },
+    "branches": [
+      {
+        "title": "Defibrilloitava",
+        "tone": "red",
+        "subtitle": "VF/pVT – kammiovärinä / sykkeetön kammiotakykardia",
+        "action": {
+          "label": "1 isku",
+          "value": "4 J/kg"
+        },
+        "doses": [
+          [
+            "Adrenaliini 10 µg/kg",
+            "Enintään 1 mg · 4 min kuluttua, sitten 4 min välein."
+          ],
+          ["Amiodaroni 5 mg/kg", "Enintään 300 mg · 3. iskun jälkeen."],
+          ["Amiodaroni 5 mg/kg", "Enintään 150 mg · 5. iskun jälkeen."]
+        ],
+        "continuation": "Iskut 2 min välein, 4 J/kg. Pitkittyvä VF/pVT: harkitse iskuenergian nostamista asteittain enintään 8 J/kg (enintään 360 J), kun tarvitaan yli 5 iskua."
+      },
+      {
+        "title": "Ei-defibrilloitava",
+        "tone": "blue",
+        "subtitle": "Bradykardia, asystole, PEA",
+        "action": {
+          "label": "IV/IO",
+          "value": "Adrenaliini mahdollisimman pian"
+        },
+        "doses": [
+          [
+            "Adrenaliini 10 µg/kg",
+            "Enintään 1 mg · toista 4 min välein (joka toinen kierros)."
+          ]
+        ]
+      }
+    ],
+    "cycle": "2 min elvytystä → arvioi rytmi uudelleen. Jos verenkierto palautuu, siirry jatkohoitoon.",
+    "sections": [
+      {
+        "title": "Elvytyksen aikana",
+        "icon": "triangle-alert",
+        "lines": [
+          "Laadukas painelu: taajuus, syvyys ja rinnan täysi palautuminen. Mahdollisimman lyhyet tauot.",
+          "Palje-maskiventilaatio 100 % hapella, kahden henkilön tekniikka.",
+          "Varmistettu hengitystie: jatkuva painelu ja ikäkohtainen ventilaatio."
+        ],
+        "ventilation": [
+          ["< 1 v", "25/min"],
+          ["1–8 v", "20/min"],
+          ["8–12 v", "15/min"],
+          ["> 12 v", "10/min"]
+        ],
+        "extra": "vaihda painelijaa 2 min välein."
+      },
+      {
+        "title": "Korjaa palautuvat syyt",
+        "tone": "gold",
+        "grid": [
+          "Hypoksia",
+          "Hypovolemia",
+          "Hyper-/hypokalemia, -kalsemia, -magnesemia, hypoglykemia (metabolinen)",
+          "Hyper-/hypotermia",
+          "Toksiset aineet",
+          "Tamponaatio (sydän)",
+          "Jännityspneumotoraksi",
+          "Tromboembolia (sepelvaltimo / keuhko)"
+        ]
+      },
+      {
+        "id": "rosc",
+        "title": "Heti ROSC:n jälkeen",
+        "tone": "green",
+        "icon": "circle-check",
+        "lines": [
+          "ABCDE-arvio.",
+          "Hallittu happeutus ja ventilaatio: SpO₂ 94–98 %, PaCO₂ 4,6–6 kPa (35–45 mmHg).",
+          "Ylläpidä iänmukainen systolinen ja keskiverenpaine.",
+          "Vältä / hoida hypertermia.",
+          "Tarkista glukoosi (tavoite normaali verensokeri).",
+          "Hoida laukaisevat syyt."
+        ]
+      }
+    ],
+    "source": "https://www.erc.edu/media/03xnpjmj/gl2025-09-pls-e.pdf"
+  },
+  {
+    "label": "Aikuiset",
+    "title": "Aikuisen hoitoelvytys",
+    "scope": "Aikuisen sydänpysähdys • Hoitoelvytyksen pääkohdat",
+    "start": {
+      "title": "Tunnista ja aloita",
+      "lines": [
+        "Ei reagoi eikä hengitä normaalisti.",
+        "Kutsu elvytysryhmä. Aloita painelu-puhalluselvytys 30:2.",
+        "Kytke defibrillaattori / monitori."
+      ],
+      "tone": "blue"
+    },
+    "branches": [
+      {
+        "title": "Defibrilloitava",
+        "lines": [
+          "Kammiovärinä / sykkeetön kammiotakykardia (VF/pVT).",
+          "1 isku laitteen ja paikallisen ohjeen mukaisella energialla.",
+          "Jatka heti painelua ja ventilaatiota 2 min.",
+          "3. iskun jälkeen adrenaliini ja amiodaroni."
+        ],
+        "tone": "red"
+      },
+      {
+        "title": "Ei-defibrilloitava",
+        "lines": [
+          "Sykkeetön sähköinen toiminta (PEA) / asystole.",
+          "Adrenaliini mahdollisimman pian, sitten 3–5 min välein.",
+          "Jatka heti painelua ja ventilaatiota 2 min."
+        ],
+        "tone": "blue"
+      }
+    ],
+    "cycle": "2 min elvytystä → arvioi rytmi uudelleen. Jos verenkierto palautuu, siirry jatkohoitoon.",
+    "sections": [
+      {
+        "title": "Lääkkeet ja suoniyhteys",
+        "lines": [
+          "Adrenaliini 1 mg, toista 3–5 min välein. Defibrilloitavassa rytmissä ensimmäinen annos 3. iskun jälkeen.",
+          "Amiodaroni 300 mg 3. iskun jälkeen ja 150 mg 5. iskun jälkeen.",
+          "Laskimoyhteys (IV) varhain; luuydinyhteys (IO), jos IV ei onnistu."
+        ]
+      },
+      {
+        "title": "Elvytyksen aikana",
+        "lines": [
+          "Laadukas painelu ja ventilaatio, mahdollisimman lyhyet tauot.",
+          "Anna happea, varmista elektrodien sijoittelu ja käytä käyräkapnografiaa.",
+          "Kun intubaatioputki tai supraglottinen hengitystieväline on paikallaan: jatkuva painelu.",
+          "Etsi ja hoida korjattavat syyt. Harkitse elektrodien siirtoa etu-takasijoitteluun 3 iskun jälkeen."
+        ]
+      },
+      {
+        "title": "Korjattavat syyt",
+        "tone": "gold",
+        "grid": [
+          "Hypoksia · hypovolemia",
+          "Kalium-, kalsium-, magnesium- ja muut aineenvaihduntahäiriöt, hypoglykemia",
+          "Hypotermia / hypertermia · myrkyt",
+          "Sydäntamponaatio · paineilmarinta",
+          "Sepelvaltimo- tai keuhkovaltimotukos"
+        ]
+      },
+      {
+        "title": "Verenkierron palauduttua",
+        "lines": [
+          "ABCDE-arvio. SpO₂ 94–98 % ja normaali PaCO₂.",
+          "Systolisen verenpaineen tavoite yli 100 mmHg.",
+          "12-kytkentäinen EKG, syyn tunnistaminen ja hoito, lämpötilan hallinta."
+        ],
+        "tone": "green",
+        "id": "rosc"
+      }
+    ],
+    "source": "https://www.erc.edu/umbraco/api/download-page/download/d01b6e5a-0de7-4b07-913a-58445e8630fc"
+  }
+]

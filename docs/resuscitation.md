@@ -20,3 +20,11 @@ Tiivistelmät eivät sisällä kaikkia erityistilanteita, poikkeuksia tai toimen
 ## Tarkistukset
 
 Automaattitestit tarkistavat ikäryhmien vaihdon, sisältöjen erottumisen, lähteiden sulkeutumisen, oikean lähdelinkin avaamisen ja paluun etusivulle. Tyypitys ja web-vienti tarkistetaan lisäksi. Nämä ovat ohjelmistotestejä, eivät kliininen validointi. Alkuperäisohjeiden päivittyminen ei päivitä sovelluksen tekstiä automaattisesti.
+
+## Näkymän uudistus 1.11.2026
+
+Hyväksytyn esikatselun mukainen vieritettävä näkymä, ei kiinteää yläpalkkia tai pikanavigaatiota. Ohjeet ovat src/resuscitation/guides.json-tiedostossa. Lasten annokset ovat haarojen sisällä, ROSC-linkki oikean haaran alla. Ventilaatiotiheydet ja palautuvat syyt näkyvät ruudukoissa. Aikuisen ja vastasyntyneen ohjerivit säilytettiin.
+
+Käyttäjän hyväksymät sisältömuutokset: lasten adrenaliinin ajoitus esitetään kaavion minuuttimuodossa; 120–200 J -lisätieto ja TT/SGA-lyhenne poistettiin näkyvästä ohjeesta; ROSC-verenpaineteksti yleistettiin muotoon ”Ylläpidä iänmukainen systolinen ja keskiverenpaine.” Lopettamisen laatikko jätettiin pois. Tämä on valikoitu portfolio-ohje, ei täydellinen ERC-kaavion toisinto. Energian noston nykyinen ”yli 5 iskua” sekä tunnistamisen hengitystukiehto säilytettiin.
+
+HTML-esikatselun v2 asettelu testattiin 320–430 px ja 150 % tekstillä. Viimeisen mallin ja varsinaisen sovelluksen visuaalinen selaintarkistus estyi ympäristön käyttörajoitukseen. Fyysistä iPhone-validointia ei tehty.
