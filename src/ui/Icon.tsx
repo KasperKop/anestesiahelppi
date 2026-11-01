@@ -1,4 +1,7 @@
 import {
+  Zap,
+  ZapOff,
+  CircleCheck,
   Trash2,
   Settings,
   Square,
@@ -22,6 +25,9 @@ import {
 import { View } from 'react-native';
 
 const icons = {
+  zap: Zap,
+  zapOff: ZapOff,
+  circleCheck: CircleCheck,
   trash: Trash2,
   settings: Settings,
   square: Square,
