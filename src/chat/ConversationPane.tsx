@@ -97,9 +97,9 @@ export const conversationStyles = StyleSheet.create({
     padding: 12,
     gap: 8,
     borderTopWidth: 1,
-    borderColor: '#C8E8F7',
+    borderColor: '#D4D9DD',
     backgroundColor: '#FFFFFF',
   },
-  input: { minHeight: 48, maxHeight: 104, textAlignVertical: 'top' },
+  input: { minHeight: 64, maxHeight: 104, textAlignVertical: 'top' },
   jump: { paddingHorizontal: 12, paddingVertical: 4 },
 });

@@ -103,7 +103,7 @@ export function WeightSelector({
         ]}
       >
         <Text style={styles.confirmText}>Näytä painokortti</Text>
-        <Icon name="right" />
+        <Icon name="right" color="#FFFFFF" />
       </Pressable>
     </View>
   );
@@ -115,12 +115,12 @@ const styles = StyleSheet.create({
   age: { fontSize: 14, lineHeight: 16, textAlign: 'center', color: '#454B52' },
   value: {
     color: colors.textPrimary,
-    fontSize: 56,
+    fontSize: 64,
     fontWeight: '700',
     letterSpacing: -2,
     textAlign: 'center',
   },
-  unit: { fontSize: 18, fontWeight: '600', letterSpacing: 0 },
+  unit: { fontSize: 23, fontWeight: '600', letterSpacing: 0 },
   controls: { alignItems: 'center', flexDirection: 'row', gap: spacing.sm },
   limits: {
     flexDirection: 'row',
@@ -150,10 +150,10 @@ const styles = StyleSheet.create({
   confirmButton: {
     alignItems: 'center',
     alignSelf: 'center',
-    backgroundColor: colors.supportingSurface,
-    borderColor: '#83B9CC',
+    backgroundColor: '#12668A',
+    borderColor: '#12668A',
     borderWidth: 1,
-    borderRadius: radii.pill,
+    borderRadius: radii.md,
     flexDirection: 'row',
     gap: spacing.sm,
     justifyContent: 'center',
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     width: '100%',
   },
-  confirmButtonPressed: { backgroundColor: '#C5E6F3' },
-  confirmText: { color: '#136489', fontSize: 17, fontWeight: '700' },
+  confirmButtonPressed: { backgroundColor: '#0C4B68' },
+  confirmText: { color: '#FFFFFF', fontSize: 17, fontWeight: '700' },
   arrow: { color: colors.surface, fontSize: 23, lineHeight: 24 },
 });

@@ -32,10 +32,18 @@ export default function HomeScreen() {
           ]}
         >
           <View style={{ gap: 16, display: keyboard ? 'none' : 'flex' }}>
-            <Text accessibilityRole="header" style={ui.label}>
-              ANESTESIAHELPPI
+            <Text
+              accessibilityRole="header"
+              style={{
+                color: '#12668A',
+                fontSize: 23,
+                fontWeight: '800',
+                letterSpacing: -0.6,
+              }}
+            >
+              Anestesiahelppi
             </Text>
-            <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
+            <View style={{ flexDirection: 'row', gap: 8 }}>
               {(
                 [
                   {
@@ -57,7 +65,7 @@ export default function HomeScreen() {
                   onPress={() => router.push(item.path)}
                   style={({ pressed }) => ({
                     flex: 1,
-                    minWidth: 136,
+                    minWidth: 0,
                     minHeight: 44,
                     paddingHorizontal: 8,
                     paddingVertical: 8,
