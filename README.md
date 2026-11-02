@@ -73,4 +73,4 @@ Projektin omalle koodille ei ole vielä valittu avointa lisenssiä. Ulkopuolisil
 
 Etusivun Elvytys-painikkeesta avautuvat ERC 2025 -ohjeisiin perustuvat suomenkieliset tiivistelmät vastasyntyneille syntymän yhteydessä, lapsille ja aikuisille. Kyseessä on epävirallinen, potilastyöhön validoimaton oppimissisältö. [Toteutus, lähteet ja rajaukset](docs/resuscitation.md).
 
-Hätätilannekorttien käyttöliittymäkokeilussa pääkohdat ovat lyhyinä, pyyhkäistävinä kortteina. Paikalliset yhteystiedot, säilytyspaikat ja lääkeannostaulukot eivät sisälly tähän kokeiluun. [Korttien toteutus ja rajaukset](docs/emergency-cards.md).
+Hätätilanteet-näkymässä on 12 pyyhkäistävää toimintakorttia. Vaiheet, lähteen mukaiset annostaulukot ja lisätiedot voi lukea vierittämällä. Paikalliset yhteystiedot ja säilytyspaikat on jätetty pois. [Korttien toteutus ja rajaukset](docs/emergency-cards.md).
