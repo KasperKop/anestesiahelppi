@@ -11,6 +11,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { CardContents } from '@/src/emergencies/CardContents';
 import { emergencyCards } from '@/src/emergencies/cards';
 import { colors } from '@/src/theme/tokens';
 
@@ -24,6 +25,7 @@ export default function EmergenciesScreen() {
   const { height, width } = useWindowDimensions();
   const [pageWidth, setPageWidth] = useState(Math.min(width, 620) - 28);
   const pager = useRef<ScrollView>(null);
+  const pages = useRef<(ScrollView | null)[]>([]);
   const selectedIndex = useRef(0);
   const compact = height < 900;
   const card = emergencyCards[index];
@@ -107,6 +109,9 @@ export default function EmergenciesScreen() {
           {emergencyCards.map((pageCard, pageIndex) => (
             <ScrollView
               key={pageCard.id}
+              ref={(node) => {
+                pages.current[pageIndex] = node;
+              }}
               style={{ width: pageWidth }}
               contentContainerStyle={s.scrollContent}
               nestedScrollEnabled
@@ -136,34 +141,20 @@ export default function EmergenciesScreen() {
                   {pageCard.title}
                 </Text>
                 <Text style={[s.subtitle, compact && s.compactSubtitle]}>
-                  {pageCard.subtitle}
+                  {pageCard.description}
                 </Text>
-                <View style={[s.steps, compact && s.compactSteps]}>
-                  {pageCard.steps.map((step, stepIndex) => (
-                    <View
-                      key={step.title}
-                      style={[
-                        s.step,
-                        stepIndex === 0 && s.alert,
-                        compact && s.compactStep,
-                      ]}
-                    >
-                      <View
-                        style={[s.number, stepIndex === 0 && s.alertNumber]}
-                      >
-                        <Text
-                          style={[s.numberText, stepIndex === 0 && s.alertText]}
-                        >
-                          {stepIndex + 1}
-                        </Text>
-                      </View>
-                      <View style={s.stepCopy}>
-                        <Text style={s.stepTitle}>{step.title}</Text>
-                        <Text style={s.stepText}>{step.text}</Text>
-                      </View>
-                    </View>
-                  ))}
-                </View>
+                {Math.abs(pageIndex - index) <= 1 && (
+                  <CardContents
+                    card={pageCard}
+                    onJump={(y) =>
+                      pages.current[pageIndex]?.scrollTo({ y, animated: true })
+                    }
+                  />
+                )}
+                <Text style={s.caption}>
+                  Lähde: Toimintakortit hätätilanteissa {pageIndex + 1},
+                  päivitetty {pageCard.date}. Oppimisdemo, ei potilastyöhön.
+                </Text>
                 <Pressable
                   accessibilityRole="button"
                   accessibilityLabel={`Lisätiedot ja lähteet: ${pageCard.title}`}
@@ -247,7 +238,7 @@ export default function EmergenciesScreen() {
                       </Text>
                       <View style={s.stepCopy}>
                         <Text style={s.stepTitle}>{item.title}</Text>
-                        <Text style={s.caption}>{item.subtitle}</Text>
+                        <Text style={s.caption}>{item.description}</Text>
                       </View>
                       <Text style={s.link}>›</Text>
                     </Pressable>
@@ -255,9 +246,7 @@ export default function EmergenciesScreen() {
                 </>
               ) : panel === 'details' ? (
                 <>
-                  <Text style={s.caption}>
-                    LISÄTIEDOT · KORTTI {card.sourceNumber}
-                  </Text>
+                  <Text style={s.caption}>LISÄTIEDOT · KORTTI {index + 1}</Text>
                   <Text accessibilityRole="header" style={s.title}>
                     {card.title}
                   </Text>
@@ -266,14 +255,6 @@ export default function EmergenciesScreen() {
                     potilastyöhön. Akuutissa tilanteessa kutsu apua ja toimi
                     paikallisen protokollan mukaan.
                   </Text>
-                  {card.details.map((detail) => (
-                    <View key={detail.title} style={s.detailSection}>
-                      <Text accessibilityRole="header" style={s.stepTitle}>
-                        {detail.title}
-                      </Text>
-                      <Text style={s.body}>{detail.text}</Text>
-                    </View>
-                  ))}
                   <View style={s.detailSection}>
                     <Pressable
                       accessibilityRole="link"

@@ -1,3 +1,4 @@
+import { CardContents } from '../src/emergencies/CardContents';
 import { fireEvent, render } from '@testing-library/react-native';
 import { Linking } from 'react-native';
 import { router } from 'expo-router';
@@ -30,18 +31,43 @@ describe('Hätätilannekortit', () => {
     await fireEvent.press(screen.getByRole('button', { name: /^Elvytys$/ }));
     expect(router.push).toHaveBeenCalledWith('/resuscitation');
   });
-  it('has 12 unique six-step summaries without local contact or dose tables', () => {
+  it('has 12 unique source cards without local contact details', () => {
     expect(emergencyCards).toHaveLength(12);
     expect(new Set(emergencyCards.map((c) => c.id)).size).toBe(12);
     emergencyCards.forEach((card, i) => {
-      expect(card.sourceNumber).toBe(i + 1);
-      expect(card.steps).toHaveLength(6);
-      expect(card.details.length).toBeGreaterThanOrEqual(3);
-      expect(card.sourceDate).toMatch(/^\d{2}\.\d{2}\.\d{4}$/);
+      expect(card.steps.length).toBeGreaterThan(0);
+      if (i === 0) {
+        expect(card.steps).toHaveLength(10);
+        expect(card.medications).toContainEqual(
+          expect.objectContaining({
+            group: 'Infuusionopeus',
+            value: '5–20',
+            unit: 'ml/h',
+          }),
+        );
+      }
+
+      expect(card.date).toMatch(/^\d{2}\.\d{2}\.\d{4}$/);
       expect(JSON.stringify(card)).not.toMatch(
-        /044\d{7}|2222|keskuslääke|pehmo-aistin|Nesy|\d+(?:[.,]\d+)?\s*(?:mg|µg|ml)\b/i,
+        /044\d{7}|2222|keskuslääke|pehmo-aistin|\bNesy\b/i,
       );
     });
+  });
+  it('jumps from the adrenaline step to the measured medication section', async () => {
+    const onJump = jest.fn();
+    const screen = await render(
+      <CardContents card={emergencyCards[0]} onJump={onJump} />,
+    );
+    await fireEvent(screen.getByTestId('emergency-body'), 'layout', {
+      nativeEvent: { layout: { y: 78 } },
+    });
+    await fireEvent(screen.getByTestId('emergency-medication'), 'layout', {
+      nativeEvent: { layout: { y: 691 } },
+    });
+    await fireEvent.press(
+      screen.getByRole('button', { name: 'Siirry annoksiin' }),
+    );
+    expect(onJump).toHaveBeenCalledWith(769);
   });
   it('navigates every card, stops at boundaries and supports direct selection', async () => {
     const screen = await render(<EmergenciesScreen />);
@@ -62,8 +88,14 @@ describe('Hätätilannekortit', () => {
     await fireEvent.press(
       screen.getByRole('button', { name: 'Näytä kaikki 12 korttia' }),
     );
-    await fireEvent.press(screen.getByRole('button', { name: '6. Hypoksia' }));
-    expect(screen.getByRole('header', { name: 'Hypoksia' })).toBeOnTheScreen();
+    await fireEvent.press(
+      screen.getByRole('button', {
+        name: '6. Hypoksia yleisanestesian aikana',
+      }),
+    );
+    expect(
+      screen.getByRole('header', { name: 'Hypoksia yleisanestesian aikana' }),
+    ).toBeOnTheScreen();
     expect(screen.getByText('6 / 12')).toBeOnTheScreen();
   });
   it('tracks consecutive swipes in both directions and keeps navigation in sync', async () => {

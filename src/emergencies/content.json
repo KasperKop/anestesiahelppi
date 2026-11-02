@@ -1,0 +1,1617 @@
+[
+  {
+    "title": "Anafylaksia",
+    "description": "Vakava yleistynyt yliherkkyysreaktio, joka ilmenee yhtenä tai useampana peruselintoiminnon häiriönä.",
+    "steps": [
+      {
+        "number": 1,
+        "text": "Tiedota muuta tiimiä",
+        "sub": ["Kuka johtaa?", "Tarvitaanko apua?"]
+      },
+      {
+        "number": 2,
+        "text": "Lopeta altistavien aineiden anto",
+        "sub": []
+      },
+      {
+        "number": 3,
+        "text": "Varmista avoin hengitystie, anna 100 % happea ja avusta tarvittaessa hengitystä",
+        "sub": []
+      },
+      {
+        "number": 4,
+        "text": "Nesteytä",
+        "sub": ["Kohota tarvittaessa potilaan jalkoja"]
+      },
+      {
+        "number": 5,
+        "text": "Anna adrenaliinia im/iv boluksin ja tarvittaessa aloita infuusio",
+        "sub": [],
+        "target": "doses"
+      },
+      {
+        "number": 6,
+        "text": "Etene elvytystilanteessa elvytysprotokollan mukaan",
+        "sub": []
+      },
+      {
+        "number": 7,
+        "text": "Harkitse kortisonin ja antihistamiinin antoa",
+        "sub": []
+      },
+      {
+        "number": 8,
+        "text": "Ota seerumin tryptaasi (50446 S-Trypt) heti kun mahdollista sekä 1–2 t ja 24 t oireiden alusta",
+        "sub": []
+      },
+      {
+        "number": 9,
+        "text": "Järjestä jatkovalvonta",
+        "sub": []
+      },
+      {
+        "number": 10,
+        "text": "Tee ilmoitus HUS:n anafylaksiarekisteriin",
+        "sub": ["Google: ”hus anafylaksiarekisteri”"]
+      }
+    ],
+    "medications": [
+      {
+        "name": "Adrenaliini",
+        "route": "im",
+        "mode": "bolus",
+        "group": "Aikuiset",
+        "value": "0,5",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Adrenaliini",
+        "route": "im",
+        "mode": "bolus",
+        "group": "Lapset 6–12 v",
+        "value": "0,3",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Adrenaliini",
+        "route": "im",
+        "mode": "bolus",
+        "group": "Lapset < 6 v",
+        "value": "0,15",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Adrenaliini",
+        "route": "iv",
+        "mode": "bolus",
+        "group": "Aikuiset",
+        "value": "0,05–0,1",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Adrenaliini",
+        "route": "iv",
+        "mode": "bolus",
+        "group": "Lapset",
+        "value": "0,001",
+        "unit": "mg/kg",
+        "note": ""
+      },
+      {
+        "name": "Adrenaliini",
+        "route": "iv",
+        "mode": "infuusio",
+        "group": "Annos",
+        "value": "0,04–0,1",
+        "unit": "µg/kg/min",
+        "note": ""
+      },
+      {
+        "name": "Adrenaliini",
+        "route": "iv",
+        "mode": "infuusio",
+        "group": "Infuusionopeus",
+        "value": "5–20",
+        "unit": "ml/h",
+        "note": "",
+        "dilution": "2 mg adrenaliinia + 100 ml NaCl 0,9 % = 0,02 mg/ml"
+      },
+      {
+        "name": "Hydrokortisoni",
+        "route": "iv",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "250–1000",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Hydrokortisoni",
+        "route": "iv",
+        "mode": "",
+        "group": "Lapset",
+        "value": "10",
+        "unit": "mg/kg",
+        "note": ""
+      },
+      {
+        "name": "Metyyliprednisoloni",
+        "route": "iv",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "80–250",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Metyyliprednisoloni",
+        "route": "iv",
+        "mode": "",
+        "group": "Lapset",
+        "value": "2",
+        "unit": "mg/kg",
+        "note": ""
+      },
+      {
+        "name": "Prometatsiini (Atosil®) 25 mg/ml",
+        "route": "iv",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "1–2",
+        "unit": "ml",
+        "note": "",
+        "maximum": {
+          "value": "4",
+          "unit": "ml"
+        }
+      },
+      {
+        "name": "Prometatsiini (Atosil®) 25 mg/ml",
+        "route": "iv",
+        "mode": "",
+        "group": "Lapset",
+        "value": "0,5–1",
+        "unit": "ml",
+        "note": ""
+      }
+    ],
+    "symptoms": [
+      {
+        "title": "Hengitys",
+        "items": [
+          "Bronkospasmi",
+          "Yskä / stridor",
+          "Hypoksia",
+          "Hengitystiepaine ↑"
+        ]
+      },
+      {
+        "title": "Verenkierto",
+        "items": ["Hypotensio", "Arytmia", "Elottomuus"]
+      },
+      {
+        "title": "Iho",
+        "items": ["Punoitus", "Nokkosihottuma", "Turvotus"]
+      }
+    ],
+    "triggers": [
+      {
+        "title": "Yleisimmät altisteet",
+        "items": [
+          "Antibiootit",
+          "Lihasrelaksantit",
+          "Lateksi",
+          "ASA / NSAID",
+          "Sytostaatit",
+          "Varjoaineet"
+        ]
+      }
+    ],
+    "sections": [],
+    "date": "14.02.2023",
+    "id": "anaphylaxis"
+  },
+  {
+    "title": "Puudutusainemyrkytys",
+    "description": "Puudutuksen jälkeen esiintyvät neurologiset ja kardiovaskulaariset oireet, jotka ilmenevät yleensä tyypillisessä järjestyksessä myrkytyksen vakavuuden mukaan",
+    "steps": [
+      {
+        "number": 1,
+        "text": "Tiedota muuta tiimiä",
+        "sub": ["Kuka johtaa?", "Tarvitaanko apua?"]
+      },
+      {
+        "number": 2,
+        "text": "Keskeytä puudutteen anto",
+        "sub": []
+      },
+      {
+        "number": 3,
+        "text": "Lievien oireiden kohdalla jatka tarkkailua oireiden pahentumisen varalta",
+        "sub": ["Hoida kouristukset bentsodiatsepiinillä (esim. diatsepaami)"]
+      },
+      {
+        "number": 4,
+        "text": "Varmista potilaan peruselintoiminnot",
+        "sub": [
+          "Varmista avoin hengitystie, anna 100% happea ja avusta tarvittaessa hengitystä",
+          "Arvioi verenkierron tila, aloita tarvittaessa tukihoito (nesteytys, vasoaktiivit)",
+          "Hoida rytmihäiriöt",
+          "Hae defibrillaattori ja ennakoi mahdollinen elvytys: etene elvytystilanteessa normaalin hoitokaavion mukaan lukuun ottamatta adrenaliinin annosta",
+          "Vältä verenkiertoa lamaavia lääkkeitä (esim. anesteetit, β-salpaajat)"
+        ]
+      },
+      {
+        "number": 5,
+        "text": "Harkitse 20% lipidiemulsion antoa, jos oireisto etenee nopeasti",
+        "sub": ["Kauppanimi: Smoflipid"]
+      },
+      {
+        "number": 6,
+        "text": "Varaudu pitkittyneeseen elvytykseen",
+        "sub": ["Mekaaninen painelulaite", "Perfuusio"]
+      },
+      {
+        "number": 7,
+        "text": "Monitoroi potilasta vähintään 2 tuntia neurologisten ja vähintään 6 tuntia kardiovaskulaaristen oireiden jälkeen",
+        "sub": []
+      }
+    ],
+    "medications": [
+      {
+        "name": "20% lipidiemulsio",
+        "route": "iv",
+        "mode": "",
+        "group": "Kerta-annos",
+        "value": "1,5",
+        "unit": "ml/kg",
+        "note": "1-2 minuutissa"
+      },
+      {
+        "name": "20% lipidiemulsio",
+        "route": "iv",
+        "mode": "",
+        "group": "Jatkoinfuusio",
+        "value": "15",
+        "unit": "ml/kg/h",
+        "note": ""
+      },
+      {
+        "name": "20% lipidiemulsio",
+        "route": "iv",
+        "mode": "",
+        "group": "Jos 5 min kuluttua hemodynamiikka edelleen epävakaa, nosta infuusio",
+        "value": "30",
+        "unit": "ml/kg/h",
+        "note": "ja toista kerta-annos 1-2 kertaa"
+      },
+      {
+        "name": "20% lipidiemulsio",
+        "route": "iv",
+        "mode": "",
+        "group": "Maksimikokonaisannos",
+        "value": "12",
+        "unit": "ml/kg",
+        "note": "saavutetaan nopeasti"
+      },
+      {
+        "name": "Adrenaliini",
+        "route": "iv",
+        "mode": "",
+        "group": "Kerta-annos",
+        "value": "0,001",
+        "unit": "mg/kg",
+        "note": "= n. 1/10 elvytysannoksesta. Muista: adrenaliinin mahdollisesti aiheuttama asidoosi ja laktatemia pahentavat puudutteen toksisia vaikutuksia."
+      },
+      {
+        "name": "Diatsepaami",
+        "route": "iv",
+        "mode": "",
+        "group": "Kerta-annos",
+        "value": "0,3",
+        "unit": "mg/kg",
+        "note": "max 10 mg"
+      },
+      {
+        "name": "Amiodaroni",
+        "route": "iv",
+        "mode": "",
+        "group": "Kerta-annos",
+        "value": "5",
+        "unit": "mg/kg",
+        "note": "max 300 mg. Nestebolus samanaikaisesti ehkäisemään hypotensiota."
+      }
+    ],
+    "symptoms": [
+      {
+        "title": "Puudutusaineen plasmapitoisuuden kasvaessa",
+        "items": [
+          "Huulten ja kielen puutuminen",
+          "Outo epätodellinen olo",
+          "Korvien soiminen",
+          "Näköhäiriöt",
+          "Lihasnykäykset",
+          "Metallin maku",
+          "Rytmihäiriöt",
+          "Etenevä tajunnan tason lasku",
+          "Kouristukset",
+          "Hengityspysähdys",
+          "Verenkierron lama"
+        ]
+      }
+    ],
+    "triggers": [],
+    "sections": [
+      {
+        "title": "Lääkitys",
+        "items": ["Lapsilla noudatetaan samoja annossuosituksia."]
+      }
+    ],
+    "date": "14.02.2023",
+    "id": "last"
+  },
+  {
+    "title": "Maligni hypertermia",
+    "description": "Höyrystyvää anesteettia tai suksametonia käytettäessä ilmenevä selittämätön oireisto, johon tyypillisesti kuuluu mm. EtCO2 nousu, hypertermia ja takykardia.",
+    "steps": [
+      {
+        "number": 1,
+        "text": "Tiedota muuta tiimiä",
+        "sub": ["Kuka johtaa?", "Tarvitaanko apua?"]
+      },
+      {
+        "number": 2,
+        "text": "Pyydä dantroleeni (Agilus®) ja kylmiä infuusionesteitä saliin",
+        "sub": []
+      },
+      {
+        "number": 3,
+        "text": "Määrää dantroleenin valmisteleva henkilö tai henkilöt (huomioi liukenemisaika)",
+        "sub": []
+      },
+      {
+        "number": 4,
+        "text": "Lopeta altistavat tekijät",
+        "sub": [
+          "Höyrystin irti koneesta, absorberin ja letkujen vaihto",
+          "tai vaihtoehtoisesti siirry käsiventilaatioon erillisellä palkeella",
+          "tai vaihda uuteen ventilaattoriin, jos se on välittömästi saatavilla",
+          "Älä anna suksametonia",
+          "Siirry iv-anestesiaan"
+        ]
+      },
+      {
+        "number": 5,
+        "text": "Hyperventiloi 100 % hapella ja maksimaalisella tuorekaasuvirtauksella",
+        "sub": []
+      },
+      {
+        "number": 6,
+        "text": "Informoi kirurgia",
+        "sub": ["Neuvottele toimenpiteen lopetuksesta"]
+      },
+      {
+        "number": 7,
+        "text": "Anna dantroleenia",
+        "sub": ["Määrää henkilö huolehtimaan lisätilauksesta"]
+      },
+      {
+        "number": 8,
+        "text": "Oireenmukainen hoito",
+        "sub": [
+          "Aseta valtimokanyyli",
+          "Nesteytä ja aloita tarvittaessa vasoaktiivituki",
+          "Takyarytmioihin tarvittaessa beetasalpaus / amiodaroni",
+          "Hoida hyperkalemia",
+          "Harkitse bikarbonaatin antoa, jos potilaalla on metabolinen asidoosi"
+        ]
+      },
+      {
+        "number": 9,
+        "text": "Viilennä potilasta, jos ydinlämpö > 38.5 °C",
+        "sub": [
+          "Viilennetyt nesteet",
+          "Jäätä ulkoisesti",
+          "Kehononteloiden huuhtelut tilanteen mukaan",
+          "Harkitse kehonulkoisen viilennyslaitteen käyttöä"
+        ]
+      },
+      {
+        "number": 10,
+        "text": "Järjestä potilas jatkohoitoon teho-osastolle",
+        "sub": []
+      }
+    ],
+    "medications": [
+      {
+        "name": "Dantroleeni",
+        "route": "iv",
+        "mode": "",
+        "group": "Aloitusannos",
+        "value": "2-2,5",
+        "unit": "mg/kg",
+        "note": "Aloitusannos toistetaan n. 5 min välein kunnes oirekuva väistyy"
+      },
+      {
+        "name": "Dantroleeni",
+        "route": "iv",
+        "mode": "",
+        "group": "Kokonaisannos tarvittaessa jopa ad",
+        "value": "20-30",
+        "unit": "mg/kg",
+        "note": ""
+      },
+      {
+        "name": "Dantroleeni",
+        "route": "iv",
+        "mode": "Lähdetaulukon aloitusannos",
+        "group": "50 kg",
+        "value": "125",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Dantroleeni",
+        "route": "iv",
+        "mode": "Lähdetaulukon aloitusannos",
+        "group": "60 kg",
+        "value": "150",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Dantroleeni",
+        "route": "iv",
+        "mode": "Lähdetaulukon aloitusannos",
+        "group": "70 kg",
+        "value": "175",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Dantroleeni",
+        "route": "iv",
+        "mode": "Lähdetaulukon aloitusannos",
+        "group": "80 kg",
+        "value": "200",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Dantroleeni",
+        "route": "iv",
+        "mode": "Lähdetaulukon aloitusannos",
+        "group": "90 kg",
+        "value": "225",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Dantroleeni",
+        "route": "iv",
+        "mode": "Lähdetaulukon aloitusannos",
+        "group": "100 kg",
+        "value": "250",
+        "unit": "mg",
+        "note": ""
+      }
+    ],
+    "symptoms": [
+      {
+        "title": "Oireita ja löydöksiä",
+        "items": [
+          "Oirekuva voi vaihdella suuresti eivätkä kaikki tyyppioireet välttämättä manifestoidu",
+          "EtCO2 voimakas nousu on usein varhaisin löydös",
+          "Nopea ydinlämmön nousu (usein > 1 aste/15 min) voi olla myös myöhäislöydös",
+          "Eteis- ja kammioperäiset rytmihäiriöt",
+          "Yleistynyt lihasjäykkyys tai masseterspasmi",
+          "SpO2 lasku",
+          "Metabolinen ja respiratorinen asidoosi, hyperkalemia"
+        ]
+      }
+    ],
+    "triggers": [],
+    "sections": [
+      {
+        "title": "Agilus®",
+        "items": [
+          "120 mg kuiva-ainepullo, pullolliseen sekoitetaan 20 ml steriiliä vettä.",
+          "Liuottaminen voi olla työlästä, esilämmittäminen auttaa.",
+          "Normaalikokoisen aikuisen aloitusannos n. 2 pulloa.",
+          "Kaikissa anestesiatoimintaa toteuttavissa yksiköissä tulee olla välittömästi saatavilla aloitusannos (2 x 120 mg)."
+        ]
+      }
+    ],
+    "date": "06.11.2024",
+    "id": "mh"
+  },
+  {
+    "title": "Yllättävä vaikea hengitystie anestesiainduktion jälkeen",
+    "description": "1-2 epäonnistunutta intubaatioyritystä ja vaikeutunut maskiventilaatio",
+    "steps": [
+      {
+        "number": 1,
+        "text": "Tiedota muuta tiimiä",
+        "sub": ["Kuka johtaa?", "Tarvitaanko apua?"]
+      },
+      {
+        "number": 2,
+        "text": "Hae videolaryngoskooppi ja vaikean hengitystien välineistö paikalle",
+        "sub": []
+      },
+      {
+        "number": 3,
+        "text": "Maskiventiloi 100 %:lla hapella",
+        "sub": []
+      },
+      {
+        "number": 4,
+        "text": "Optimoi potilaan pään ja hartioiden asento",
+        "sub": []
+      },
+      {
+        "number": 5,
+        "text": "Aseta sopivan kokoinen nielutuubi tai nenänielutuubi",
+        "sub": []
+      },
+      {
+        "number": 6,
+        "text": "Ota avustaja mukaan ventiloimaan",
+        "sub": []
+      },
+      {
+        "number": 7,
+        "text": "Arvioi anestesian ja relaksaation riittävyys",
+        "sub": []
+      },
+      {
+        "number": 8,
+        "text": "Tarkista välineistö (filtteri, letkusto, APL-venttiili)",
+        "sub": []
+      },
+      {
+        "number": 9,
+        "text": "Kun videolaryngoskooppi on paikalla, yritä intubaatiota ja muista:",
+        "sub": ["Kurkunpään kompressio alas ja oikealle", "Bougie, ohjain"]
+      },
+      {
+        "number": 10,
+        "text": "Yhteensä enintään 3 intubaatioyritystä",
+        "sub": ["+ 1 lisäyritys kokeneen intuboijan toimesta"]
+      },
+      {
+        "number": 11,
+        "text": "Jos intubaatio epäonnistuu: Aseta LMA ja yritä ventiloida",
+        "sub": []
+      },
+      {
+        "number": 12,
+        "text": "Vaihda tarvittaessa 1-2 kertaa LMA:n kokoa tai mallia",
+        "sub": [
+          "Jos ventilaatio LMA:lla onnistuu: Voidaanko jatkaa LMA:lla? Fiberoskooppinen intubaatio LMA:n läpi?"
+        ]
+      },
+      {
+        "number": 13,
+        "text": "Jos ventilaatio LMA:lla epäonnistuu: Valmistele kirurgisen hengitystien välineistö",
+        "sub": []
+      },
+      {
+        "number": 14,
+        "text": "Yritä viimeisen kerran maskiventiloida",
+        "sub": [
+          "Jos maskiventilaatio onnistuu: Harkitse relaksaation kumoamista ja potilaan herättämistä"
+        ]
+      },
+      {
+        "number": 15,
+        "text": "Jos maskiventilaatio epäonnistuu: Tee kirurginen hengitystie/koniotomia",
+        "sub": []
+      }
+    ],
+    "medications": [],
+    "symptoms": [],
+    "triggers": [],
+    "sections": [],
+    "date": "14.02.2023",
+    "id": "airway"
+  },
+  {
+    "title": "Tulipalo leikkaussalissa",
+    "description": "Tulta (savua, savun hajua tai leimahdus) havaitaan potilaassa, peitteissä tai potilaan hengitysteissä",
+    "steps": [
+      {
+        "number": 1,
+        "text": "Tiedota muuta tiimiä",
+        "sub": ["Kuka johtaa?", "Tarvitaanko apua?"]
+      },
+      {
+        "number": 2,
+        "text": "Hae palosammutin",
+        "sub": []
+      },
+      {
+        "number": "3",
+        "text": "Hengitystietulipalo: Yritä sammuttaa tulipalo",
+        "sub": [
+          "Poista intubaatioputki ja muu syttyvä materiaali hengitysteistä",
+          "Lopeta kaasuvirtaus",
+          "Kaada keittosuolaa hengitysteihin"
+        ]
+      },
+      {
+        "number": "4",
+        "text": "Hengitystietulipalo: Kun tulipalo on sammutettu",
+        "sub": [
+          "Varmista hengitystie ja palauta ventilaatio",
+          "Vältä ilokaasua ja minimoi FiO2",
+          "Varmista, että leikkausalue, liinat ja taitokset eivät pala",
+          "Tutki hengitystiet fiberoskoopilla vaurioiden ja vierasesineiden varalta"
+        ]
+      },
+      {
+        "number": "3",
+        "text": "Muu kuin hengitystietulipalo: Yritä sammuttaa tulipalo",
+        "sub": [
+          "Vältä ilokaasua ja minimoi FiO2",
+          "Poista kaikki peitteet ja palava materiaali potilaan päältä ja läheisyydestä",
+          "Tukahduta palava materiaali keittosuolalla tai keittosuolalla kostutetulla harsolla",
+          "Tulipalon jatkuessa käytä CO2-palosammutinta (vähiten haitallista haavoille)",
+          "Tulipalon yhä jatkuessa laukaise palohälytys",
+          "Evakuoi potilas",
+          "Sulje leikkaussalin ovi ja kaasunsyöttö"
+        ]
+      },
+      {
+        "number": "4",
+        "text": "Muu kuin hengitystietulipalo: Kun tulipalo on sammutettu",
+        "sub": [
+          "Palauta kaasuvirtaus",
+          "Arvioi potilaan vauriot paloalueella ja arvioi ilmatievauriot, jos kyseessä on intuboimaton potilas",
+          "Varmista, että leikkausalue, liinat ja taitokset eivät pala"
+        ]
+      },
+      {
+        "number": "5",
+        "text": "Arvioi potilaan tila ja tee jatkotoimintasuunnitelma",
+        "sub": []
+      },
+      {
+        "number": "6",
+        "text": "Ota talteen tulipalossa mukana olleet materiaalit ja laitteet tarkistusta varten",
+        "sub": []
+      }
+    ],
+    "medications": [],
+    "symptoms": [],
+    "triggers": [],
+    "sections": [
+      {
+        "title": "Älä käytä tulipalon sammutuksessa",
+        "items": [
+          "Alkoholipohjaisia liuoksia",
+          "Nesteitä elektronisten laitteiden palossa"
+        ]
+      }
+    ],
+    "date": "14.02.2023",
+    "id": "fire"
+  },
+  {
+    "title": "Hypoksia yleisanestesian aikana",
+    "description": "Odottamaton ja merkittävä saturaation lasku yleisanestesian ylläpidon aikana",
+    "steps": [
+      {
+        "number": 1,
+        "text": "Tiedota muuta tiimiä",
+        "sub": ["Kuka johtaa?", "Tarvitaanko apua?"]
+      },
+      {
+        "number": 2,
+        "text": "Varmista hapentarjonta",
+        "sub": [
+          "Onko SpO2 todellinen?",
+          "Nosta FiO2 ja tuorekaasuvirtaus",
+          "Tarkista hiilidioksidikäyrä ja mahdollinen ilmavuoto"
+        ]
+      },
+      {
+        "number": 3,
+        "text": "Hengitystie",
+        "sub": [
+          "Tarkista hengitysliikkeet, hengitysäänet ja potilaan väri",
+          "Varmista intubaatioputken tai LMA:n asento ja sijainti",
+          "Tarkista kuffi ja poista ilmateiden eritteet"
+        ]
+      },
+      {
+        "number": 4,
+        "text": "Hengityskone",
+        "sub": [
+          "Tarkista kierto ja liitokset",
+          "Tarkista tilavuus-virtauskäyrä ja komplianssi",
+          "Irrota kokeeksi potilas hengityskoneen kierrosta, vaihda suodatin ja ventiloi irrallisella palkeella"
+        ]
+      },
+      {
+        "number": 5,
+        "text": "Ventilaatio",
+        "sub": [
+          "Tarkista anestesian syvyys ja relaksaatio",
+          "Optimoi hengityskoneen säädöt"
+        ]
+      },
+      {
+        "number": 6,
+        "text": "Verenkierto",
+        "sub": [
+          "Tarkista verenpaine, rytmi ja arvioi verenkierron riittävyys",
+          "Epäile lisääntynyttä oikovirtausta ja tarkista verikaasuanalyysi"
+        ]
+      },
+      {
+        "number": 7,
+        "text": "Jos hypoksia jatkuu",
+        "sub": [
+          "Tee rekrytointitoimenpide ja ventiloi tarvittaessa käsin",
+          "Pidä mahdollisuuksien mukaan tauko toimenpiteessä",
+          "Pohdi erotusdiagnostiikkaa ja hoida syynmukaisesti"
+        ]
+      }
+    ],
+    "medications": [],
+    "symptoms": [],
+    "triggers": [],
+    "sections": [
+      {
+        "title": "Erotusdiagnostiikka",
+        "items": [
+          "Bronkospasmi (kortti 8)",
+          "Laryngospasmi (kortti 9)",
+          "Intubaatioputken väärä sijainti",
+          "Keuhkoödeema",
+          "Aspiraatio (kortti 7)",
+          "Atelektaasi",
+          "Kontuusio",
+          "Pneumothorax",
+          "Pneumoperitoneum",
+          "Sepsis/ARDS",
+          "Keuhkoembolia (kortti 10)"
+        ]
+      }
+    ],
+    "date": "14.02.2023",
+    "id": "hypoxia"
+  },
+  {
+    "title": "Aspiraatio",
+    "description": "Nesteen tai kiinteän aineksen joutuminen hengitysteihin äänihuulitason alapuolelle",
+    "steps": [
+      {
+        "number": 1,
+        "text": "Tiedota muuta tiimiä",
+        "sub": ["Kuka johtaa?", "Tarvitaanko apua?"]
+      },
+      {
+        "number": 2,
+        "text": "Kallista potilas pää alaspäin ja käännä edelleen kylkiasentoon, jos mahdollista",
+        "sub": []
+      },
+      {
+        "number": 3,
+        "text": "Puhdista nielu ja trakea imulla",
+        "sub": []
+      },
+      {
+        "number": 4,
+        "text": "Anna 100% happea",
+        "sub": []
+      },
+      {
+        "number": 5,
+        "text": "Intuboi",
+        "sub": ["Ime intubaatioputkesta ennen ventilaatiota"]
+      },
+      {
+        "number": 6,
+        "text": "Tee bronkofiberoskopia imuineen",
+        "sub": [
+          "Harkitse näytteenottoa",
+          "Rutiininomaista lavaatiota ei suositella"
+        ]
+      },
+      {
+        "number": 7,
+        "text": "Arvioi voiko toimenpidettä jatkaa",
+        "sub": []
+      },
+      {
+        "number": 8,
+        "text": "Käy läpi erotusdiagnoostiikka",
+        "sub": []
+      },
+      {
+        "number": 9,
+        "text": "Antibioottia ja kortisonia ei tule aloittaa akuutissa vaiheessa rutiinisti",
+        "sub": []
+      },
+      {
+        "number": 10,
+        "text": "Ota valtimoverinäyte toistetusti",
+        "sub": []
+      },
+      {
+        "number": 11,
+        "text": "Harkitse nenämahaletkun laittoa potilaalle",
+        "sub": []
+      },
+      {
+        "number": 12,
+        "text": "Järjestä jatkohoitopaikka",
+        "sub": []
+      },
+      {
+        "number": 13,
+        "text": "Ota keuhkokuva",
+        "sub": [
+          "Jos keuhkokuva on normaali ja happeutuminen kunnossa, harkitse ekstubaatiota (hereillä ja kylkiasennossa)"
+        ]
+      }
+    ],
+    "medications": [],
+    "symptoms": [
+      {
+        "title": "Oireita ja löydöksiä",
+        "items": [
+          "Mahan sisältöä nielussa tai hengitysteissä",
+          "Hankala yskä",
+          "Hengityksen vinkuminen tai rohina",
+          "Hengitysvaikeus, -pysähdys, hyperventilaatio",
+          "Saturaation lasku",
+          "Korkea hengitystiepaine, hengitystietukos",
+          "Bronko-, laryngospasmi",
+          "Veriset ja vaahtoavat yskökset",
+          "Bradykardia, sydänpysähdys"
+        ]
+      }
+    ],
+    "triggers": [],
+    "sections": [
+      {
+        "title": "Erotusdiagnostiikka",
+        "items": [
+          "Bronkospasmi (kortti 8)",
+          "Laryngospasmi (kortti 9)",
+          "Keuhkoembolia (kortti 10)",
+          "Keuhkoödeema",
+          "ARDS",
+          "Intubaatioputken tukkeutuminen"
+        ]
+      }
+    ],
+    "date": "14.02.2023",
+    "id": "aspiration"
+  },
+  {
+    "title": "Bronkospasmi",
+    "description": "Keuhkoputkien voimakkaasta supistumisesta johtuva hengitysvajaus",
+    "steps": [
+      {
+        "number": 1,
+        "text": "Tiedota muuta tiimiä",
+        "sub": ["Kuka johtaa?", "Tarvitaanko apua?"]
+      },
+      {
+        "number": 2,
+        "text": "Anna 100% happea",
+        "sub": []
+      },
+      {
+        "number": 3,
+        "text": "Minimoi ärsykkeet",
+        "sub": []
+      },
+      {
+        "number": 4,
+        "text": "Paljasta rintakehä, inspektoi ja auskultoi",
+        "sub": []
+      },
+      {
+        "number": 5,
+        "text": "Syvennä anestesiaa",
+        "sub": ["Sevofluraani on bronkodilataattori eikä ärsytä hengitysteitä"]
+      },
+      {
+        "number": 6,
+        "text": "Käy läpi erotusdiagnoosit",
+        "sub": []
+      },
+      {
+        "number": 7,
+        "text": "Lääkitse (katso taulukko)",
+        "sub": []
+      },
+      {
+        "number": 8,
+        "text": "Tarkista ventilaatiosäädöt (laatikko alla)",
+        "sub": []
+      },
+      {
+        "number": 9,
+        "text": "Tilanteen rauhoituttua harkitse",
+        "sub": ["keuhkokuva", "valtimokanyyli"]
+      },
+      {
+        "number": 10,
+        "text": "Mieti jatkohoitopaikka",
+        "sub": []
+      }
+    ],
+    "medications": [
+      {
+        "name": "Salbutamoli",
+        "route": "inh",
+        "mode": "",
+        "group": "Aikuiset ja lapset > 5 v",
+        "value": "5",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Salbutamoli",
+        "route": "inh",
+        "mode": "",
+        "group": "Lapset < 5 v",
+        "value": "2,5",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Ipratropiumbromidi (Atrovent®)",
+        "route": "inh",
+        "mode": "",
+        "group": "Aikuiset ja lapset > 12 v",
+        "value": "0,50",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Ipratropiumbromidi (Atrovent®)",
+        "route": "inh",
+        "mode": "",
+        "group": "Lapset 2-12 v",
+        "value": "0,25",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Adrenaliini",
+        "route": "iv",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "10-100",
+        "unit": "μg",
+        "note": ""
+      },
+      {
+        "name": "Adrenaliini",
+        "route": "iv",
+        "mode": "",
+        "group": "Lapset",
+        "value": "0,1-1",
+        "unit": "μg/kg",
+        "note": ""
+      },
+      {
+        "name": "Adrenaliini",
+        "route": "im",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "0,50",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Adrenaliini",
+        "route": "im",
+        "mode": "",
+        "group": "Lapset",
+        "value": "10",
+        "unit": "μg/kg",
+        "note": ""
+      },
+      {
+        "name": "Magnesium",
+        "route": "iv",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "2",
+        "unit": "g",
+        "note": ""
+      },
+      {
+        "name": "Magnesium",
+        "route": "iv",
+        "mode": "",
+        "group": "Lapset",
+        "value": "40",
+        "unit": "mg/kg",
+        "note": "20 min aikana"
+      },
+      {
+        "name": "Ketamiini",
+        "route": "iv",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "20",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Ketamiini",
+        "route": "iv",
+        "mode": "",
+        "group": "Lapset",
+        "value": "1-2",
+        "unit": "mg/kg",
+        "note": ""
+      },
+      {
+        "name": "Ketamiini",
+        "route": "iv",
+        "mode": "infuusio",
+        "group": "Annos",
+        "value": "1-3",
+        "unit": "mg/kg/h",
+        "note": ""
+      },
+      {
+        "name": "Hydrokortisoni",
+        "route": "iv",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "200",
+        "unit": "mg",
+        "note": ""
+      },
+      {
+        "name": "Hydrokortisoni",
+        "route": "iv",
+        "mode": "",
+        "group": "Lapset",
+        "value": "4",
+        "unit": "mg/kg",
+        "note": "ad 100 mg"
+      },
+      {
+        "name": "Teofylliini",
+        "route": "iv",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "200",
+        "unit": "mg",
+        "note": "15 min aikana"
+      },
+      {
+        "name": "Teofylliini",
+        "route": "iv",
+        "mode": "",
+        "group": "Lapset",
+        "value": "4-5",
+        "unit": "mg/kg",
+        "note": "20 min aikana"
+      }
+    ],
+    "symptoms": [
+      {
+        "title": "Oireita ja löydöksiä",
+        "items": [
+          "Ekspiratorinen vinkuna",
+          "Hengitystiepaineiden nousu",
+          "Saturaation lasku",
+          "Hyperkapnia",
+          "Loiva CO2-käyrän nousu",
+          "Hiljaiset hengitysäänet",
+          "Rintakehän liikkumattomuus"
+        ]
+      }
+    ],
+    "triggers": [],
+    "sections": [
+      {
+        "title": "Ventilaatiosäädöt",
+        "items": [
+          "Lisää uloshengitysaikaa",
+          "Painekontrolloitu ventilaatio",
+          "Huomioi ansailman kerääntyminen (maltillinen PEEP, intermittoiva kierron avaus)",
+          "Permissiivinen hyperkapnia"
+        ]
+      },
+      {
+        "title": "Erotusdiagnoosit",
+        "items": [
+          "Intubaatioputken tai LMA:n väärä sijainti tai tukos",
+          "Anestesiakoneen tai ventilaatiovälineistön häiriö",
+          "Anafylaksia (kortti 1)",
+          "Aspiraatio (kortti 7)",
+          "Laryngospasmi (kortti 9)",
+          "Vierasesine",
+          "Pneumothorax",
+          "Hemothorax",
+          "Keuhkoödeema, sydämen vajaatoiminta",
+          "Keuhkoembolia (kortti 10)"
+        ]
+      }
+    ],
+    "date": "14.02.2023",
+    "id": "bronchospasm"
+  },
+  {
+    "title": "Laryngospasmi",
+    "description": "Kurkunpään lihasspasmi/äänihuulien sulkeutuminen hengitystieärsytyksestä johtuen",
+    "steps": [
+      {
+        "number": 1,
+        "text": "Tiedota muuta tiimiä",
+        "sub": ["Kuka johtaa?", "Tarvitaanko apua?"]
+      },
+      {
+        "number": 2,
+        "text": "Avaa hengitystie leuan nostolla, minimoi ärsykkeet",
+        "sub": []
+      },
+      {
+        "number": 3,
+        "text": "Anna 100 % happea tiiviillä maskilla CPAP:lla (ad 20 cmH2O)",
+        "sub": [
+          "Vältä voimakkaita ventilaatioyrityksiä mahalaukun täyttymisen välttämiseksi",
+          "Käytä tarvittaessa nielu- tai nenänielutuubia, jos epäilet hengitystie-estettä kurkunpään yläpuolella"
+        ]
+      },
+      {
+        "number": 4,
+        "text": "Poista ärsyttävät tekijät, kuten nielun eritteet, harkitse LMA:n tai nielutuubin poistoa",
+        "sub": []
+      },
+      {
+        "number": 5,
+        "text": "Syvennä anestesiaa",
+        "sub": []
+      },
+      {
+        "number": 6,
+        "text": "Harkitse relaksanttia",
+        "sub": [
+          "suksametonin käyttö syvässä hypoksiassa voi aiheuttaa bradykardian tai sydänpysähdyksen (lapset)"
+        ]
+      },
+      {
+        "number": 7,
+        "text": "Intuboi, jos tilanne ei korjaannu tai arvioit tilanteen herkästi toistuvan",
+        "sub": []
+      },
+      {
+        "number": 8,
+        "text": "Suunnittele ekstubaatiotaktiikka, avuntarve ja paikka ekstubaatiolle",
+        "sub": [
+          "Huomioi mahdollinen aspiraatio ja negatiivisen paineen aiheuttama keuhkoödeema",
+          "Tilanteen rauhoituttua tyhjennä ventrikkeli imulla tai harkitse nenämahaletkua"
+        ]
+      }
+    ],
+    "medications": [
+      {
+        "name": "Lidokaiini",
+        "route": "iv",
+        "mode": "",
+        "group": "Annos",
+        "value": "1",
+        "unit": "mg/kg",
+        "note": ""
+      },
+      {
+        "name": "Suksametoni",
+        "route": "iv",
+        "mode": "",
+        "group": "Redusoitu annos",
+        "value": "0,1-0,5",
+        "unit": "mg/kg",
+        "note": ""
+      },
+      {
+        "name": "Suksametoni",
+        "route": "iv",
+        "mode": "",
+        "group": "Täysi relaksaatio",
+        "value": "1-2",
+        "unit": "mg/kg",
+        "note": ""
+      },
+      {
+        "name": "Suksametoni",
+        "route": "im",
+        "mode": "",
+        "group": "Annos",
+        "value": "3-4",
+        "unit": "mg/kg",
+        "note": ""
+      },
+      {
+        "name": "Rokuroni",
+        "route": "i.v",
+        "mode": "",
+        "group": "Annos",
+        "value": "0,6-1,2",
+        "unit": "mg/kg",
+        "note": ""
+      }
+    ],
+    "symptoms": [],
+    "triggers": [],
+    "sections": [
+      {
+        "title": "Erotusdiagnoosit",
+        "items": [
+          "Nielun alueen infektio",
+          "Vierasesine",
+          "Hengitystietuumori",
+          "Ulkopuolinen obstruoiva prosessi (esim. struuma)",
+          "Äänihuulipareesi",
+          "Laryngo-/trakeomalasia",
+          "Subglottinen stenoosi",
+          "Bronkospasmi (kortti 8)"
+        ]
+      }
+    ],
+    "date": "14.02.2023",
+    "id": "laryngospasm"
+  },
+  {
+    "title": "Keuhkoembolia",
+    "description": "Eri syistä johtuva keuhkovaltimon tai sen haaran tukkeutuma, johon liittyvät äkilliset ja merkittävät kardiorespiratoriset poikkeamat",
+    "steps": [
+      {
+        "number": 1,
+        "text": "Tiedota muuta tiimiä",
+        "sub": ["Kuka johtaa?", "Tarvitaanko apua?"]
+      },
+      {
+        "number": 2,
+        "text": "Varmista hengitystie",
+        "sub": ["Anna 100% happea", "Lopeta N2O"]
+      },
+      {
+        "number": 3,
+        "text": "Hoida hypotensiota nesteytyksellä ja noradrenaliinilla",
+        "sub": []
+      },
+      {
+        "number": 4,
+        "text": "Harkitse tutkimuksia diagnoosin varmistamiseksi",
+        "sub": [
+          "Valtimoverinäyte (PaCO₂/EtCO₂ gradientti ↑)",
+          "Sydämen ultraääni (oikean puolen kuormitus)",
+          "Keuhkojen laaja TT-angio"
+        ]
+      },
+      {
+        "number": 5,
+        "text": "Pohdi todennäköistä embolian aiheuttajaa ja hoitoa sen mukaan",
+        "sub": []
+      },
+      {
+        "number": 6,
+        "text": "Konsultoi herkästi toimenpideradiologia",
+        "sub": []
+      },
+      {
+        "number": 7,
+        "text": "Arvioi voiko leikkausta jatkaa",
+        "sub": []
+      },
+      {
+        "number": 8,
+        "text": "Jos tilanne etenee elottomuuteen, hoida elvytyskaavion mukaisesti",
+        "sub": []
+      },
+      {
+        "number": 9,
+        "text": "Järjestä jatkohoitopaikka",
+        "sub": []
+      }
+    ],
+    "medications": [],
+    "symptoms": [
+      {
+        "title": "Oireita ja löydöksiä",
+        "items": [
+          "Laskeva EtCO2",
+          "Matala saturaatio",
+          "Hypotensio",
+          "Takykardia",
+          "Matala tajunnantaso",
+          "Hyperventilaatio"
+        ]
+      }
+    ],
+    "triggers": [],
+    "sections": [
+      {
+        "title": "Tromboembolia",
+        "items": [
+          "Riskitekijät: Anamneesissa laskimotukos, trauma, syöpä tai raskaus",
+          "Kohdennettu hoito: Trombolyysi (Actilyse), mekaaninen trombektomia, paikallinen liuotus"
+        ]
+      },
+      {
+        "title": "Ilmaembolia",
+        "items": [
+          "Riskitekijät: Haavat sydämen yläpuolella, avoimet letkustot, sentraalisten laskimoiden kanylointi, laparoskopia",
+          "Lisälöydökset: Auskultoiden sydämestä ”mill-wheel murmur” -rahina",
+          "Estä lisäilman pääsy verenkiertoon: Vapauta paine pneumoperitoneumista. Kastele leikkausalue keittosuolalla. Tuki muut ilman lähteet: kanyylit, troakaarit, avohaavat.",
+          "Trendelenburg ja vasen kylkiasento estämään ilman etenemistä keuhkoverenkiertoon"
+        ]
+      },
+      {
+        "title": "Lapsivesiembolia",
+        "items": [
+          "Riskitekijät: Synnyttämässä oleva tai juuri synnyttänyt nainen",
+          "Lisälöydökset: Koagulopatia",
+          "Kohdennettu hoito: Jääplasma, traneksaamihappo, fibrinogeeni"
+        ]
+      },
+      {
+        "title": "Sementtiembolia",
+        "items": ["Riskitekijät: Tekonivelten sementöinti"]
+      },
+      {
+        "title": "Rasvaembolia",
+        "items": [
+          "Riskitekijät: Murtumat, pitkien luiden ydinnaulat",
+          "Lisälöydökset: Asteittain ilmenevät petekkiat"
+        ]
+      }
+    ],
+    "date": "14.02.2023",
+    "id": "embolism"
+  },
+  {
+    "title": "Bradykardia (aikuiset)",
+    "description": "Hemodynaamisesti merkittävä (matala verenpaine, tajunnan madaltuminen) hidaslyöntisyys",
+    "steps": [
+      {
+        "number": 1,
+        "text": "Tiedota muuta tiimiä",
+        "sub": ["Kuka johtaa?", "Tarvitaanko apua?"]
+      },
+      {
+        "number": 2,
+        "text": "Poissulje hypoksia ja vasovagaalinen heijaste",
+        "sub": ["Anna 100% happea"]
+      },
+      {
+        "number": 3,
+        "text": "Aloita lääkehoito, jos edelleen verenkiertovajauksen merkkejä",
+        "sub": []
+      },
+      {
+        "number": 4,
+        "text": "Pohdi todennäköistä bradykardian aiheuttajaa ja hoitoa sen mukaan",
+        "sub": []
+      },
+      {
+        "number": 5,
+        "text": "Mikäli lääkevastetta ei ole, aloita ulkoinen tahdistus",
+        "sub": [
+          "Tahdistuksen tarpeen jatkuessa asenna endokardiaalinen tahdistus"
+        ]
+      },
+      {
+        "number": 6,
+        "text": "Jos tilanne etenee elottomuuteen, hoida elvytyskaavion mukaisesti",
+        "sub": []
+      },
+      {
+        "number": 7,
+        "text": "Järjestä jatkohoitopaikka",
+        "sub": []
+      }
+    ],
+    "medications": [
+      {
+        "name": "Atropiini",
+        "route": "iv",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "0,5",
+        "unit": "mg",
+        "note": "toistettuna 5 min:n välein ad 2 mg"
+      },
+      {
+        "name": "Isoprenaliini",
+        "route": "",
+        "mode": "infuusio",
+        "group": "Laimennos",
+        "value": "1",
+        "unit": "mg/100 ml G5",
+        "note": ""
+      },
+      {
+        "name": "Isoprenaliini",
+        "route": "",
+        "mode": "infuusio",
+        "group": "Nopeus",
+        "value": "10-30",
+        "unit": "ml/h",
+        "note": "max 75 ml/h, annostitraus vasteen mukaan"
+      },
+      {
+        "name": "Adrenaliini",
+        "route": "iv",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "0,01 - 0,05",
+        "unit": "mg",
+        "note": ""
+      }
+    ],
+    "symptoms": [],
+    "triggers": [],
+    "sections": [
+      {
+        "title": "Tavallisimmat syyt",
+        "items": [
+          "Hypoksia",
+          "Vasovagaalinen heijaste",
+          "Lääkityksestä johtuva",
+          "Korkea spinaalipuudutus",
+          "Iskeeminen sydäntapahtuma",
+          "SSS (sairas sinus -oireyhtymä)",
+          "Johtumishäiriö",
+          "Elektrolyyttihäiriöt",
+          "Hypotermia",
+          "Korkea kallonsisäinen paine"
+        ]
+      },
+      {
+        "title": "Ulkoinen tahdistus",
+        "items": [
+          "Sedatoi hereillä oleva potilas (kivuliasta)",
+          "Aseta tahdistinelektrodit eteen vasemmalle rintakehälle ja taakse vasemmalle selkään, mikäli mahdollista",
+          "Aseta myös defibrillaattorin EKG elektrodit ja etsi paras kytkentä (korkeimmat R-aallot)",
+          "Aktivoi tahdistinyksikkö defibrillaattorista ja säädä syketaajuus (70–90)",
+          "Valitse Tarve (Demand) –säätö",
+          "Laita lähtövirta (mA) minimiin",
+          "Aloita tahdistaminen",
+          "Nosta virtaa, kunnes tulee näkyviin tahdistinrytmi, yleensä kynnys on 40–120 mA",
+          "Nosta virtaa 10–20 mA yli kynnyksen",
+          "Palpoi rannesyke (onko sama kuin haluttu syketaajuus) ja mittaa verenpaine",
+          "Huom! Ulkoinen tahdistus on vain väliaikainen ratkaisu"
+        ]
+      }
+    ],
+    "date": "14.02.2023",
+    "id": "bradycardia"
+  },
+  {
+    "title": "Takykardia (aikuiset)",
+    "description": "Hemodynaamisesti merkittävä (matala verenpaine, iskeeminen rintakipu, tajunnantason lasku) tiheälyöntisyys, ei elottomuutta",
+    "steps": [
+      {
+        "number": 1,
+        "text": "Tiedota muuta tiimiä",
+        "sub": ["Kuka johtaa?", "Tarvitaanko apua?"]
+      },
+      {
+        "number": 2,
+        "text": "Varmista vapaa hengitystie",
+        "sub": ["Anna 100% happea, estä hypoksemia"]
+      },
+      {
+        "number": 3,
+        "text": "Analysoi rytmi",
+        "sub": []
+      },
+      {
+        "number": 4,
+        "text": "Jos sinustakykardia, pohdi ja hoida mahdolliset syyt",
+        "sub": [
+          "Harkitse hidastamista beeta-salpaajalla",
+          "HUOM! takykardia voi olla kompensatorinen mekanismi vaikeassa sydämen vajaatoiminnassa"
+        ]
+      },
+      {
+        "number": 5,
+        "text": "Jos kapea QRS-kompleksi ja rytmi säännöllinen, harkitse adenosiinia",
+        "sub": []
+      },
+      {
+        "number": 6,
+        "text": "Muussa tapauksessa synkronoitu kardioversio 150-200 J",
+        "sub": []
+      },
+      {
+        "number": 7,
+        "text": "Jos takykardia ei reagoi rytminsiirtoon, harkitse amiodaronin antoa",
+        "sub": []
+      },
+      {
+        "number": 8,
+        "text": "Jos tilanne etenee elottomuuteen, hoida elvytyskaavion mukaisesti",
+        "sub": []
+      },
+      {
+        "number": 9,
+        "text": "Järjestä jatkohoitopaikka",
+        "sub": []
+      }
+    ],
+    "medications": [
+      {
+        "name": "Adenosiini",
+        "route": "iv",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "5-10-15",
+        "unit": "mg",
+        "note": "nopeana bolusinjektiona, tarvittaessa nosta annosta 1–2 min välein, ad. 15 mg"
+      },
+      {
+        "name": "Metoprololi",
+        "route": "iv",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "2,5–5,0",
+        "unit": "mg",
+        "note": "5 min välein ad 20 mg"
+      },
+      {
+        "name": "Amiodaroni",
+        "route": "iv",
+        "mode": "",
+        "group": "Aikuiset",
+        "value": "150",
+        "unit": "mg",
+        "note": "10 min aikana, toista tarv."
+      },
+      {
+        "name": "Amiodaroni",
+        "route": "",
+        "mode": "Jatkoinfuusio",
+        "group": "Aikuiset",
+        "value": "900-1800",
+        "unit": "mg vuorokaudessa",
+        "note": ""
+      }
+    ],
+    "symptoms": [],
+    "triggers": [],
+    "sections": [
+      {
+        "title": "Amiodaroni · laimennos",
+        "items": [
+          "Bolus: 300 mg amiodaronia + 100 ml G5%",
+          "Infuusio: 900 mg amiodaronia + 500 ml G5% 21 ml/h"
+        ]
+      },
+      {
+        "title": "Takykardian syitä",
+        "items": [
+          "Sympaattinen stimulaatio (kipu, pinnallinen anestesia)",
+          "Hypovolemia, anemia",
+          "Hypoksemia, hyperkarbia",
+          "Elektrolyyttihäiriöt",
+          "Kuume, sepsis",
+          "Anafylaksia",
+          "Maligni hypertermia"
+        ]
+      }
+    ],
+    "date": "14.02.2023",
+    "id": "tachycardia"
+  }
+]
