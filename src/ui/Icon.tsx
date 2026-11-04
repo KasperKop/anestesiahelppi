@@ -1,4 +1,5 @@
 import {
+  Calculator,
   Zap,
   ZapOff,
   CircleCheck,
@@ -25,6 +26,7 @@ import {
 import { View } from 'react-native';
 
 const icons = {
+  calculator: Calculator,
   zap: Zap,
   zapOff: ZapOff,
   circleCheck: CircleCheck,

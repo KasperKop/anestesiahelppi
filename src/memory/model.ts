@@ -1,3 +1,5 @@
+import { evaluate, lines } from '../dilution/model';
+import type { Form, Row } from '../dilution/math';
 import { Answer, newId } from '../chat/types';
 import { isAnswer } from '../chat/client';
 export const OWNER_ID = 'local-owner';
@@ -8,12 +10,13 @@ export type SavedCard = {
   ownerId: string;
   answer: Answer | PersonalNote;
   stackId: string | null;
+  dilution?: { form: Form; rows: Row[] };
   savedAt: string;
   updatedAt?: string;
   position: number;
 };
 export type MemoryStack = {
-  purpose?: 'personal-notes';
+  purpose?: 'personal-notes' | 'dilutions';
   id: string;
   ownerId: string;
   name: string;
@@ -32,6 +35,7 @@ export const emptyMemory = (): MemoryState => ({
   stacks: [],
 });
 export type MemoryAction =
+  | { type: 'saveDilution'; id: string; form: Form; edit: boolean }
   | { type: 'editNote'; id: string; text: string }
   | { type: 'saveNote'; id: string; text: string }
   | { type: 'save'; answer: Answer }
@@ -81,12 +85,61 @@ export function changeMemory(
   action: MemoryAction,
 ): MemoryState {
   const now = new Date().toISOString();
+  if (action.type === 'saveDilution') {
+    const { form, id } = action;
+    const { rows } = evaluate(form);
+    if (!rows.length || !form.name.trim())
+      throw Error('Tarkista laskurin kentät.');
+    const old = state.cards.find((c) => c.id === id);
+    if (action.edit && !old?.dilution)
+      throw Error('Tallennettua laimennusta ei löytynyt.');
+    const stack = state.stacks.find((s) => s.purpose === 'dilutions') ??
+      state.stacks.find((s) => s.name.toLowerCase() === 'laimennukset') ?? {
+        id: newId(),
+        name: 'Laimennukset',
+        createdAt: now,
+        updatedAt: now,
+        ownerId: OWNER_ID,
+        position: state.stacks.length,
+      };
+    const card: SavedCard = {
+      id,
+      ownerId: OWNER_ID,
+      position:
+        old?.position ??
+        Math.max(-1, ...state.cards.map((c) => c.position)) + 1,
+      stackId: stack.id,
+      savedAt: old?.savedAt ?? now,
+      updatedAt: old ? now : undefined,
+      dilution: { form, rows },
+      answer: {
+        id,
+        mode: 'note',
+        status: 'answered',
+        question: '',
+        title: form.name.trim(),
+        body: lines(rows),
+        citations: [],
+        createdAt: old?.savedAt ?? now,
+      },
+    };
+    return {
+      ...state,
+      stacks: [
+        ...state.stacks.filter((s) => s.id !== stack.id),
+        { ...stack, purpose: 'dilutions' as const },
+      ].sort((a, b) => a.position - b.position),
+      cards: old
+        ? state.cards.map((c) => (c.id === id ? card : c))
+        : [...state.cards, card],
+    };
+  }
   if (action.type === 'editNote') {
     const text = action.text.trim();
     if (!text || text.length > 10000)
       throw new Error('Kirjoita 1–10 000 merkin muistiinpano.');
     const card = state.cards.find((c) => c.id === action.id);
-    if (!card || card.answer.mode !== 'note')
+    if (!card || card.dilution || card.answer.mode !== 'note')
       throw new Error('Vain omaa muistiinpanoa voi muokata.');
     return {
       ...state,

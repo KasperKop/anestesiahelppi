@@ -1,5 +1,7 @@
+import { router, useLocalSearchParams } from 'expo-router';
 import { useRef, useState } from 'react';
 import {
+  Clipboard,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -28,6 +30,15 @@ export default function SavedScreen() {
   const [confirm, setConfirm] = useState<string | null>(null);
   const [localError, setLocalError] = useState('');
   const scroll = useRef<ScrollView>(null);
+  const params = useLocalSearchParams();
+  const [visit, setVisit] = useState('');
+  const request = params?.stackId + ':' + params?.visit;
+  if (typeof params?.stackId === 'string' && request !== visit) {
+    setVisit(request);
+    setSelected(params.stackId);
+    setOpenId(null);
+  }
+
   const stack = state.stacks.find((s) => s.id === selected);
   const cards = state.cards
     .filter((c) => c.stackId === selected)
@@ -107,7 +118,43 @@ export default function SavedScreen() {
                 }}
               />
               <Panel>
-                {opened.answer.mode === 'note' ? (
+                {opened.dilution ? (
+                  <>
+                    <Text style={ui.small}>LAIMENNUS</Text>
+                    <Text style={ui.title}>{opened.answer.title}</Text>
+                    <Text selectable style={ui.body}>
+                      {opened.answer.body}
+                    </Text>
+                    <Button
+                      label="Avaa laskurissa"
+                      onPress={() =>
+                        router.navigate({
+                          pathname: '/calculator',
+                          params: {
+                            cardId: opened.id,
+                            visit: String(Date.now()),
+                          },
+                        })
+                      }
+                    />
+                    <Button
+                      label="Kopioi teksti"
+                      onPress={async () => {
+                        try {
+                          const text =
+                            opened.answer.title + '\n' + opened.answer.body;
+                          if (Platform.OS === 'web')
+                            await navigator.clipboard.writeText(text);
+                          else Clipboard.setString(text);
+                        } catch {
+                          setLocalError(
+                            'Kopiointi ei onnistunut. Valitse kortin teksti kopioitavaksi.',
+                          );
+                        }
+                      }}
+                    />
+                  </>
+                ) : opened.answer.mode === 'note' ? (
                   <>
                     <Text style={ui.small}>OMA MUISTIINPANO</Text>
                     <Text accessibilityRole="header" style={ui.title}>
@@ -442,11 +489,13 @@ export default function SavedScreen() {
                     style={{ gap: 8, minHeight: 80 }}
                   >
                     <Text style={ui.small}>
-                      {card.answer.mode === 'note'
-                        ? 'OMA MUISTIINPANO'
-                        : card.answer.mode === 'demo'
-                          ? 'VALMIS ESIMERKKI'
-                          : 'AI-TIIVISTELMÄ'}
+                      {card.dilution
+                        ? 'LAIMENNUS'
+                        : card.answer.mode === 'note'
+                          ? 'OMA MUISTIINPANO'
+                          : card.answer.mode === 'demo'
+                            ? 'VALMIS ESIMERKKI'
+                            : 'AI-TIIVISTELMÄ'}
                     </Text>
                     <Text style={ui.title}>{card.answer.title}</Text>
                     {!!card.answer.question && (
@@ -454,7 +503,15 @@ export default function SavedScreen() {
                         {card.answer.question}
                       </Text>
                     )}
-                    <Text numberOfLines={3} style={ui.body}>
+                    {card.dilution && (
+                      <Text style={ui.title}>
+                        {card.dilution.rows[card.dilution.rows.length - 1].mg}
+                      </Text>
+                    )}
+                    <Text
+                      numberOfLines={card.dilution ? undefined : 3}
+                      style={ui.body}
+                    >
                       {card.answer.body}
                     </Text>
                     <View style={ui.row}>
