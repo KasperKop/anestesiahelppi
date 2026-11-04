@@ -37,11 +37,14 @@ export default function TabLayout() {
               const active = state.index === index;
               const home = route.name === 'index';
               const settings = route.name === 'settings';
-              const label = home
-                ? 'Etusivu'
-                : settings
-                  ? 'Asetukset'
-                  : 'Omat pinot';
+              const calculator = route.name === 'calculator';
+              const label = calculator
+                ? 'Laskuri'
+                : home
+                  ? 'Etusivu'
+                  : settings
+                    ? 'Asetukset'
+                    : 'Omat pinot';
               return (
                 <Pressable
                   key={route.key}
@@ -65,7 +68,7 @@ export default function TabLayout() {
                     minHeight: 64,
                     alignItems: 'center',
                     justifyContent: 'center',
-                    padding: 8,
+                    padding: 4,
                     gap: 4,
                     backgroundColor: pressed ? '#EAF6FC' : '#FFFFFF',
                   })}
@@ -79,7 +82,15 @@ export default function TabLayout() {
                     }}
                   >
                     <Icon
-                      name={home ? 'home' : settings ? 'settings' : 'heart'}
+                      name={
+                        calculator
+                          ? 'calculator'
+                          : home
+                            ? 'home'
+                            : settings
+                              ? 'settings'
+                              : 'heart'
+                      }
                       color={active ? '#136489' : '#505B64'}
                       filled={active}
                     />
@@ -104,6 +115,7 @@ export default function TabLayout() {
     >
       <Tabs.Screen name="saved" options={{ title: 'Omat pinot' }} />
       <Tabs.Screen name="index" options={{ title: 'Etusivu' }} />
+      <Tabs.Screen name="calculator" options={{ title: 'Laskuri' }} />
       <Tabs.Screen name="settings" options={{ title: 'Asetukset' }} />
     </Tabs>
   );
