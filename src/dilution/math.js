@@ -22,6 +22,36 @@ function fmt([n, d]) {
     .replace(/0+$/, '')
     .replace(/,$/, '');
 }
+// Exact serializable mg/ml ratio. Formatting never feeds back into calculation.
+function exact(a) {
+  return { numerator: a[0].toString(), denominator: a[1].toString() };
+}
+function ratio(v) {
+  const a = Array.isArray(v)
+    ? v.map(BigInt)
+    : typeof v === 'object'
+      ? [BigInt(v.numerator), BigInt(v.denominator)]
+      : parse(v);
+  if (a[0] <= 0n || a[1] <= 0n) throw Error('Invalid concentration');
+  return a;
+}
+function rounded(a) {
+  const text = fmt(a),
+    displayed = parse(text);
+  return (a[0] * displayed[1] !== displayed[0] * a[1] ? '≈ ' : '') + text;
+}
+function formatConcentration(value) {
+  const a = ratio(value),
+    mg = rounded(a) + ' mg/ml';
+  const ug = a[0] < a[1] ? rounded(mul(a, [1000n, 1n])) + ' µg/ml' : '';
+  return {
+    mg,
+    ug,
+    text: mg + (ug ? ' (' + ug + ')' : ''),
+    warning:
+      a[0] * 100000n < a[1] ? 'Erittäin pieni pitoisuus, tarkista arvot' : '',
+  };
+}
 function calc(f) {
   let errors = {},
     rows = [];
@@ -42,8 +72,8 @@ function calc(f) {
     warning = false;
   function push(formula, summary) {
     rows.push({
-      mg: fmt(conc) + ' mg/ml',
-      ug: fmt(mul(conc, [1000n, 1n])) + ' µg/ml',
+      concentration: exact(conc),
+      ...formatConcentration(conc),
       volume: fmt(vol) + ' ml',
       formula,
       summary,
@@ -59,8 +89,21 @@ function calc(f) {
     conc = div(mul(old, take), vol);
     warning ||= gt(div(vol, take), [10000n, 1n]);
     push(
-      fmt(old) + ' mg/ml × ' + t + ' ml ÷ (' + t + ' ml + ' + l + ' ml)',
-      t + ' ml liuosta (' + fmt(old) + ' mg/ml) + ' + l + ' ml ' + sol,
+      formatConcentration(old).text +
+        ' × ' +
+        t +
+        ' ml ÷ (' +
+        t +
+        ' ml + ' +
+        l +
+        ' ml)',
+      t +
+        ' ml liuosta (' +
+        formatConcentration(old).text +
+        ') + ' +
+        l +
+        ' ml ' +
+        sol,
     );
   }
   if (dry) {
@@ -80,4 +123,4 @@ function calc(f) {
     ]);
   return { errors, rows: Object.keys(errors).length ? [] : rows, warning };
 }
-module.exports = { calc };
+module.exports = { calc, formatConcentration };

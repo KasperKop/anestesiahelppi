@@ -7,7 +7,17 @@ export type Form = Step & {
   name: string;
   steps: Step[];
 };
+export type ExactConcentration = { numerator: string; denominator: string };
+export function formatConcentration(value: ExactConcentration | string): {
+  mg: string;
+  ug: string;
+  text: string;
+  warning: string;
+};
 export type Row = {
+  concentration: ExactConcentration;
+  text: string;
+  warning: string;
   mg: string;
   ug: string;
   volume: string;

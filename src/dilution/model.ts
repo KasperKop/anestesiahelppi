@@ -1,4 +1,4 @@
-import { calc, type Form, type Row } from './math';
+import { formatConcentration, calc, type Form, type Row } from './math';
 export const initial = (): Form => ({
   type: 'dry',
   name: '',
@@ -22,5 +22,23 @@ export function evaluate(f: Form) {
 }
 export const lines = (rows: Row[]) =>
   rows
-    .map((r) => r.summary + ' → ' + r.volume + ', ' + r.mg + ' (' + r.ug + ')')
+    .map(
+      (r) =>
+        r.summary +
+        ' → ' +
+        r.volume +
+        ', ' +
+        formatConcentration(r.concentration).text,
+    )
     .join('\n');
+
+// Rebuild presentation from original inputs, including cards saved before formatting v2.
+export function savedDilution(form: Form) {
+  const rows = evaluate(form).rows;
+  return {
+    text: lines(rows),
+    concentration: rows.length
+      ? formatConcentration(rows[rows.length - 1].concentration).text
+      : '',
+  };
+}
