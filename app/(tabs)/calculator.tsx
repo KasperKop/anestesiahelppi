@@ -1,3 +1,4 @@
+import UnitSelect from '@/src/dilution/UnitSelect';
 import { useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import { ScrollView, Text, TextInput, View, Pressable } from 'react-native';
@@ -60,7 +61,7 @@ export default function Calculator() {
             S({ ...seen, [key]: true });
           }}
           onBlur={() => S((v) => ({ ...v, [key]: true }))}
-          style={ui.input}
+          style={[ui.input, key === 'amount' && { height: 52 }]}
         />
         {!!err && <Text nativeID={'error-' + key}>{err}</Text>}
       </View>
@@ -216,14 +217,34 @@ export default function Calculator() {
         <Panel>
           {base('name', 'Valmisteen nimi (ja vaikuttava aine)', false)}
           <Text style={ui.small}>Älä kirjoita potilastietoja.</Text>
-          {base('amount', dry ? 'Kuiva-aineen määrä' : 'Valmisteen pitoisuus')}
-          <Text>Yksikkö</Text>
-          <View accessibilityRole="radiogroup" style={ui.row}>
-            {['µg', 'mg', 'g'].map((u) =>
-              choice(u + (dry ? '' : '/ml'), f.unit === u, () =>
-                change({ ...f, unit: u }),
-              ),
-            )}
+          <View style={{ gap: 4 }}>
+            <View style={{ flexDirection: 'row', gap: 8 }}>
+              <Text style={[ui.small, { flex: 1 }]}>
+                {dry ? 'Kuiva-aineen määrä' : 'Valmisteen pitoisuus'}
+              </Text>
+              <Text style={[ui.small, { flex: 1 }]}>Yksikkö</Text>
+            </View>
+            <View
+              style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start' }}
+            >
+              <View style={{ flex: 1, minWidth: 0 }}>
+                {field(
+                  'amount',
+                  dry ? 'Kuiva-aineen määrä' : 'Valmisteen pitoisuus',
+                  f.amount,
+                  (amount) => change({ ...f, amount }),
+                  true,
+                  false,
+                )}
+              </View>
+              <View style={{ flex: 1, minWidth: 0 }}>
+                <UnitSelect
+                  value={f.unit}
+                  liquid={!dry}
+                  onChange={(unit) => change({ ...f, unit })}
+                />
+              </View>
+            </View>
           </View>
           {dry
             ? base('vol', 'Liuottimen tilavuus (ml)')
