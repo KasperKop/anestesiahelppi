@@ -32,8 +32,11 @@ test.each([
   ],
 ])('laskenta %j', (x, a, b, v) =>
   expect(calc({ ...f, ...x }).rows.at(-1)).toMatchObject({
-    mg: a + ' mg/ml',
-    ug: b + ' µg/ml',
+    mg: (a === '0,333' ? '≈ ' : '') + a + ' mg/ml',
+    ug:
+      Number(a.replace(',', '.')) >= 1
+        ? ''
+        : (a === '0,333' ? '≈ ' : '') + b + ' µg/ml',
     volume: v + ' ml',
   }),
 );
@@ -78,4 +81,21 @@ test('structured dilution survives reload and updates the same card beside perso
   expect(m.stacks).toHaveLength(2);
   expect(m.cards[1].savedAt).toBe(old.savedAt);
   expect(m.cards[0].answer.body).toBe('Oma teksti');
+});
+
+test('legacy cards regenerate presentation from inputs and exact values persist', () => {
+  const { savedDilution } = require('../src/dilution/model');
+  const { changeMemory, emptyMemory } = require('../src/memory/model');
+  const form = { ...f, name: 'Malli', amount: '1', vol: '30' };
+  const state = changeMemory(emptyMemory(), {
+    type: 'saveDilution',
+    id: 'new',
+    form,
+    edit: false,
+  });
+  expect(state.cards[0].dilution.rows[0].concentration).toEqual({
+    numerator: '1',
+    denominator: '30',
+  });
+  expect(savedDilution(form).text).toContain('≈ 0,0333 mg/ml (≈ 33,3 µg/ml)');
 });

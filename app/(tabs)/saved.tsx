@@ -1,3 +1,5 @@
+import { savedDilution } from '@/src/dilution/model';
+import type { Form } from '@/src/dilution/math';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useRef, useState } from 'react';
 import {
@@ -17,6 +19,26 @@ import { MemoryAction } from '@/src/memory/model';
 import { AnswerCard } from '@/src/chat/AnswerCard';
 import { Button, Input, Panel, ui } from '@/src/ui/primitives';
 import { Icon } from '@/src/ui/Icon';
+function DilutionTitle({ title, form }: { title: string; form: Form }) {
+  return (
+    <View style={[ui.row, { alignItems: 'center' }]}>
+      <Text style={[ui.title, { flexShrink: 1 }]}>{title}</Text>
+      <Text
+        style={{
+          fontSize: 11,
+          fontWeight: '700',
+          color: '#124D69',
+          backgroundColor: '#E5F0F5',
+          borderRadius: 12,
+          paddingHorizontal: 8,
+          paddingVertical: 4,
+        }}
+      >
+        {form.type === 'dry' ? 'KUIVA-AINE' : 'NESTE'}
+      </Text>
+    </View>
+  );
+}
 export default function SavedScreen() {
   const { state, ready, busy, error, act, retry } = useMemory();
   const [selected, setSelected] = useState<string | null>(null);
@@ -121,9 +143,12 @@ export default function SavedScreen() {
                 {opened.dilution ? (
                   <>
                     <Text style={ui.small}>LAIMENNUS</Text>
-                    <Text style={ui.title}>{opened.answer.title}</Text>
+                    <DilutionTitle
+                      title={opened.answer.title}
+                      form={opened.dilution.form}
+                    />
                     <Text selectable style={ui.body}>
-                      {opened.answer.body}
+                      {savedDilution(opened.dilution.form).text}
                     </Text>
                     <Button
                       label="Avaa laskurissa"
@@ -142,7 +167,9 @@ export default function SavedScreen() {
                       onPress={async () => {
                         try {
                           const text =
-                            opened.answer.title + '\n' + opened.answer.body;
+                            opened.answer.title +
+                            '\n' +
+                            savedDilution(opened.dilution!.form).text;
                           if (Platform.OS === 'web')
                             await navigator.clipboard.writeText(text);
                           else Clipboard.setString(text);
@@ -497,7 +524,14 @@ export default function SavedScreen() {
                             ? 'VALMIS ESIMERKKI'
                             : 'AI-TIIVISTELMÄ'}
                     </Text>
-                    <Text style={ui.title}>{card.answer.title}</Text>
+                    {card.dilution ? (
+                      <DilutionTitle
+                        title={card.answer.title}
+                        form={card.dilution.form}
+                      />
+                    ) : (
+                      <Text style={ui.title}>{card.answer.title}</Text>
+                    )}
                     {!!card.answer.question && (
                       <Text numberOfLines={2} style={ui.small}>
                         {card.answer.question}
@@ -505,14 +539,16 @@ export default function SavedScreen() {
                     )}
                     {card.dilution && (
                       <Text style={ui.title}>
-                        {card.dilution.rows[card.dilution.rows.length - 1].mg}
+                        {savedDilution(card.dilution.form).concentration}
                       </Text>
                     )}
                     <Text
                       numberOfLines={card.dilution ? undefined : 3}
                       style={ui.body}
                     >
-                      {card.answer.body}
+                      {card.dilution
+                        ? savedDilution(card.dilution.form).text
+                        : card.answer.body}
                     </Text>
                     <View style={ui.row}>
                       <Text style={ui.small}>Avaa kortti</Text>

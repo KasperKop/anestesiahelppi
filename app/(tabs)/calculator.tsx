@@ -6,7 +6,7 @@ import { Button, Panel, ui } from '@/src/ui/primitives';
 import { useMemory } from '@/src/memory/context';
 import { newId } from '@/src/chat/types';
 import { initial, evaluate, lines } from '@/src/dilution/model';
-import type { Form, Step } from '@/src/dilution/math';
+import { formatConcentration, type Form } from '@/src/dilution/math';
 export default function Calculator() {
   const m = useMemory(),
     params = useLocalSearchParams(),
@@ -43,11 +43,12 @@ export default function Calculator() {
     value: string,
     set: (s: string) => void,
     numeric = true,
+    showLabel = true,
   ) {
     const err = seen[key] ? errors[key] : '';
     return (
       <View key={key}>
-        <Text style={ui.small}>{label}</Text>
+        {showLabel && <Text style={ui.small}>{label}</Text>}
         <TextInput
           accessibilityLabel={label}
           aria-describedby={err ? 'error-' + key : undefined}
@@ -70,6 +71,73 @@ export default function Calculator() {
     l: string,
     n = true,
   ) => field(k, l, f[k], (v) => change({ ...f, [k]: v }), n);
+  function solvents(value: string, set: (v: string) => void) {
+    return (
+      <View style={{ gap: 8 }}>
+        <Text style={ui.small}>Pikavalinta</Text>
+        <View style={[ui.row, { gap: 8 }]}>
+          {['NaCl 0,9 %', 'Glukoosi 5 %', 'Aqua'].map((v) => (
+            <Pressable
+              key={v}
+              accessibilityRole="button"
+              aria-pressed={value === v}
+              onPress={() => set(v)}
+              style={({ pressed }) => ({
+                minHeight: 40,
+                paddingHorizontal: 12,
+                justifyContent: 'center',
+                borderRadius: 24,
+                borderWidth: 1,
+                borderColor: value === v ? '#12668A' : '#9FB9C6',
+                backgroundColor: value === v || pressed ? '#DCEDF5' : 'white',
+              })}
+            >
+              <Text style={{ color: '#124D69', fontWeight: '600' }}>{v}</Text>
+            </Pressable>
+          ))}
+        </View>
+      </View>
+    );
+  }
+  // Shared label row keeps both input tops aligned regardless of label wrapping.
+  function volumes(
+    prefix: string,
+    take: string,
+    plus: string,
+    set: (k: 'take' | 'plus', v: string) => void,
+  ) {
+    const labels = [
+      prefix ? 'Otetaan edellisestä (ml)' : 'Otetaan (ml)',
+      'Lisätään laimenninta (ml)',
+    ];
+    return (
+      <View style={{ gap: 4 }}>
+        <View style={{ flexDirection: 'row', gap: 8, alignItems: 'stretch' }}>
+          {labels.map((label) => (
+            <Text key={label} style={[ui.small, { flex: 1 }]}>
+              {label}
+            </Text>
+          ))}
+        </View>
+        <View
+          style={{ flexDirection: 'row', gap: 8, alignItems: 'flex-start' }}
+        >
+          {(['take', 'plus'] as const).map((k, i) => (
+            <View key={k} style={{ flex: 1, minWidth: 0 }}>
+              {field(
+                prefix + k,
+                labels[i],
+                k === 'take' ? take : plus,
+                (v) => set(k, v),
+                true,
+                false,
+              )}
+            </View>
+          ))}
+        </View>
+      </View>
+    );
+  }
   function reset() {
     change(initial());
     E('');
@@ -118,7 +186,7 @@ export default function Calculator() {
         automaticallyAdjustKeyboardInsets
         contentContainerStyle={[
           ui.page,
-          { padding: 16, gap: 12, paddingBottom: 80 },
+          { padding: 16, gap: 12, paddingBottom: 112 },
         ]}
       >
         <Text style={ui.label}>ANESTESIAHELPPI</Text>
@@ -157,47 +225,49 @@ export default function Calculator() {
               ),
             )}
           </View>
-          {dry ? (
-            base('vol', 'Liuottimen tilavuus (ml)')
-          ) : (
-            <>
-              {base('take', 'Otetaan (ml)')}
-              {base('plus', 'Lisätään laimenninta (ml)')}
-            </>
-          )}
+          {dry
+            ? base('vol', 'Liuottimen tilavuus (ml)')
+            : volumes('', f.take, f.plus, (k, v) => change({ ...f, [k]: v }))}
           {base('sol', dry ? 'Liuottimen nimi' : 'Laimentimen nimi', false)}
+          {solvents(f.sol, (sol) => change({ ...f, sol }))}
           {!!last && !!f.steps.length && (
-            <Text>
-              {rows[0].mg} = {rows[0].ug}
-            </Text>
+            <Text>{formatConcentration(rows[0].concentration).text}</Text>
           )}
         </Panel>
         {f.steps.map((s, i) => (
           <Panel key={i}>
             <Text style={ui.title}>Vaihe {i + 2}</Text>
-            {(['take', 'plus', 'sol'] as (keyof Step)[]).map((k) =>
-              field(
-                's' + i + k,
-                {
-                  take: 'Otetaan edellisestä (ml)',
-                  plus: 'Lisätään laimenninta (ml)',
-                  sol: 'Laimentimen nimi',
-                }[k],
-                s[k],
-                (v) =>
-                  change({
-                    ...f,
-                    steps: f.steps.map((old, j) =>
-                      i === j ? { ...old, [k]: v } : old,
-                    ),
-                  }),
-                k !== 'sol',
-              ),
+            {volumes('s' + i, s.take, s.plus, (k, v) =>
+              change({
+                ...f,
+                steps: f.steps.map((old, j) =>
+                  i === j ? { ...old, [k]: v } : old,
+                ),
+              }),
+            )}
+            {field(
+              's' + i + 'sol',
+              'Laimentimen nimi',
+              s.sol,
+              (sol) =>
+                change({
+                  ...f,
+                  steps: f.steps.map((old, j) =>
+                    i === j ? { ...old, sol } : old,
+                  ),
+                }),
+              false,
+            )}
+            {solvents(s.sol, (sol) =>
+              change({
+                ...f,
+                steps: f.steps.map((old, j) =>
+                  i === j ? { ...old, sol } : old,
+                ),
+              }),
             )}
             {last && (
-              <Text>
-                {rows[i + 1].mg} = {rows[i + 1].ug}
-              </Text>
+              <Text>{formatConcentration(rows[i + 1].concentration).text}</Text>
             )}
             {i === f.steps.length - 1 && (
               <Button
@@ -208,15 +278,45 @@ export default function Calculator() {
           </Panel>
         ))}
         {f.steps.length < 4 && (
-          <Button
-            label="+ Lisää laimennusvaihe"
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Lisää laimennusvaihe"
             onPress={() =>
               change({
                 ...f,
                 steps: [...f.steps, { take: '', plus: '', sol: '' }],
               })
             }
-          />
+            style={{
+              minHeight: 44,
+              justifyContent: 'center',
+              paddingVertical: 7,
+            }}
+          >
+            {({ pressed }) => (
+              <View
+                style={{
+                  borderWidth: 1.5,
+                  borderColor: '#12668A',
+                  borderRadius: 24,
+                  backgroundColor: pressed ? '#DCEDF5' : 'white',
+                  minHeight: 30,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Text
+                  style={{
+                    color: '#12668A',
+                    fontWeight: '700',
+                    paddingHorizontal: 8,
+                  }}
+                >
+                  + Lisää laimennusvaihe
+                </Text>
+              </View>
+            )}
+          </Pressable>
         )}
         {last && (
           <>
@@ -232,11 +332,15 @@ export default function Calculator() {
               <Text style={{ color: 'white' }}>LOPPUPITOISUUS</Text>
               <Text style={[ui.heading, { color: 'white' }]}>{last.mg}</Text>
               <Text style={{ color: 'white' }}>
-                = {last.ug} · yhteensä {last.volume}
+                {last.ug ? '(' + last.ug + ') · ' : ''}yhteensä {last.volume}
               </Text>
               <Text style={{ color: 'white' }}>{last.summary}</Text>
             </View>
-            {warning && <Text>Tarkista arvot</Text>}
+            {(last.warning || warning) && (
+              <Text style={{ color: '#744710' }}>
+                {last.warning || 'Tarkista arvot'}
+              </Text>
+            )}
             <Panel>
               <Text style={ui.small}>MUISTIINPANON ESIKATSELU · LAIMENNUS</Text>
               <Text style={ui.title}>{f.name}</Text>
@@ -262,7 +366,7 @@ export default function Calculator() {
           <Panel>
             {rows.map((r, i) => (
               <Text key={i}>
-                {r.formula} = {r.mg}
+                {r.formula} → {formatConcentration(r.concentration).text}
               </Text>
             ))}
             {dry && (
