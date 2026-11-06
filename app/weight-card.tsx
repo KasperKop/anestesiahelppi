@@ -36,10 +36,7 @@ function DataRow({ compact, inverted, label, unit, value }: DataRowProps) {
         inverted && styles.invertedDataRow,
       ]}
     >
-      <Text
-        numberOfLines={1}
-        style={[styles.dataLabel, inverted && styles.invertedText]}
-      >
+      <Text style={[styles.dataLabel, inverted && styles.invertedText]}>
         {label}
       </Text>
       <Text style={[styles.dataValue, inverted && styles.invertedText]}>
@@ -209,9 +206,9 @@ export default function WeightCardScreen() {
                 </View>
                 <View style={styles.headingCopy}>
                   <Text style={styles.sectionEyebrow}>VÄLINEET</Text>
-                  <Text style={styles.sectionTitle}>Ilmatie</Text>
                 </View>
               </View>
+              <Text style={styles.sectionTitle}>Ilmatie</Text>
               <DataRow
                 compact
                 label="Laryngoskooppi"
@@ -253,9 +250,9 @@ export default function WeightCardScreen() {
                 </View>
                 <View style={styles.headingCopy}>
                   <Text style={styles.sectionEyebrow}>HENGITYS</Text>
-                  <Text style={styles.sectionTitle}>Ventilaatio</Text>
                 </View>
               </View>
+              <Text style={styles.sectionTitle}>Ventilaatio</Text>
               <DataRow
                 compact
                 label="Hengitystaajuus"
@@ -385,7 +382,7 @@ const styles = StyleSheet.create({
   quickValue: { color: colors.textPrimary, fontSize: 18, fontWeight: '900' },
   quickUnit: { color: colors.textSecondary, fontSize: 10, fontWeight: '700' },
   grid: { flexDirection: 'row', gap: 10 },
-  column: { flex: 1, gap: 10 },
+  column: { flex: 1, minWidth: 0, gap: 10 },
   sectionCard: {
     borderRadius: 22,
     borderWidth: 1,
@@ -395,7 +392,6 @@ const styles = StyleSheet.create({
   clinicalCard: {
     backgroundColor: colors.surface,
     borderColor: colors.border,
-    minHeight: 186,
   },
   placeholderCard: {
     backgroundColor: colors.surface,
@@ -447,19 +443,16 @@ const styles = StyleSheet.create({
   },
   emergencyTitle: { color: colors.surface, fontSize: 17, fontWeight: '900' },
   dataRow: {
-    alignItems: 'center',
-    backgroundColor: '#F3F6F7',
-    borderRadius: 11,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 7,
-    paddingHorizontal: 7,
+    alignItems: 'flex-start',
+    borderBottomColor: '#E6EBED',
+    borderBottomWidth: 1,
+    gap: 4,
+    paddingVertical: 8,
   },
   compactDataRow: { minHeight: 48 },
   invertedDataRow: { backgroundColor: 'rgba(255,255,255,0.13)' },
   dataLabel: {
     color: colors.textPrimary,
-    flex: 1,
     fontSize: 10,
     fontWeight: '600',
   },
