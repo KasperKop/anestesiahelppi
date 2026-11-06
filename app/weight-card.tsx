@@ -7,6 +7,7 @@ import { SettingsNotice } from '@/src/settings/SettingsScreen';
 import { router, useLocalSearchParams } from 'expo-router';
 import {
   Modal,
+  useWindowDimensions,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -97,6 +98,8 @@ function MedicationRow({
 }
 
 export default function WeightCardScreen() {
+  const { width } = useWindowDimensions();
+  const narrow = width < 370;
   const { settings, ready } = useSettings();
   const [detail, setDetail] = useState<{
     name: string;
@@ -200,15 +203,20 @@ export default function WeightCardScreen() {
         <View style={styles.grid}>
           <View style={styles.column}>
             <View style={[styles.sectionCard, styles.clinicalCard]}>
-              <View style={styles.sectionHeadingRow}>
-                <View style={styles.sectionIcon}>
+              <View style={[styles.sectionHeadingRow, narrow && { gap: 4 }]}>
+                <View
+                  style={[
+                    styles.sectionIcon,
+                    narrow && styles.smallSectionIcon,
+                  ]}
+                >
                   <Text style={styles.sectionIconText}>A</Text>
                 </View>
                 <View style={styles.headingCopy}>
                   <Text style={styles.sectionEyebrow}>VÄLINEET</Text>
+                  <Text style={styles.sectionTitle}>Ilmatie</Text>
                 </View>
               </View>
-              <Text style={styles.sectionTitle}>Ilmatie</Text>
               <DataRow
                 compact
                 label="Laryngoskooppi"
@@ -223,8 +231,13 @@ export default function WeightCardScreen() {
             </View>
 
             <View style={[styles.sectionCard, styles.placeholderCard]}>
-              <View style={styles.sectionHeadingRow}>
-                <View style={styles.sectionIcon}>
+              <View style={[styles.sectionHeadingRow, narrow && { gap: 4 }]}>
+                <View
+                  style={[
+                    styles.sectionIcon,
+                    narrow && styles.smallSectionIcon,
+                  ]}
+                >
                   <Text style={styles.sectionIconText}>Rx</Text>
                 </View>
                 <View style={styles.headingCopy}>
@@ -244,15 +257,21 @@ export default function WeightCardScreen() {
 
           <View style={styles.column}>
             <View style={[styles.sectionCard, styles.clinicalCard]}>
-              <View style={styles.sectionHeadingRow}>
-                <View style={[styles.sectionIcon, styles.ventilationIcon]}>
+              <View style={[styles.sectionHeadingRow, narrow && { gap: 4 }]}>
+                <View
+                  style={[
+                    styles.sectionIcon,
+                    styles.ventilationIcon,
+                    narrow && styles.smallSectionIcon,
+                  ]}
+                >
                   <Text style={styles.sectionIconText}>V</Text>
                 </View>
                 <View style={styles.headingCopy}>
                   <Text style={styles.sectionEyebrow}>HENGITYS</Text>
+                  <Text style={styles.sectionTitle}>Ventilaatio</Text>
                 </View>
               </View>
-              <Text style={styles.sectionTitle}>Ventilaatio</Text>
               <DataRow
                 compact
                 label="Hengitystaajuus"
@@ -268,8 +287,13 @@ export default function WeightCardScreen() {
             </View>
 
             <View style={[styles.sectionCard, styles.emergencyCard]}>
-              <View style={styles.sectionHeadingRow}>
-                <View style={styles.emergencyIcon}>
+              <View style={[styles.sectionHeadingRow, narrow && { gap: 4 }]}>
+                <View
+                  style={[
+                    styles.emergencyIcon,
+                    narrow && styles.smallSectionIcon,
+                  ]}
+                >
                   <Icon name="activity" size={20} color={colors.critical} />
                 </View>
                 <View style={styles.headingCopy}>
@@ -409,7 +433,8 @@ const styles = StyleSheet.create({
     gap: 9,
     marginBottom: 8,
   },
-  headingCopy: { flex: 1 },
+  headingCopy: { flex: 1, minWidth: 0 },
+  smallSectionIcon: { width: 22, height: 30, borderRadius: 8 },
   sectionIcon: {
     alignItems: 'center',
     backgroundColor: colors.interactive,
@@ -447,7 +472,9 @@ const styles = StyleSheet.create({
     borderBottomColor: '#E6EBED',
     borderBottomWidth: 1,
     gap: 4,
-    paddingVertical: 8,
+    paddingTop: 11,
+    paddingBottom: 8,
+    paddingHorizontal: 4,
   },
   compactDataRow: { minHeight: 48 },
   invertedDataRow: { backgroundColor: 'rgba(255,255,255,0.13)' },
